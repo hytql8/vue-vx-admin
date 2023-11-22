@@ -1,0 +1,19 @@
+// 全局变量文件
+:root {
+  --theme-color: skyblue;
+}
+
+@mixin flex($justify: space-between, $align: center, $wrap: nowrap) {
+  display: flex;
+  flex-wrap: $wrap;
+  align-items: $align;
+  justify-content: $justify;
+}
+
+@mixin border($color) {
+  border: 1px solid $color;
+}
+
+@mixin cursor($pointer: pointer) {
+  cursor: $pointer;
+}

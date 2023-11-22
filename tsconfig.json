@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "esnext", // 生成代码的 ECMAScript 目标版本
+    "module": "esnext", // 生成代码的模块标准
+    "moduleResolution": "node", // 模块解析策略
+    "strict": false, // 启用所有严格类型检查
+    "jsx": "preserve", // 在 .tsx 文件里支持 JSX: 'preserve', 'react-native', or 'react'
+    "importHelpers": true, // 通过 tslib 引入辅助工具函数
+    "experimentalDecorators": true, // 启用实验性的装饰器特性
+    "strictFunctionTypes": false, // 严格检查函数的类型
+    "skipLibCheck": true, // 是否跳过检查库文件。
+    "esModuleInterop": true, // 通过创建命名空间实现 CommonJS 兼容性
+    "isolatedModules": true, // 控制是否将每个文件作为单独的模块处理。
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "sourceMap": true, // 是否生成 .map 文件
+    "baseUrl": ".", // 解析使用非相对路径导入模块时的基地址
+    "allowJs": false, // 是否编译 JS 文件
+    "resolveJsonModule": true, // 自动解析JSON文件
+    "checkJs": false, // 是否在 JS 文件中报告错误 不处理js的错误
+    "lib": ["dom", "esnext"], // 编译过程中需要引入的库文件的列表
+    // 指定模块路径别名。
+    "paths": {
+      "@/*": ["src/*"],
+      "@build/*": ["build/*"]
+    },
+    "types": ["node", "vite/client"]
+  },
+  //需要编译的
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "types/**/*.d.ts", "types/*.d.ts", "vite.config.ts"],
+  "exclude": ["dist", "**/*.js", "node_modules"] //需要排除的
+}

@@ -9,19 +9,22 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@jridgewell/sourcemap-codec": "^1.4.15",
     "@vueuse/core": "^10.6.1",
+    "axios": "^1.6.2",
+    "element-plus": "^2.4.2",
     "pinia": "^2.1.7",
     "vite-plugin-cdn-import": "^0.3.5",
-    "vue": "^3.3.4",
-    "vue-router": "4"
+    "vue": "^3.3.8",
+    "vue-router": "^4.2.5"
   },
   "devDependencies": {
-    "@types/node": "^20.8.10",
-    "@typescript-eslint/eslint-plugin": "^6.9.1",
-    "@typescript-eslint/parser": "^6.9.1",
-    "@vitejs/plugin-vue": "^4.2.3",
+    "@types/node": "^20.9.4",
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
+    "@typescript-eslint/parser": "^6.12.0",
+    "@vitejs/plugin-vue": "^4.5.0",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
-    "eslint": "^8.53.0",
+    "eslint": "^8.54.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
     "eslint-plugin-vue": "^9.18.1",
@@ -29,7 +32,7 @@
     "sass": "^1.69.5",
     "stylelint": "^15.11.0",
     "stylelint-config-html": "^1.1.0",
-    "stylelint-config-recess-order": "^4.3.0",
+    "stylelint-config-recess-order": "^4.4.0",
     "stylelint-config-recommended": "^13.0.0",
     "stylelint-config-recommended-scss": "^13.1.0",
     "stylelint-config-recommended-vue": "^1.5.0",
@@ -37,10 +40,10 @@
     "stylelint-config-standard-scss": "^11.1.0",
     "stylelint-order": "^6.0.3",
     "stylelint-prettier": "^4.0.2",
-    "stylelint-scss": "^5.3.0",
-    "typescript": "^5.0.2",
+    "stylelint-scss": "^5.3.1",
+    "typescript": "^5.3.2",
     "vite": "^4.5.0",
-    "vue-tsc": "^1.8.5"
+    "vue-tsc": "^1.8.22"
   },
   "style": "stylelint \"src/**/*.(vue|scss|css)\" --fix"
 }

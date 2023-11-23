@@ -175,3 +175,15 @@ pnpm i @vueuse/core
 pnpm install vite-plugin-cdn-import
 ```
 
+29.安装axios
+
+```mark
+pnpm install axios
+```
+
+30.安装element plus
+
+```mark
+pnpm install element-plus
+```
+

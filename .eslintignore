@@ -1,0 +1,11 @@
+*.sh
+node_modules
+*.md
+*.woff
+*.ttf
+.vscode
+dist
+/public
+.local
+/bin
+/src/mock/*

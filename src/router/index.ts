@@ -19,7 +19,7 @@ const staticRouter: RouteRecordRaw[] = [
   {
     path: "/dashboard",
     name: "Dashboard",
-    component: import("@/views/Dashboard/Dashboard.vue")
+    component: () => import("@/layout/src/index.vue")
   }
   // 其他路由配置
 ]

@@ -7,6 +7,8 @@ import { router, setupRouter } from "@/router"
 import "./styles/reset.scss"
 import "./styles/index.scss"
 
+import "element-plus/dist/index.css"
+
 // createApp(App).mount("#app")
 const setupApp = async () => {
   const app = createApp(App)

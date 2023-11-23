@@ -1,17 +1,30 @@
-<script lang="tsx">
-import { defineComponent, ref } from "vue"
-
-export default defineComponent({
-  components: {},
-  props: {},
-  emits: [],
-  setup() {
-    const layout = ref("这是layout")
-
-    return layout
-  }
+<script lang="tsx" setup>
+import { ref, unref } from "vue"
+import { Horizontal, Vertical } from "./components"
+defineOptions({
+  name: "Layout"
 })
+
+const layout = ref("horizontal") // vertical
+const renderMenus = () => {
+  const jsxDom =
+    unref(layout) === "horizontal" ? (
+      <div>
+        <Horizontal />
+      </div>
+    ) : (
+      <div>
+        <Vertical />
+      </div>
+    )
+
+  return jsxDom
+}
 </script>
 <template>
-  <div>{{ layout }}</div>
+  <div><renderMenus /></div>
 </template>
+
+<style lang="scss">
+@import "./index.scss";
+</style>

@@ -1,6 +1,7 @@
 // 全局变量文件
 :root {
   --theme-color: skyblue;
+  --theme-bg-color: #f2f3f5;
 }
 
 @mixin flex($justify: space-between, $align: center, $wrap: nowrap) {

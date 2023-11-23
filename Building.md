@@ -181,3 +181,9 @@ pnpm install vite-plugin-cdn-import
 pnpm install axios
 ```
 
+30.安装element plus
+
+```mark
+pnpm install element-plus
+```
+

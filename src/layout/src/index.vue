@@ -1,6 +1,7 @@
 <script lang="tsx" setup>
 import { ref, unref } from "vue"
 import { Horizontal, Vertical } from "./components"
+
 defineOptions({
   name: "Layout"
 })
@@ -22,7 +23,7 @@ const renderMenus = () => {
 }
 </script>
 <template>
-  <div><renderMenus /></div>
+  <div class="layout"><renderMenus /></div>
 </template>
 
 <style lang="scss">

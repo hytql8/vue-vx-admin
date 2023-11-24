@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useDark, useToggle } from "@vueuse/core"
 import { ElButton } from "element-plus"
-// import { useDark } from "@vueuse/core"
 
 const isDark = useDark({
   storageKey: "isDark"

@@ -1,7 +1,12 @@
 // 全局变量文件
 :root {
-  --theme-color: skyblue;
+  // 主题
+  --theme-color: #3a6ee8;
+  --theme-text-color: #252525;
   --theme-bg-color: #f2f3f5;
+
+  // 图标
+  // --icon-hovered-color: #252525;
 }
 
 @mixin flex($justify: space-between, $align: center, $wrap: nowrap) {

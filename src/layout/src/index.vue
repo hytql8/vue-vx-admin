@@ -1,6 +1,23 @@
 <script lang="tsx" setup>
-import { ref, unref } from "vue"
+import { ref, unref, watch } from "vue"
 import { Horizontal, Vertical } from "./components"
+import { useAppStore } from "@/store/modules/app"
+import { setCssVar } from "@/utils"
+
+const app = useAppStore()
+setCssVar("--theme-bg-color", "#f5f7f9")
+
+watch(
+  () => app.getIsDark,
+  val => {
+    if (val) {
+      // --theme-bg-color
+      setCssVar("--theme-bg-color", "#141414")
+    } else {
+      setCssVar("--theme-bg-color", "#f5f7f9")
+    }
+  }
+)
 
 defineOptions({
   name: "Layout"
@@ -26,6 +43,6 @@ const renderMenus = () => {
   <div class="layout"><renderMenus /></div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "./index.scss";
 </style>

@@ -1,4 +1,6 @@
 .layout {
+  height: 100vh;
   color: var(--theme-text-color);
   background-color: var(--theme-bg-color);
+  transition: background-color 0.3s;
 }

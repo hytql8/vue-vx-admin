@@ -3,7 +3,7 @@ import { h, defineComponent, PropType, computed } from "vue"
 import { Icon } from "@iconify/vue"
 
 export default defineComponent({
-  name: "VXIcon",
+  name: "VxIcon",
   components: { Icon },
   props: {
     icon: {
@@ -26,11 +26,18 @@ export default defineComponent({
     return { hc: refHoverColor }
   },
   render() {
-    return h(Icon, { icon: this.icon, color: this.color, size: this.size })
+    return h(Icon, {
+      icon: this.icon,
+      color: this.color,
+      style: {
+        width: this.size + "px",
+        height: this.size + "px"
+      }
+    })
   }
 })
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .iconify {
   &:hover {
     color: v-bind(hc) !important;

@@ -24,7 +24,7 @@
       "@/*": ["src/*"],
       "@build/*": ["build/*"]
     },
-    "types": ["node", "vite/client"]
+    "types": ["node", "vite/client", "pinia-plugin-persist"]
   },
   //需要编译的
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "types/**/*.d.ts", "types/*.d.ts", "vite.config.ts"],

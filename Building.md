@@ -146,21 +146,19 @@ pnpm i sass --save-dev
 24.安装 jsx依赖
 
 ```mark
-pnpm install @vitejs/plugin-vue-jsx --save-dev
+pnpm i @vitejs/plugin-vue-jsx --save-dev
 ```
-
-接下来是生产环境的依赖
 
 25.安装pinia（状态管理）
 
 ```mark
-pnpm install pinia
+pnpm i pinia
 ```
 
 26.安装vue-router
 
 ```mark
-pnpm install vue-router@4
+pnpm i vue-router@4
 ```
 
 27.安装vue hooks库 vueuse
@@ -185,5 +183,25 @@ pnpm install axios
 
 ```mark
 pnpm install element-plus
+```
+
+31.安装iconify相关依赖
+
+```mark
+pnpm i @iconify/vue --save-dev
+pnpm i @iconify-icons/ep --save-dev
+pnpm i @iconify-icons/ri --save-dev
+```
+
+32.安装pinia持久化插件
+
+```mark
+pnpm i pinia-plugin-persist
+```
+
+24.安装animate.css 库
+
+```mark
+pnpm i animate.css
 ```
 

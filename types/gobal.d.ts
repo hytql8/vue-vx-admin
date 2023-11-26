@@ -16,6 +16,8 @@ declare global {
 
   type Nullable<T> = T | null
 
+  type isDark = "auto" | "dark"
+
   type LayoutType = "vertical" | "horizontal"
 }
 

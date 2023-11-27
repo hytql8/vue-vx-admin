@@ -1,10 +1,31 @@
 <script setup lang="ts">
+import { watch } from "vue"
 import { useAppStore } from "@/store/modules/app"
-import { darkTheme } from "@/utils/theme"
+import { normalTheme, darkTheme } from "@/utils/theme"
+import { useStorage } from "@/hooks/useStorage"
 
-const { setTheme, setCssVarTheme } = useAppStore()
-setTheme(darkTheme as ThemeTypes)
-setCssVarTheme()
+const { getStorage } = useStorage()
+
+const app = useAppStore()
+
+setTimeout(() => {
+  app.setCssVarTheme()
+}, 100)
+
+watch(
+  () => app.getIsDark,
+  val => {
+    console.log(val, getStorage("isDark"))
+    if (val) {
+      app.setTheme(darkTheme)
+      app.setCssVarTheme()
+    } else {
+      app.setTheme(normalTheme)
+      app.setCssVarTheme()
+    }
+  },
+  { immediate: true }
+)
 </script>
 
 <template>

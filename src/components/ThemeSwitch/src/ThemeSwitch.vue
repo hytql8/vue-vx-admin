@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, unref, computed } from "vue"
+import { ref, unref, computed, watch } from "vue"
 import { ElSwitch } from "element-plus"
 import { useIcon } from "@/hooks/useIcon"
 import { useAppStore } from "@/store/modules/app"
@@ -22,9 +22,10 @@ const inactiveIcon = useIcon({
   color: "#fde047",
   hoverColor: "#fde047"
 })
-
 const isDark = ref(app.getIsDark)
-console.log(isDark.value, getStorage("isDark"))
+// 初始化switch状态
+isDark.value = getStorage("isDark")
+app.setIsDark(isDark.value)
 
 const themeChange = (val: boolean) => {
   app.setIsDark(val)

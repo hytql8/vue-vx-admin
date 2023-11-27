@@ -1,45 +1,58 @@
 import { defineStore } from "pinia"
 import { useStorage } from "@/hooks/useStorage"
 import { store } from "../index"
-// import { useDark, useToggle } from "@vueuse/core"
+import { toCssVariable, setCssVar } from "@/utils"
+// import { normalTheme, darkTheme } from "@/utils/theme"
 
 const { setStorage, getStorage } = useStorage()
 
 interface appState {
   isDark: boolean
   layout: LayoutType
-  theme: any
+  theme: ThemeTypes
 }
 
 export const useAppStore = defineStore("app", {
   state: (): appState => {
     return {
-      isDark: getStorage("isDark") || false,
+      isDark: getStorage("isDark") || true,
       layout: getStorage("layout") || "horizontal",
-      theme: {
-        elPrimaryColor: "var(--theme-color)",
-        themeTextColor: "var(--theme-text-color)",
-        themeBgColor: "var(--theme-bg-color)"
+      // 默认主题 需要变化的项目这里需要定义默认值，建议与var.less中保持一致
+      theme: getStorage("theme") || {
+        elPrimaryColor: "#3a6ee8",
+        themeTextColor: "#252525",
+        themeBgColor: "#f5f7f9",
+        themeDivColor: "#fff"
       }
     }
   },
   getters: {
     getIsDark(): boolean {
       return this.isDark
+    },
+    getTheme(): ThemeTypes {
+      return this.theme
     }
   },
   actions: {
     setIsDark(isDark: boolean) {
-      console.log(isDark)
-
       this.isDark = isDark
+      // 设置完dark模式的同时更改主题
       setStorage("isDark", this.isDark)
-      // 先调用vueuse的方法把类名加上去
-      //   const isDarkFun = useDark({
-      //     storageKey: "isDark"
-      //   })
-      //   const toggleDark = useToggle(isDarkFun)
-      //   toggleDark(this.isDark)
+    },
+    setTheme(theme: ThemeTypes) {
+      if (this.isDark) {
+        this.theme = Object.assign(this.theme, theme)
+      } else {
+        this.theme = Object.assign(this.theme, theme)
+      }
+      setStorage("theme", this.theme)
+    },
+    setCssVarTheme() {
+      for (const key in this.theme) {
+        // console.log(toCssVariable(key), this.theme[key])
+        setCssVar(toCssVariable(key), this.theme[key])
+      }
     }
   }
 })

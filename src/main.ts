@@ -16,8 +16,10 @@ const setupApp = async () => {
   const app = createApp(App)
   // 在页面显示之前先等待router加载完毕
   setupRouter(app)
-  await router.isReady()
-  setupStore(app)
+  // router.isReady()
+  // const res = await router.isReady()
+
+  await setupStore(app)
   app.use(ElementPlus).mount("#app")
 }
 setupApp()

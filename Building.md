@@ -205,3 +205,15 @@ pnpm i pinia-plugin-persist
 pnpm i animate.css
 ```
 
+25.安装 unplugin-vue-components/resolvers
+
+```mark
+pnpm i unplugin-vue-components
+```
+
+26.安装 unplugin-vue-components/vite
+
+```mark
+pnpm i unplugin-vue-components/vite
+```
+

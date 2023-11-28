@@ -32,7 +32,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@import "@/styles/var.scss";`
+          additionalData: `@use "@/styles/element/index.scss" as *;`
         }
       }
     },

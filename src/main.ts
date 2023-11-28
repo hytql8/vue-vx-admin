@@ -8,18 +8,18 @@ import { setupStore } from "@/store"
 // 引入样式
 import "animate.css"
 import "./styles/reset.scss"
-import "./styles/index.scss"
+import "./styles/var.scss"
 import "element-plus/dist/index.css"
+// import "element-plus/theme-chalk/dark/css-vars.css"
+// import "element-plus/theme-chalk/src/common/var.css"
 
 // createApp(App).mount("#app")
 const setupApp = async () => {
   const app = createApp(App)
   // 在页面显示之前先等待router加载完毕
   setupRouter(app)
-  // router.isReady()
-  // const res = await router.isReady()
-
-  await setupStore(app)
+  await router.isReady()
+  setupStore(app)
   app.use(ElementPlus).mount("#app")
 }
 setupApp()

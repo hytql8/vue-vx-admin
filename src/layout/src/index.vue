@@ -11,8 +11,7 @@ watch(
   () => app.getIsDark,
   val => {
     if (val) {
-      // --theme-bg-color
-      setCssVar("--theme-bg-color", "#141414")
+      setCssVar("--theme-bg-color", "#1b1b1f")
     } else {
       setCssVar("--theme-bg-color", "#f5f7f9")
     }

@@ -50,9 +50,7 @@ export const useAppStore = defineStore("app", {
     },
     setCssVarTheme() {
       for (const key in this.theme) {
-        // console.log(toCssVariable(key), this.theme[key])
         setCssVar(toCssVariable(key), this.theme[key])
-        // setCssVar(`--theme-bg-color`, `red`)
       }
     }
   }

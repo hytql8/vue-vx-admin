@@ -3,24 +3,3 @@
 
 // 全局样式
 @import "var.scss";
-@import "./element/dark.scss";
-
-// :root {
-//   --ep-color-primary: red;
-// }
-body {
-  margin: 0;
-  font-family: Inter, system-ui, Avenir, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
-    "微软雅黑", Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-a {
-  color: var(--ep-color-primary);
-}
-code {
-  padding: 2px 4px;
-  color: var(--ep-color-primary);
-  background-color: var(--ep-color-primary-light-9);
-  border-radius: 2px;
-}

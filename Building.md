@@ -217,3 +217,9 @@ pnpm i unplugin-vue-components
 pnpm i unplugin-vue-components/vite
 ```
 
+27.安装国际化插件 vue-i18n
+
+```mark
+pnpm i vue-i18n
+```
+

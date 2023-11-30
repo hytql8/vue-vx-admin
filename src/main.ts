@@ -11,15 +11,12 @@ import "./styles/reset.scss"
 import "./styles/index.scss"
 import "element-plus/dist/index.css"
 
-// createApp(App).mount("#app")
 const setupApp = async () => {
   const app = createApp(App)
   // 在页面显示之前先等待router加载完毕
   setupRouter(app)
-  // router.isReady()
-  // const res = await router.isReady()
-
-  await setupStore(app)
+  await router.isReady()
+  setupStore(app)
   app.use(ElementPlus).mount("#app")
 }
 setupApp()

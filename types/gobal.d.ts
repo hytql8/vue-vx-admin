@@ -16,7 +16,7 @@ declare global {
 
   type Nullable<T> = T | null
 
-  type isDark = "auto" | "dark"
+  type IsDark = "auto" | "dark"
 
   type LayoutType = "vertical" | "horizontal"
 
@@ -25,6 +25,18 @@ declare global {
     themeTextColor: string
     themeBgColor: string
     themeDivColor: string
+  }
+
+  type Locales = "zh-CN" | "en"
+
+  type CurrentLocale = {
+    lang: Locales
+    elLang: Locales
+  }
+
+  type LocaleMap = {
+    lang: Locales
+    name: string
   }
 }
 

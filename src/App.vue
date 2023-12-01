@@ -33,4 +33,10 @@ watch(
 <template>
   <RouterView></RouterView>
 </template>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+// 全局清除dropdown的outline
+:deep(.el-dropdown-link) {
+  border: none;
+  outline: unset;
+}
+</style>

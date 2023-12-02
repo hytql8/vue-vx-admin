@@ -4,17 +4,20 @@ import { ElSwitch } from "element-plus"
 import { useIcon } from "@/hooks/useIcon"
 import { useAppStore } from "@/store/modules/app"
 
+defineOptions({
+  name: "VxThemeSwitch"
+})
 const app = useAppStore()
 
 const activeIcon = useIcon({
-  icon: "radix-icons:moon",
+  icon: "line-md:sunny-filled-loop-to-moon-filled-loop-transition",
   size: 16,
   color: "#fde047",
   hoverColor: "#fde047"
 })
 
 const inactiveIcon = useIcon({
-  icon: "ph:sun-fill",
+  icon: "line-md:sun-rising-filled-loop",
   size: 16,
   color: "#fde047",
   hoverColor: "#fde047"

@@ -1,6 +1,9 @@
+import { Language } from "element-plus/es/locale"
+
 declare global {
   // 全局定义vite环境变量type 对应.env.dev
   interface ViteEnv {
+    VITE_APP_TITLE: string
     VITE_PORT: number
     VITE_PUBLIC_PATH: string
     VITE_ROUTER_HISTORY: string
@@ -16,7 +19,7 @@ declare global {
 
   type Nullable<T> = T | null
 
-  type isDark = "auto" | "dark"
+  type IsDark = "auto" | "dark"
 
   type LayoutType = "vertical" | "horizontal"
 
@@ -25,6 +28,18 @@ declare global {
     themeTextColor: string
     themeBgColor: string
     themeDivColor: string
+  }
+
+  type Locales = "zh-CN" | "en"
+
+  type CurrentLocale = {
+    lang: Locales
+    elLang?: Language
+  }
+
+  type LocaleMap = {
+    lang: Locales
+    name: string
   }
 }
 

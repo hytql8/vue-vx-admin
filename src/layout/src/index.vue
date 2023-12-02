@@ -26,7 +26,7 @@ const layout = ref("horizontal") // vertical
 const renderMenus = () => {
   const jsxDom =
     unref(layout) === "horizontal" ? (
-      <div>
+      <div class="layout-horizontal">
         <Horizontal />
       </div>
     ) : (
@@ -43,5 +43,5 @@ const renderMenus = () => {
 </template>
 
 <style lang="scss" scoped>
-@import "./index.scss";
+@use "./index.scss";
 </style>

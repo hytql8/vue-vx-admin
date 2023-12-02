@@ -1,25 +1,40 @@
 <script setup lang="ts">
-import { watch, onMounted } from "vue"
+import { watch, onMounted, computed, toRaw } from "vue"
 import { useAppStore } from "@/store/modules/app"
+import { useLocaleStore } from "@/store/modules/locale"
 import { normalTheme, darkTheme } from "@/utils/theme"
 import { useStorage } from "@/hooks/useStorage"
+import { setCssVar } from "./utils"
+import { setHtmlLang } from "@/hooks/useLocale"
+import { Language } from "element-plus/es/locale"
 
 const { getStorage } = useStorage()
-const app = useAppStore()
-// 初始化从storage中取 switch状态, 和主题配置
-app.setIsDark(getStorage("isDark"))
+const appStore = useAppStore()
+const localeStore = useLocaleStore()
 
-onMounted(() => app.setCssVarTheme())
+// el组件语言配置
+const elLocale = computed(() => toRaw(localeStore.currentLocale.elLang) as Language)
+
+// 初始化从storage中取 switch状态, 和主题配置， 语言设置默认
+appStore.setIsDark(getStorage("isDark"))
+localeStore.setCurrentLocale(localeStore.getCurrentLocale)
+
+// onMounted后开始加载store/storage中配置
+onMounted(() => {
+  appStore.setCssVarTheme()
+  setHtmlLang(localeStore.getCurrentLocale)
+  setCssVar("--el-color-primary", appStore.getTheme.elPrimaryColor)
+})
 watch(
-  () => app.getIsDark,
+  () => appStore.getIsDark,
   val => {
     console.log(val, getStorage("isDark"))
     if (val) {
-      app.setTheme(darkTheme)
-      app.setCssVarTheme()
+      appStore.setTheme(darkTheme)
+      appStore.setCssVarTheme()
     } else {
-      app.setTheme(normalTheme)
-      app.setCssVarTheme()
+      appStore.setTheme(normalTheme)
+      appStore.setCssVarTheme()
     }
   },
   { immediate: true }
@@ -27,6 +42,7 @@ watch(
 </script>
 
 <template>
-  <RouterView></RouterView>
+  <ElConfigProvider :locale="elLocale" :message="{ max: 3 }">
+    <RouterView></RouterView>
+  </ElConfigProvider>
 </template>
-<style lang="scss" scoped></style>

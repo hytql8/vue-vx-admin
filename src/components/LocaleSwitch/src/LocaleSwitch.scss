@@ -1,0 +1,11 @@
+@import "@/styles/var.scss";
+.locale-switch {
+  @include flex(center, center, nowrap);
+
+  width: 40px;
+  height: 48px;
+  background-color: var(--theme-div-color);
+  :deep(.el-dropdown-link > svg) {
+    outline: none !important;
+  }
+}

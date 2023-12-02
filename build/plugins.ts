@@ -3,6 +3,7 @@ import vueJsx from "@vitejs/plugin-vue-jsx"
 import { cdn } from "./cdn"
 import Components from "unplugin-vue-components/vite"
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers"
+import { createStyleImportPlugin, ElementPlusResolve } from "vite-plugin-style-import"
 
 export const getPluginsList = (VITE_CDN: boolean) => {
   return [
@@ -10,6 +11,23 @@ export const getPluginsList = (VITE_CDN: boolean) => {
     // jsx、tsx语法支持
     vueJsx(),
     VITE_CDN ? cdn : null,
+    // 自动导入组件对应样式
+    createStyleImportPlugin({
+      resolves: [ElementPlusResolve()],
+      libs: [
+        {
+          libraryName: "element-plus",
+          esModule: true,
+          resolveStyle: name => {
+            if (name === "click-outside") {
+              return ""
+            }
+            return `element-plus/es/components/${name.replace(/^el-/, "")}/style/css`
+          }
+        }
+      ]
+    }),
+    // 自动注册element plus
     Components({
       resolvers: [
         ElementPlusResolver({

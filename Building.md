@@ -205,21 +205,16 @@ pnpm i pinia-plugin-persist
 pnpm i animate.css
 ```
 
-25.安装 unplugin-vue-components/resolvers
+25.安装 unplugin-vue-components 和 unplugin-auto-import
 
 ```mark
-pnpm i unplugin-vue-components
+pnpm i unplugin-vue-components unplugin-auto-import
 ```
 
-26.安装 unplugin-vue-components/vite
-
-```mark
-pnpm i unplugin-vue-components/vite
-```
-
-27.安装国际化插件 vue-i18n
+26.安装国际化插件 vue-i18n
 
 ```mark
 pnpm i vue-i18n
 ```
 
+27.

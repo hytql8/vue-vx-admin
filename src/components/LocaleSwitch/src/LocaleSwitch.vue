@@ -2,24 +2,20 @@
 import { watch, computed } from "vue"
 import { VxIcon } from "@/components/VxIcon"
 import { useLocaleStore } from "@/store/modules/locale"
+import { setHtmlLang } from "@/hooks/useLocale"
 
 const localeStore = useLocaleStore()
 
 defineOptions({
-  name: "LocaleSwitch"
+  name: "VxLocaleSwitch"
 })
 
 const localeMaps = computed(() => localeStore.getLocaleMap)
 
 const toggleLang = (localeMap: LocaleMap) => {
-  localeStore.setCurrentLocale({ lang: localeMap.lang, elLang: localeMap.lang })
+  localeStore.setCurrentLocale({ lang: localeMap.lang })
 }
 
-const setHtmlLang = (currentLocale: CurrentLocale) => {
-  document.querySelector("html")?.setAttribute("lang", currentLocale.lang)
-}
-
-// 设置html的语言属性 lang
 setHtmlLang(localeStore.currentLocale)
 
 watch(

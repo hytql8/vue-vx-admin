@@ -2,4 +2,7 @@
   height: 100vh;
   color: var(--theme-text-color);
   background-color: var(--theme-bg-color);
+  &-horizontal {
+    height: inherit;
+  }
 }

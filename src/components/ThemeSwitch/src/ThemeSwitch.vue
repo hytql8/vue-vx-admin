@@ -4,6 +4,9 @@ import { ElSwitch } from "element-plus"
 import { useIcon } from "@/hooks/useIcon"
 import { useAppStore } from "@/store/modules/app"
 
+defineOptions({
+  name: "VxThemeSwitch"
+})
 const app = useAppStore()
 
 const activeIcon = useIcon({

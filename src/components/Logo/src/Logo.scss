@@ -1,0 +1,26 @@
+@import "@/styles/var.scss";
+.vx-logo {
+  width: 200px;
+  height: 48px;
+  background-color: var(--theme-div-color);
+
+  @include flex(start, center, nowrap);
+  &__image {
+    width: 32px;
+    height: 32px;
+
+    @include flex(center, center, nowrap);
+    & img {
+      width: 32px;
+      height: 32px;
+    }
+  }
+  &__title {
+    padding-left: 10px;
+    & span {
+      font-size: var(--text-middle-size);
+      font-weight: bold;
+      color: var(--theme-text-color);
+    }
+  }
+}

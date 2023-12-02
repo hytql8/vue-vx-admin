@@ -2,6 +2,7 @@
 const readEnv = (envConf: Recordable): ViteEnv => {
   /** 此处为默认值 */
   const ret: ViteEnv = {
+    VITE_APP_TITLE: "",
     VITE_PORT: 8080,
     VITE_PUBLIC_PATH: "",
     VITE_ROUTER_HISTORY: "",

@@ -19,7 +19,7 @@ export const useLocaleStore = defineStore("locale", {
   state: (): localeState => {
     return {
       currentLocale: {
-        lang: getStorage("lang") || "cn",
+        lang: getStorage("lang") || "zh-CN",
         elLang: elLocaleMap[getStorage("lang") || "zh-CN"]
       },
       localeMap: [
@@ -38,9 +38,6 @@ export const useLocaleStore = defineStore("locale", {
     getCurrentLocale(): CurrentLocale {
       return this.currentLocale
     },
-    // getLocaleMap(): LocaleMap[] {
-    //   return this.localeMap
-    // },
     getLocaleMap(): LocaleMap[] {
       return this.localeMap
     }

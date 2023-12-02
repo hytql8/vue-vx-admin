@@ -9,6 +9,13 @@
 
   // 图标
   // --icon-hovered-color: #252525;
+  // 字体大小
+  --text-normal-size: 16px;
+  --text-small-size: 12px;
+  --text-useful-size: 14px;
+  --text-middle-size: 20px;
+  --text-large-size: 24px;
+  --text-super-large-size: 32px;
 }
 
 @mixin flex($justify: space-between, $align: center, $wrap: nowrap) {

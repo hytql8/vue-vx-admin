@@ -27,6 +27,9 @@ export const useAppStore = defineStore("app", {
     }
   },
   getters: {
+    getLayout(): LayoutType {
+      return this.layout
+    },
     getIsDark(): boolean {
       return this.isDark
     },

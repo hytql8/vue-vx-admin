@@ -1,5 +1,5 @@
 export default {
   layout: {
-    test: "测试英文"
+    test: "test Lang"
   }
 }

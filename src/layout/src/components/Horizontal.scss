@@ -1,3 +1,41 @@
-.el-container {
-  height: inherit;
+@import "@/styles/var.scss";
+.vx-container {
+  height: 100%;
+  :deep(.el-header) {
+    padding: 0 !important;
+  }
+  .vx-header {
+    // width: fit-content;
+    width: 100%;
+    height: 50px;
+    &__nav {
+      position: relative;
+      flex: 1;
+      height: inherit;
+      background-color: var(--theme-div-color);
+
+      @include transition(background-color);
+      &::after {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        content: "";
+        border-bottom: 1px solid var(--divider-color);
+      }
+
+      @include flex(start, center, nowrap);
+    }
+
+    @include flex(start, center, nowrap);
+  }
+  .vx-aside {
+    width: 200px;
+    &__menu {
+      width: inherit;
+      height: 100%;
+
+      // height: 800px;
+      background-color: var(--left-menu-bg-color);
+    }
+  }
 }

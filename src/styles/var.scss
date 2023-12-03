@@ -7,6 +7,22 @@
   --theme-div-color: #ffffff;
   --theme-bg-black-1: #000000;
 
+  // 左侧菜单
+  --left-menu-max-width: 200px;
+  --left-menu-min-width: 64px;
+  --left-menu-bg-color: #001529;
+  --left-menu-bg-light-color: #0f2438;
+  --left-menu-bg-active-color: var(--el-color-primary);
+  --left-menu-text-color: #bfcbd9;
+  --left-menu-text-active-color: #ffffff;
+  --left-menu-collapse-bg-active-color: var(--el-color-primary);
+
+  // 左侧logo
+  --logo-bg-color: var(--left-menu-bg-color);
+  --logo-bg-active-color: var(--left-menu-bg-light-color);
+  --logo-text-color: var(--left-menu-text-active-color);
+  --logo-active-color: var(--left-menu-text-color);
+
   // 图标
   // --icon-hovered-color: #252525;
   // 字体大小
@@ -16,6 +32,9 @@
   --text-middle-size: 20px;
   --text-large-size: 24px;
   --text-super-large-size: 32px;
+
+  // 分割线
+  --divider-color: #dbdcdd;
 }
 
 @mixin flex($justify: space-between, $align: center, $wrap: nowrap) {
@@ -31,4 +50,8 @@
 
 @mixin cursor($pointer: pointer) {
   cursor: $pointer;
+}
+
+@mixin transition($attr: color) {
+  transition: $attr 0.3s;
 }

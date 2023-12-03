@@ -28,6 +28,7 @@ declare global {
     themeTextColor: string
     themeBgColor: string
     themeDivColor: string
+    dividerColor: string
   }
 
   type Locales = "zh-CN" | "en"

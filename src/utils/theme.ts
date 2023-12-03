@@ -3,14 +3,16 @@ const normalTheme: ThemeTypes = {
   elPrimaryColor: "#3a6ee8",
   themeTextColor: "#252525",
   themeBgColor: "#f5f7f9",
-  themeDivColor: "#fff"
+  themeDivColor: "#fff",
+  dividerColor: "#dbdcdd"
 }
 
 const darkTheme: ThemeTypes = {
   elPrimaryColor: "#3a6ee8",
   themeTextColor: "#fff",
   themeBgColor: "#1b1b1f",
-  themeDivColor: "#2e2e32"
+  themeDivColor: "#2e2e32",
+  dividerColor: "#2f2f2f"
 }
 
 export { normalTheme, darkTheme }

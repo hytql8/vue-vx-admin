@@ -16,7 +16,10 @@ const toggleLang = (localeMap: LocaleMap) => {
   localeStore.setCurrentLocale({ lang: localeMap.lang })
 }
 
+const activeLang = computed(() => localeStore.getCurrentLocale.lang)
+
 setHtmlLang(localeStore.currentLocale)
+console.log(localeStore.currentLocale.lang, `localeStore.currentLocale`)
 
 watch(
   () => localeStore.currentLocale,
@@ -27,13 +30,21 @@ watch(
 )
 </script>
 <template>
-  <div class="locale-switch">
+  <div class="vx-locale-switch">
     <ElDropdown trigger="click" class="el-dropdown-link">
       <VxIcon icon="ion:language" :size="20" color="var(--theme-text-color)"></VxIcon>
       <template #dropdown>
-        <ElDropdownMenu>
-          <ElDropdownItem v-for="v in localeMaps" :key="v.lang" @click="toggleLang(v)">{{ v.name }}</ElDropdownItem>
-        </ElDropdownMenu>
+        <div class="dropdown-menu">
+          <div
+            :class="activeLang === v.lang ? 'dropdown-item dropdown-item--active' : 'dropdown-item'"
+            v-for="v in localeMaps"
+            :key="v.lang"
+            @click="toggleLang(v)"
+          >
+            <VxIcon :class="activeLang === v.lang ? '' : 'vx-icon--visible'" icon="ep:check" />
+            <span>{{ v.name }}</span>
+          </div>
+        </div>
       </template>
     </ElDropdown>
   </div>

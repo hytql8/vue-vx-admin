@@ -1,5 +1,11 @@
 <script lang="tsx" setup>
-// import { defineComponent } from "vue"
+import { computed, unref } from "vue"
+import { useAppStore } from "@/store/modules/app"
+
+const appStore = useAppStore()
+const isFold = computed(() => appStore.getIsFold)
+
+const menuWidth = computed(() => (unref(isFold) ? "0px" : "148px"))
 
 const logoUrl = new URL("@/assets/imgs/VxLogo.png", import.meta.url).href
 const vxTitle = import.meta.env.VITE_APP_TITLE
@@ -16,4 +22,7 @@ const vxTitle = import.meta.env.VITE_APP_TITLE
 </template>
 <style lang="scss" scoped>
 @use "./Logo.scss";
+.vx-logo__title {
+  width: v-bind(menuWidth);
+}
 </style>

@@ -1,4 +1,11 @@
 <script lang="ts" setup>
+import { computed } from "vue"
+import { useAppStore } from "@/store/modules/app"
+
+const appStore = useAppStore()
+
+const isFold = computed(() => appStore.getIsFold)
+
 const handleOpen = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
 }
@@ -13,6 +20,7 @@ const handleClose = (key: string, keyPath: string[]) => {
     active-text-color="var(--left-menu-text-active-color)"
     background-color="var(--left-menu-bg-color)"
     default-active="2"
+    :collapse="isFold"
     text-color="var(--left-menu-text-color)"
     @open="handleOpen"
     @close="handleClose"

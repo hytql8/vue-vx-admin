@@ -6,17 +6,22 @@ import { toCssVariable, setCssVar } from "@/utils"
 
 const { setStorage, getStorage } = useStorage()
 
-interface appState {
+type appState = {
   isDark: boolean
   layout: LayoutType
+  isFold: boolean
   theme: ThemeTypes
 }
 
 export const useAppStore = defineStore("app", {
   state: (): appState => {
     return {
+      // 是否暗黑模式，true代表是
       isDark: getStorage("isDark") || true,
+      // 当前系统的layout布局 默认为 horizontal
       layout: getStorage("layout") || "horizontal",
+      // 左侧菜单是否折叠
+      isFold: false,
       // 默认主题 需要变化的项目这里需要定义默认值，建议与var.less中保持一致
       theme: getStorage("theme") || {
         elPrimaryColor: "#3a6ee8",
@@ -34,6 +39,9 @@ export const useAppStore = defineStore("app", {
     getIsDark(): boolean {
       return this.isDark
     },
+    getIsFold(): boolean {
+      return this.isFold
+    },
     getTheme(): ThemeTypes {
       return this.theme
     }
@@ -49,6 +57,9 @@ export const useAppStore = defineStore("app", {
         document.documentElement.classList.remove("dark")
       }
       setStorage("isDark", this.isDark)
+    },
+    setIsFold(isFold: boolean) {
+      this.isFold = isFold
     },
     setTheme(theme: ThemeTypes) {
       if (this.isDark) {

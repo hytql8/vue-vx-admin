@@ -1,19 +1,18 @@
 @import "@/styles/var.scss";
 .vx-logo {
-  width: 200px;
+  // width: 200px;
   height: 50px;
-  padding: var(--el-header-padding);
   background-color: var(--logo-bg-color);
   &:hover {
     background-color: var(--logo-bg-active-color);
   }
 
-  @include transition(background-color);
+  @include transition(all);
   @include cursor(default);
   @include flex(start, center, nowrap);
   &__image {
-    width: 32px;
-    height: 32px;
+    width: 52px;
+    height: 50px;
 
     @include flex(center, center, nowrap);
     & img {
@@ -22,7 +21,9 @@
     }
   }
   &__title {
-    padding-left: 10px;
+    padding-left: 3px;
+
+    @include transition(all);
     & span {
       font-size: var(--text-middle-size);
       font-weight: bold;

@@ -33,9 +33,14 @@ import { VxIcon } from "@/components/VxIcon"
     <div class="vx-tags-list-suf">
       <VxIcon icon="clarity:refresh-line" color="#8D9095" :size="14"></VxIcon>
     </div>
-    <div class="vx-tags-list-suf">
-      <VxIcon icon="uiw:setting-o" color="#8D9095" :size="14"></VxIcon>
-    </div>
+    <ElDropdown>
+      <div class="vx-tags-list-suf">
+        <VxIcon icon="uiw:setting-o" color="#8D9095" :size="14"></VxIcon>
+      </div>
+      <template #dropdown>
+        <div>13</div>
+      </template>
+    </ElDropdown>
   </div>
 </template>
 <style lang="scss" scoped>

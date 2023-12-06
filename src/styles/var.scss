@@ -41,7 +41,7 @@
   display: flex;
   flex-wrap: $wrap;
   align-items: $align;
-  justify-content: $justify;
+  justify-content: $justify !important;
 }
 
 @mixin border($color) {

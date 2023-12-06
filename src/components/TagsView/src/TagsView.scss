@@ -1,0 +1,79 @@
+@import "@/styles/var.scss";
+.vx-tags {
+  width: 100%;
+  background-color: var(--theme-div-color);
+  border-bottom: 1px solid var(--divider-color);
+  &-list-pre {
+    height: 32px;
+    padding: 0 8px;
+    background-color: var(--theme-div-color);
+    border-right: 1px solid var(--divider-color);
+    border-left: 1px solid var(--divider-color);
+
+    @include flex(center, center, nowrap);
+  }
+  &-list-suf {
+    height: 32px;
+    padding: 0 8px;
+    background-color: var(--theme-div-color);
+    border-right: 1px solid var(--divider-color);
+
+    @include flex(center, center, nowrap);
+  }
+  &-list {
+    width: calc(100vw - 328px);
+    padding: 2px 0;
+
+    @include flex(start, center, nowrap);
+    &__item {
+      width: fit-content;
+      min-width: 78px;
+      height: 28px;
+      margin-left: 5px;
+      font-size: var(--text-small-size);
+      color: var(--theme-text-color);
+      border-radius: 2px;
+      &--current {
+        color: #ffffff;
+        background-color: var(--el-color-primary);
+        &__left {
+          height: inherit;
+          padding-top: 2px;
+          padding-left: 15px;
+
+          @include flex(space-between, center, nowrap);
+        }
+        &__right {
+          height: inherit;
+          padding: 0 4px;
+          color: #ffffff;
+
+          @include flex(center, center, nowrap);
+        }
+      }
+      &--normal {
+        background-color: var(--theme-div-color);
+        border: 1px solid var(--divider-color);
+        &:hover {
+          color: var(--el-color-primary);
+        }
+        &__left {
+          padding-left: 15px;
+
+          @include flex(start);
+        }
+        &__right {
+          height: inherit;
+          padding: 0 4px;
+
+          @include flex(center, center, nowrap);
+        }
+      }
+
+      @include cursor;
+      @include flex;
+    }
+  }
+
+  @include flex(start, center, nowrap);
+}

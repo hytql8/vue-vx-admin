@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import { computed } from "vue"
 import { useAppStore } from "@/store/modules/app"
+import { useLocale } from "@/hooks/useLocale"
+
+const { t } = useLocale()
 
 const appStore = useAppStore()
 
@@ -27,28 +30,28 @@ const handleClose = (key: string, keyPath: string[]) => {
   >
     <el-sub-menu index="1">
       <template #title>
-        <span>Navigator One</span>
+        <span>{{ t("layout.test") }}</span>
       </template>
       <el-menu-item-group title="Group One">
-        <el-menu-item index="1-1">item one</el-menu-item>
-        <el-menu-item index="1-2">item two</el-menu-item>
+        <el-menu-item index="1-1">{{ t("layout.test") }}</el-menu-item>
+        <el-menu-item index="1-2">{{ t("layout.test") }}</el-menu-item>
       </el-menu-item-group>
       <el-menu-item-group title="Group Two">
-        <el-menu-item index="1-3">item three</el-menu-item>
+        <el-menu-item index="1-3">{{ t("layout.test") }}</el-menu-item>
       </el-menu-item-group>
       <el-sub-menu index="1-4">
-        <template #title>item four</template>
-        <el-menu-item index="1-4-1">item one</el-menu-item>
+        <template #title>{{ t("layout.test") }}</template>
+        <el-menu-item index="1-4-1">{{ t("layout.test") }}</el-menu-item>
       </el-sub-menu>
     </el-sub-menu>
     <el-menu-item index="2">
-      <span>Navigator Two</span>
+      <span>{{ t("layout.test") }}</span>
     </el-menu-item>
     <el-menu-item index="3" disabled>
-      <span>Navigator Three</span>
+      <span>{{ t("layout.test") }}</span>
     </el-menu-item>
     <el-menu-item index="4">
-      <span>Navigator Four</span>
+      <span>{{ t("layout.test") }}</span>
     </el-menu-item>
   </el-menu>
 </template>

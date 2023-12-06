@@ -14,7 +14,11 @@ const isFold = computed(() => appStore.getIsFold)
 const menuWidth = computed(() => (unref(isFold) ? "55px" : "200px"))
 
 const MenuSwitch = () => {
-  const jsxDom = unref(isFold) ? <VxIcon icon="ep:expand" size={20} /> : <VxIcon icon="ep:fold" size={20} />
+  const jsxDom = unref(isFold) ? (
+    <VxIcon icon="ant-design:menu-fold-outlined" style="transform: rotate(180deg)" size={20} />
+  ) : (
+    <VxIcon icon="ant-design:menu-fold-outlined" size={20} />
+  )
   return jsxDom
 }
 
@@ -29,14 +33,16 @@ const toggleExpand = () => {
       <Logo class="vx-header__logo" />
       <div class="vx-header__nav">
         <div class="vx-header__menu-switch"><MenuSwitch @click="toggleExpand" /></div>
-        <div class="vx-header__info"><ThemeSwitch /> <LocaleSwitch /></div>
+        <div class="vx-header__info"><LocaleSwitch /> <ThemeSwitch /></div>
       </div>
     </ElHeader>
     <ElContainer class="vx-content">
       <ElAside class="vx-aside">
         <Menu class="vx-aside__menu" />
       </ElAside>
-      <ElMain class="vx-content__main">Main</ElMain>
+      <ElMain class="vx-content__main">
+        <TagsView />
+      </ElMain>
     </ElContainer>
   </ElContainer>
 </template>

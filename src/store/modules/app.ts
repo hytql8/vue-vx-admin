@@ -28,7 +28,13 @@ export const useAppStore = defineStore("app", {
         themeTextColor: "#252525",
         themeBgColor: "#f5f7f9",
         themeDivColor: "#fff",
-        dividerColor: "#dbdcdd"
+        dividerColor: "#dbdcdd",
+        leftMenuBgColor: "#001529",
+        leftMenuBgLightColor: "#0f2438",
+        leftMenuBgActiveColor: "var(--el-color-primary)",
+        leftMenuTextColor: "#bfcbd9",
+        leftMenuTextActiveColor: "#ffffff",
+        leftMenuCollapseBgActiveColor: "var(--el-color-primary)"
       }
     }
   },

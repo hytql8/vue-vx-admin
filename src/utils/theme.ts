@@ -4,7 +4,13 @@ const normalTheme: ThemeTypes = {
   themeTextColor: "#252525",
   themeBgColor: "#f5f7f9",
   themeDivColor: "#fff",
-  dividerColor: "#dbdcdd"
+  dividerColor: "#dbdcdd",
+  leftMenuBgColor: "#001529",
+  leftMenuBgLightColor: "#0f2438",
+  leftMenuBgActiveColor: "var(--el-color-primary)",
+  leftMenuTextColor: "#bfcbd9",
+  leftMenuTextActiveColor: "#ffffff",
+  leftMenuCollapseBgActiveColor: "var(--el-color-primary)"
 }
 
 const darkTheme: ThemeTypes = {
@@ -12,7 +18,13 @@ const darkTheme: ThemeTypes = {
   themeTextColor: "#fff",
   themeBgColor: "#1b1b1f",
   themeDivColor: "#2e2e32",
-  dividerColor: "#2f2f2f"
+  dividerColor: "#4C4D4F",
+  leftMenuBgColor: "#191b24",
+  leftMenuBgLightColor: "#282a33",
+  leftMenuBgActiveColor: "var(--el-color-primary)",
+  leftMenuTextColor: "#bfcbd9",
+  leftMenuTextActiveColor: "#ffffff",
+  leftMenuCollapseBgActiveColor: "var(--el-color-primary)"
 }
 
 export { normalTheme, darkTheme }

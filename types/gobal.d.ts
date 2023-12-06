@@ -29,6 +29,12 @@ declare global {
     themeBgColor: string
     themeDivColor: string
     dividerColor: string
+    leftMenuBgColor: string
+    leftMenuBgLightColor: string
+    leftMenuBgActiveColor: string
+    leftMenuTextColor: string
+    leftMenuTextActiveColor: string
+    leftMenuCollapseBgActiveColor: string
   }
 
   type Locales = "zh-CN" | "en"

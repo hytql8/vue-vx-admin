@@ -5,7 +5,7 @@ import { useAppStore } from "@/store/modules/app"
 const appStore = useAppStore()
 const isFold = computed(() => appStore.getIsFold)
 
-const menuWidth = computed(() => (unref(isFold) ? "0px" : "148px"))
+const menuWidth = computed(() => (unref(isFold) ? "0" : "148.5px"))
 
 const logoUrl = new URL("@/assets/imgs/VxLogo.png", import.meta.url).href
 const vxTitle = import.meta.env.VITE_APP_TITLE

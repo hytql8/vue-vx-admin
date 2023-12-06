@@ -4,6 +4,9 @@
   :deep(.el-header) {
     padding: 0 !important;
   }
+  :deep(.el-main) {
+    padding: unset;
+  }
   .vx-header {
     width: 100%;
     height: 50px;
@@ -22,10 +25,10 @@
         content: "";
         border-bottom: 1px solid var(--divider-color);
       }
-
-      @include flex(start, center, nowrap);
     }
     &__menu-switch {
+      padding: 0 5px;
+
       @include cursor;
       @include flex(start, center, nowrap);
     }
@@ -38,8 +41,9 @@
   .vx-aside {
     overflow: hidden;
     background-color: var(--left-menu-bg-color);
+    border-right: 1px solid var(--divider-color);
 
-    @include transition(width);
+    @include transition(all);
     &__menu {
       width: inherit;
       height: 100%;

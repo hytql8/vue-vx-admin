@@ -7,10 +7,15 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    Avatar: typeof import('./../src/components/Avatar/src/Avatar.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
+    ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElDropdown: typeof import('element-plus/es')['ElDropdown']
+    ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
+    ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
+    ElDropdownMenuItem: typeof import('element-plus/es')['ElDropdownMenuItem']
     ElHeader: typeof import('element-plus/es')['ElHeader']
     ElMain: typeof import('element-plus/es')['ElMain']
     ElMenu: typeof import('element-plus/es')['ElMenu']
@@ -18,6 +23,7 @@ declare module 'vue' {
     ElMenuItemGroup: typeof import('element-plus/es')['ElMenuItemGroup']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
+    Fullscreen: typeof import('./../src/components/Fullscreen/src/Fullscreen.vue')['default']
     LocaleSwitch: typeof import('./../src/components/LocaleSwitch/src/LocaleSwitch.vue')['default']
     Logo: typeof import('./../src/components/Logo/src/Logo.vue')['default']
     Menu: typeof import('./../src/components/Menu/src/Menu.vue')['default']

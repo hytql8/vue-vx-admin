@@ -1,0 +1,19 @@
+@import "@/styles/var.scss";
+.vx-avatar {
+    height: inherit;
+    .vx-dropdown {
+    height: 50px;
+    padding: 0 15px 0 0;
+    &__username {
+        margin-right: 10px;
+        font-size: 13px;
+        color: var(--theme-text-color);
+    }
+
+    @include flex(center, center, nowrap);
+    
+    }
+}
+.vx-dropdown-item__text {
+    margin-left: 5px;
+}

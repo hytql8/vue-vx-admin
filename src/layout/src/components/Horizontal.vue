@@ -3,10 +3,13 @@ import { computed, unref } from "vue"
 import { Menu } from "@/components/Menu"
 import { Logo } from "@/components/Logo"
 import { ThemeSwitch } from "@/components/ThemeSwitch"
-import { LocaleSwitch } from "@/components/LocaleSwitch"
 import { Avatar } from "@/components/Avatar"
+import { LocaleSwitch } from "@/components/LocaleSwitch"
+import { Fullscreen } from "@/components/Fullscreen"
 import { useAppStore } from "@/store/modules/app"
 import { VxIcon } from "@/components/VxIcon"
+import { ElContainer } from "element-plus"
+
 
 const appStore = useAppStore()
 
@@ -34,7 +37,7 @@ const toggleExpand = () => {
       <Logo class="vx-header__logo" />
       <div class="vx-header__nav">
         <div class="vx-header__menu-switch"><MenuSwitch @click="toggleExpand" /></div>
-        <div class="vx-header__info"><ThemeSwitch /> <LocaleSwitch /> <Avatar /></div>
+        <div class="vx-header__info"> <ThemeSwitch /> <Fullscreen /> <LocaleSwitch /> <Avatar /></div>
       </div>
     </ElHeader>
     <ElContainer class="vx-content">

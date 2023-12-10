@@ -1,6 +1,10 @@
-<script lang='tsx' setup>
+<script lang='ts' setup>
 import { getStaticSource } from '@/utils/index'
 import { VxIcon } from '@/components/VxIcon';
+
+defineOptions({
+    name: 'VxAvatar'
+})
 
 const url = getStaticSource('@/assets/imgs/Avatar.png')
 

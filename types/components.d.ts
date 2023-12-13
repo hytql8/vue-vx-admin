@@ -10,6 +10,7 @@ declare module 'vue' {
     Avatar: typeof import('./../src/components/Avatar/src/Avatar.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
+    ElCard: typeof import('element-plus/es')['ElCard']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElDropdown: typeof import('element-plus/es')['ElDropdown']
@@ -31,6 +32,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     TagsView: typeof import('./../src/components/TagsView/src/TagsView.vue')['default']
     ThemeSwitch: typeof import('./../src/components/ThemeSwitch/src/ThemeSwitch.vue')['default']
+    VxContainer: typeof import('./../src/components/VxContainer/src/VxContainer.vue')['default']
     VxIcon: typeof import('./../src/components/VxIcon/src/VxIcon.vue')['default']
   }
 }

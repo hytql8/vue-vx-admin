@@ -1,6 +1,7 @@
 <script setup lang="tsx">
 import { computed, unref } from "vue"
 import { Menu } from "@/components/Menu"
+import { VxContainer } from "@/components/VxContainer"
 import { Logo } from "@/components/Logo"
 import { ThemeSwitch } from "@/components/ThemeSwitch"
 import { Avatar } from "@/components/Avatar"
@@ -44,8 +45,11 @@ const toggleExpand = () => {
       <ElAside class="vx-aside">
         <Menu class="vx-aside__menu" />
       </ElAside>
-      <ElMain class="vx-content__main">
+      <ElMain class="vx-main">
         <TagsView />
+        <div class="vx-main__container">
+          <VxContainer />
+        </div>
       </ElMain>
     </ElContainer>
   </ElContainer>

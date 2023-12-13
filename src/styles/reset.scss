@@ -214,3 +214,14 @@ div:focus {
     content: " ";
   }
 }
+
+/* 隐藏滚动条 */
+body::-webkit-scrollbar {
+  width: 0;
+}
+body::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}

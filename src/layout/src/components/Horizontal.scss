@@ -50,4 +50,10 @@
       background-color: var(--left-menu-bg-color);
     }
   }
+  .vx-main {
+    &__container {
+      height: calc(100vh - 83px);
+    }
+  }
+
 }

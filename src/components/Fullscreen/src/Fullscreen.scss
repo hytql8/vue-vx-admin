@@ -1,0 +1,13 @@
+@import "@/styles/var.scss";
+.vx-fullscreen {
+    height: 50px;
+    padding: 0 5px;
+    &__icon {
+        @include cursor;
+    }
+    &__icon:hover {
+        color: var(--logo-bg-active-color);
+    }
+
+    @include flex(center, center, nowrap)
+}

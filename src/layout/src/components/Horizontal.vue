@@ -1,12 +1,16 @@
 <script setup lang="tsx">
 import { computed, unref } from "vue"
 import { Menu } from "@/components/Menu"
+import { VxContainer } from "@/components/VxContainer"
 import { Logo } from "@/components/Logo"
 import { ThemeSwitch } from "@/components/ThemeSwitch"
-import { LocaleSwitch } from "@/components/LocaleSwitch"
 import { Avatar } from "@/components/Avatar"
+import { LocaleSwitch } from "@/components/LocaleSwitch"
+import { Fullscreen } from "@/components/Fullscreen"
 import { useAppStore } from "@/store/modules/app"
 import { VxIcon } from "@/components/VxIcon"
+import { ElContainer } from "element-plus"
+
 
 const appStore = useAppStore()
 
@@ -34,15 +38,18 @@ const toggleExpand = () => {
       <Logo class="vx-header__logo" />
       <div class="vx-header__nav">
         <div class="vx-header__menu-switch"><MenuSwitch @click="toggleExpand" /></div>
-        <div class="vx-header__info"><ThemeSwitch /> <LocaleSwitch /> <Avatar /></div>
+        <div class="vx-header__info"> <ThemeSwitch /> <Fullscreen /> <LocaleSwitch /> <Avatar /></div>
       </div>
     </ElHeader>
     <ElContainer class="vx-content">
       <ElAside class="vx-aside">
         <Menu class="vx-aside__menu" />
       </ElAside>
-      <ElMain class="vx-content__main">
+      <ElMain class="vx-main">
         <TagsView />
+        <div class="vx-main__container">
+          <VxContainer />
+        </div>
       </ElMain>
     </ElContainer>
   </ElContainer>

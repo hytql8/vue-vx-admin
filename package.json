@@ -10,11 +10,13 @@
   },
   "dependencies": {
     "@jridgewell/sourcemap-codec": "^1.4.15",
+    "@types/lodash": "^4.14.202",
     "@vueuse/core": "^10.6.1",
     "animate.css": "^4.1.1",
     "axios": "^1.6.2",
     "consola": "^3.2.3",
     "element-plus": "^2.4.2",
+    "lodash": "^4.17.21",
     "pinia": "^2.1.7",
     "pinia-plugin-persist": "^1.0.0",
     "vite-plugin-cdn-import": "^0.3.5",

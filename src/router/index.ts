@@ -2,10 +2,12 @@ import { App } from "vue"
 import { createRouter, createWebHistory } from "vue-router"
 import type { RouteRecordRaw } from "vue-router"
 
-const staticRouter: RouteRecordRaw[] = [
+const Layout = () => import("@/layout/src/index.vue")
+
+export const staticRouter: RouteRecordRaw[] = [
   {
     path: "/",
-    redirect: "/dashboard",
+    redirect: "/vx-admin/dashboard",
     name: "Root",
     meta: {
       hidden: true
@@ -14,12 +16,58 @@ const staticRouter: RouteRecordRaw[] = [
   {
     path: "/login",
     name: "Login",
-    component: import("@/views/Login/Login.vue")
+    component: () => import("@/views/Login/Login.vue")
   },
   {
-    path: "/dashboard",
-    name: "Dashboard",
-    component: () => import("@/layout/src/index.vue")
+    path: "/vx-admin",
+    name: "VxAdmin",
+    component: Layout,
+    children: [
+      {
+        path: "/vx-admin/dashboard",
+        name: "Dashboard",
+        component: () => import("@/views/Dashboard/Dashboard.vue"),
+        children: [
+          {
+            path: "/vx-admin/dashboard1",
+            name: "Dashboard1",
+            component: () => import("@/views/Dashboard/Dashboard.vue"),
+            children: [
+              {
+                path: "/vx-admin/dashboard2",
+                name: "Dashboard2",
+                component: () => import("@/views/Dashboard/Dashboard.vue"),
+                children: [
+                  {
+                    path: "/vx-admin/dashboard3",
+                    name: "Dashboard3",
+                    component: () => import("@/views/Dashboard/Dashboard.vue"),
+                    children: []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    path: "/welcome",
+    name: "Welcome",
+    component: Layout,
+    children: [
+      {
+        path: "/welcome/home",
+        name: "Home",
+        component: () => import("@/views/Home/Home.vue")
+      }
+    ]
+  },
+  {
+    name: "404",
+    path: "/:catchAll(.*)",
+    component: () => import("@/views/Error/404.vue")
   }
   // 其他路由配置
 ]

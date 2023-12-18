@@ -20,13 +20,10 @@
     // 设置选中时的高亮背景和高亮颜色
     .el-menu-item.is-active {
       color: var(--left-menu-text-active-color) !important;
-      background-color: var(--left-menu-bg-active-color) !important;
+      background: var(--left-menu-bg-active-color) !important;
       &:hover {
-        background-color: var(--left-menu-bg-active-color) !important;
+        background: var(--left-menu-bg-active-color) !important;
       }
-    }
-    .el-menu-item .is-active {
-      position: relative;
     }
 
     // 设置子菜单的背景颜色
@@ -36,5 +33,11 @@
         background-color: var(--left-menu-bg-light-color) !important;
       }
     }
+  }
+
+  // 设置没有子目录的菜单选中样式
+  :deep(.el-menu-item.is-active) {
+    color: var(--left-menu-text-active-color) !important;
+    background: var(--left-menu-bg-active-color) !important;
   }
 }

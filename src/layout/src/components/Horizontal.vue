@@ -48,7 +48,7 @@ const toggleExpand = () => {
       <ElMain class="vx-main">
         <TagsView />
         <div class="vx-main__container">
-          <VxContainer />
+          <RouterView></RouterView>
         </div>
       </ElMain>
     </ElContainer>

@@ -2,6 +2,9 @@
 import { computed } from "vue"
 import { useAppStore } from "@/store/modules/app"
 import { useLocale } from "@/hooks/useLocale"
+import { staticRouter } from "@/router"
+import { createMenuRoutes } from "@/utils/routerUtils"
+import { ElSubMenu } from "element-plus"
 
 const { t } = useLocale()
 
@@ -15,45 +18,45 @@ const handleOpen = (key: string, keyPath: string[]) => {
 const handleClose = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
 }
+
+const routes = createMenuRoutes(staticRouter)
+console.log(routes, "===========")
 </script>
 
 <template>
-  <el-menu
+  <ElMenu
     class="vx-menu"
     active-text-color="var(--left-menu-text-active-color)"
     background-color="var(--left-menu-bg-color)"
-    default-active="2"
+    default-active="1"
     :collapse="isFold"
     text-color="var(--left-menu-text-color)"
     @open="handleOpen"
     @close="handleClose"
   >
-    <el-sub-menu index="1">
-      <template #title>
-        <span>{{ t("layout.test") }}</span>
-      </template>
-      <el-menu-item-group title="Group One">
-        <el-menu-item index="1-1">{{ t("layout.test") }}</el-menu-item>
-        <el-menu-item index="1-2">{{ t("layout.test") }}</el-menu-item>
-      </el-menu-item-group>
-      <el-menu-item-group title="Group Two">
-        <el-menu-item index="1-3">{{ t("layout.test") }}</el-menu-item>
-      </el-menu-item-group>
-      <el-sub-menu index="1-4">
-        <template #title>{{ t("layout.test") }}</template>
-        <el-menu-item index="1-4-1">{{ t("layout.test") }}</el-menu-item>
-      </el-sub-menu>
-    </el-sub-menu>
-    <el-menu-item index="2">
-      <span>{{ t("layout.test") }}</span>
-    </el-menu-item>
-    <el-menu-item index="3" disabled>
-      <span>{{ t("layout.test") }}</span>
-    </el-menu-item>
-    <el-menu-item index="4">
-      <span>{{ t("layout.test") }}</span>
-    </el-menu-item>
-  </el-menu>
+    <div v-for="v in routes" :key="v.path">
+      <ElSubMenu v-if="v?.children?.length" :index="String(v.name)">
+        <template #title>
+          <span>{{ v.name }}</span>
+        </template>
+        <div v-for="m in v.children" :key="m.path">
+          <ElSubMenu v-if="m?.children?.length" :index="String(m.name)">
+            <template #title>
+              <span>{{ m.name }}</span>
+            </template>
+            <!-- <ElMenuItem :index="String(m.name)">
+              {{ m.name }}
+            </ElMenuItem> -->
+            <div v-for="n in m.children">
+              <ElMenuItem :index="String(n.name)">{{ n.name }}</ElMenuItem>
+            </div>
+          </ElSubMenu>
+          <ElMenuItem v-else :index="String(m.name)">{{ m.name }}</ElMenuItem>
+        </div>
+      </ElSubMenu>
+      <ElMenuItem v-else :index="String(v.name)">{{ v.name }}</ElMenuItem>
+    </div>
+  </ElMenu>
 </template>
 <style lang="scss" scoped>
 @import "./Menu.scss";

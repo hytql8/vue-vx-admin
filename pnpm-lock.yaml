@@ -8,6 +8,9 @@ dependencies:
   '@jridgewell/sourcemap-codec':
     specifier: ^1.4.15
     version: registry.npmmirror.com/@jridgewell/sourcemap-codec@1.4.15
+  '@types/lodash':
+    specifier: ^4.14.202
+    version: registry.npmmirror.com/@types/lodash@4.14.202
   '@vueuse/core':
     specifier: ^10.6.1
     version: registry.npmmirror.com/@vueuse/core@10.6.1(vue@3.3.8)
@@ -23,6 +26,9 @@ dependencies:
   element-plus:
     specifier: ^2.4.2
     version: registry.npmmirror.com/element-plus@2.4.2(vue@3.3.8)
+  lodash:
+    specifier: ^4.17.21
+    version: registry.npmmirror.com/lodash@4.17.21
   pinia:
     specifier: ^2.1.7
     version: registry.npmmirror.com/pinia@2.1.7(typescript@5.3.2)(vue@3.3.8)

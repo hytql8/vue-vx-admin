@@ -6,7 +6,7 @@ import { normalTheme, darkTheme } from "@/utils/theme"
 import { useStorage } from "@/hooks/useStorage"
 import { setCssVar } from "./utils"
 import { setHtmlLang } from "@/hooks/useLocale"
-import { Language } from "element-plus/es/locale"
+import type { Language } from "element-plus/es/locale"
 
 const { getStorage } = useStorage()
 const appStore = useAppStore()

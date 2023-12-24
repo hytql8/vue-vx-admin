@@ -5,7 +5,6 @@ import type { I18n, I18nOptions } from "vue-i18n"
 import { setHtmlLang } from "@/hooks/useLocale"
 
 export let i18n: ReturnType<typeof createI18n>
-
 const createI18nOptions = async (): Promise<I18nOptions> => {
   const localeStore = useLocaleStoreWithOut()
   const locale = localeStore.getCurrentLocale

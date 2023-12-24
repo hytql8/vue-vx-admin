@@ -2,7 +2,7 @@ import { createApp } from "vue"
 import App from "./App.vue"
 import { router, setupRouter } from "@/router"
 import { setupStore } from "@/store"
-import { setupI18n } from "@/hooks/useLocale"
+import { setupI18n } from "@/plugins/vueI18n"
 
 // 引入样式
 import "animate.css"

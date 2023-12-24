@@ -28,6 +28,7 @@ declare module 'vue' {
     LocaleSwitch: typeof import('./../src/components/LocaleSwitch/src/LocaleSwitch.vue')['default']
     Logo: typeof import('./../src/components/Logo/src/Logo.vue')['default']
     Menu: typeof import('./../src/components/Menu/src/Menu.vue')['default']
+    RenderVertical: typeof import('./../src/components/Menu/src/components/RenderVertical.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TagsView: typeof import('./../src/components/TagsView/src/TagsView.vue')['default']

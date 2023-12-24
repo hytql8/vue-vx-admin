@@ -21,6 +21,7 @@ export const toLowerRoutes = (
           path: route.path,
           name: route.name,
           component: route.component,
+          meta: route.meta,
           children: []
         }
         // 将level > expectedLevel的路由项移动到对应的level === expectedLevel的父级路由下
@@ -32,6 +33,7 @@ export const toLowerRoutes = (
           path: route.path,
           name: route.name,
           component: route.component,
+          meta: route.meta,
           children: []
         }
         // 将level > 2的路由项移动到对应的level === 2的父级路由的children数组中
@@ -45,6 +47,7 @@ export const toLowerRoutes = (
           path: route.path,
           name: route.name,
           component: route.component,
+          meta: route.meta,
           children: []
         }
         // 将level > 2的路由项移动到对应的level === 2的父级路由的children数组中
@@ -60,7 +63,7 @@ export const toLowerRoutes = (
 **/
 export const createMenuRoutes = (staticRouter: RouteRecordRaw[]): RouteRecordRaw[] => {
   const localRoutes: RouteRecordRaw[] = _.cloneDeep(staticRouter)
-  _.remove(localRoutes, route => route.path === "/" || route.name === "404")
+  _.remove(localRoutes, route => route.path === "/" || route.name === "404" || route.name === "Login")
   toLowerRoutes(localRoutes)
   return localRoutes
 }

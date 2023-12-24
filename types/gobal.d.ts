@@ -50,7 +50,9 @@ declare global {
     name: string
   }
 
-  type refTypes<T = any> = Ref<HTMLElement | ComponentType<T> | InstanceType<typeof T> | null>;
+  type refTypes<T = any> = Ref<HTMLElement | ComponentType<T> | InstanceType<typeof T> | null>
+
+  type ReturnType<T extends (...args: any) => any> = T extends (...args: any) => infer R ? R : any
 }
 
 export {}

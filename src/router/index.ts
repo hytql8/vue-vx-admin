@@ -8,40 +8,56 @@ export const staticRouter: RouteRecordRaw[] = [
   {
     path: "/",
     redirect: "/vx-admin/dashboard",
-    name: "Root",
-    meta: {
-      hidden: true
-    }
+    name: "Root"
   },
   {
     path: "/login",
     name: "Login",
-    component: () => import("@/views/Login/Login.vue")
+    component: () => import("@/views/Login/Login.vue"),
+    meta: {
+      title: "routes.login"
+    }
   },
   {
     path: "/vx-admin",
     name: "VxAdmin",
     component: Layout,
+    meta: {
+      title: "routes.vxAdmin"
+    },
     children: [
       {
         path: "/vx-admin/dashboard",
         name: "Dashboard",
         component: () => import("@/views/Dashboard/Dashboard.vue"),
+        meta: {
+          title: "routes.vxAdmin"
+        },
         children: [
           {
             path: "/vx-admin/dashboard1",
             name: "Dashboard1",
             component: () => import("@/views/Dashboard/Dashboard.vue"),
+            meta: {
+              title: "routes.Dashboard1"
+            },
             children: [
               {
                 path: "/vx-admin/dashboard2",
                 name: "Dashboard2",
                 component: () => import("@/views/Dashboard/Dashboard.vue"),
+                meta: {
+                  title: "routes.Dashboard2"
+                },
                 children: [
                   {
                     path: "/vx-admin/dashboard3",
                     name: "Dashboard3",
                     component: () => import("@/views/Dashboard/Dashboard.vue"),
+                    meta: {
+                      title: "routes.Dashboard3",
+                      hidden: true
+                    },
                     children: []
                   }
                 ]
@@ -56,18 +72,27 @@ export const staticRouter: RouteRecordRaw[] = [
     path: "/welcome",
     name: "Welcome",
     component: Layout,
+    meta: {
+      title: "routes.welcome"
+    },
     children: [
       {
         path: "/welcome/home",
         name: "Home",
-        component: () => import("@/views/Home/Home.vue")
+        component: () => import("@/views/Home/Home.vue"),
+        meta: {
+          title: "routes.home"
+        }
       }
     ]
   },
   {
     name: "404",
     path: "/:catchAll(.*)",
-    component: () => import("@/views/Error/404.vue")
+    component: () => import("@/views/Error/404.vue"),
+    meta: {
+      title: "routes.notfound"
+    }
   }
   // 其他路由配置
 ]

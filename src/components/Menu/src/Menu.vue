@@ -1,12 +1,9 @@
 <script lang="ts" setup>
 import { computed } from "vue"
 import { useAppStore } from "@/store/modules/app"
-import { useLocale } from "@/hooks/useLocale"
 import { staticRouter } from "@/router"
 import { createMenuRoutes } from "@/utils/routerUtils"
-import { ElSubMenu } from "element-plus"
-
-const { t } = useLocale()
+import RenderVertical from "./components/RenderVertical.vue"
 
 const appStore = useAppStore()
 
@@ -34,28 +31,29 @@ console.log(routes, "===========")
     @open="handleOpen"
     @close="handleClose"
   >
-    <div v-for="v in routes" :key="v.path">
+    <!-- <template v-for="v in routes" :key="v.name">
       <ElSubMenu v-if="v?.children?.length" :index="String(v.name)">
         <template #title>
-          <span>{{ v.name }}</span>
+          <span>{{ t(v.meta.title) }}</span>
         </template>
-        <div v-for="m in v.children" :key="m.path">
+        <template v-for="m in v.children" :key="m.name">
           <ElSubMenu v-if="m?.children?.length" :index="String(m.name)">
             <template #title>
-              <span>{{ m.name }}</span>
+              <span>{{ t(m.meta.title) }}</span>
             </template>
-            <!-- <ElMenuItem :index="String(m.name)">
-              {{ m.name }}
-            </ElMenuItem> -->
-            <div v-for="n in m.children">
-              <ElMenuItem :index="String(n.name)">{{ n.name }}</ElMenuItem>
-            </div>
+            <template v-for="n in m.children" :key="n.name">
+              <ElMenuItem :index="String(n.name)">{{ t(n.meta.title) }}</ElMenuItem>
+            </template>
           </ElSubMenu>
-          <ElMenuItem v-else :index="String(m.name)">{{ m.name }}</ElMenuItem>
-        </div>
+          <ElMenuItem v-else :index="String(m.name)">{{ t(m.meta.title) }}</ElMenuItem>
+        </template>
       </ElSubMenu>
-      <ElMenuItem v-else :index="String(v.name)">{{ v.name }}</ElMenuItem>
-    </div>
+      <ElMenuItem v-else :index="String(v.name)">{{ t(v.meta.title) }}</ElMenuItem>
+    </template> -->
+    <!-- <template v-for="route in routes" :key="route.name">
+      <RenderVertical :route="route" />
+    </template> -->
+    <RenderVertical :routes="routes" />
   </ElMenu>
 </template>
 <style lang="scss" scoped>

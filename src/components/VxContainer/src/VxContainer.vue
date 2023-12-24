@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 defineOptions({
-  name: "vx-container",
-});
+  name: "vx-container"
+})
 </script>
 <template>
   <div class="vx-container">

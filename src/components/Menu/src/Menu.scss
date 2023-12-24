@@ -40,4 +40,18 @@
     color: var(--left-menu-text-active-color) !important;
     background: var(--left-menu-bg-active-color) !important;
   }
+
+  // 设置仅有二级菜单的未选中的子样式
+  :deep(.el-sub-menu .el-menu-item) {
+    background-color: var(--left-menu-bg-light-color) !important;
+  }
+  :deep(.el-sub-menu .el-menu-item:hover) {
+    background-color: var(--left-menu-bg-light-color) !important;
+  }
+  :deep(.el-menu .el-sub-menu__title:hover) {
+    background-color: var(--el-menu-hover-bg-color) !important;
+  }
+  :deep(.el-menu .is-active .el-sub-menu__title) {
+    color: var(--left-menu-text-active-color) !important;
+  }
 }

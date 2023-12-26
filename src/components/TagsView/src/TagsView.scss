@@ -24,8 +24,12 @@
     @include transition(background-color);
     @include flex(center, center, nowrap);
   }
+  :deep(.el-scrollbar) {
+    flex: 1;
+  }
   &-list {
-    width: calc(100vw - 328px);
+    width: 100%;
+    width: 300px;
     padding: 2px 0;
 
     @include flex(start, center, nowrap);

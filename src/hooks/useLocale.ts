@@ -25,4 +25,5 @@ export const useCustomLocale = () => {
   }
 }
 
+// 此方法用于配合i18n-Ally翻译
 export const t = (key: string) => key

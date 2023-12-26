@@ -24,3 +24,5 @@ export const useCustomLocale = () => {
     changeLocale
   }
 }
+
+export const t = (key: string) => key

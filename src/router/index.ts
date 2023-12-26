@@ -1,6 +1,7 @@
 import { App } from "vue"
 import { createRouter, createWebHistory } from "vue-router"
 import type { RouteRecordRaw } from "vue-router"
+import { t } from "@/hooks/useLocale"
 
 const Layout = () => import("@/layout/src/index.vue")
 
@@ -15,7 +16,7 @@ export const staticRouter: RouteRecordRaw[] = [
     name: "Login",
     component: () => import("@/views/Login/Login.vue"),
     meta: {
-      title: "routes.login"
+      title: t("routes.login")
     }
   },
   {
@@ -23,7 +24,7 @@ export const staticRouter: RouteRecordRaw[] = [
     name: "Dashboard",
     component: Layout,
     meta: {
-      title: "routes.dashboard"
+      title: t("routes.dashboard")
     },
     children: [
       {
@@ -31,7 +32,7 @@ export const staticRouter: RouteRecordRaw[] = [
         name: "Welcome",
         component: () => import("@/views/Dashboard/Welcome.vue"),
         meta: {
-          title: "routes.welcome"
+          title: t("routes.welcome")
         }
       },
       {
@@ -39,7 +40,7 @@ export const staticRouter: RouteRecordRaw[] = [
         name: "Workplace",
         component: () => import("@/views/Dashboard/Workplace.vue"),
         meta: {
-          title: "routes.workplace"
+          title: t("routes.workplace")
         }
       },
       {
@@ -47,7 +48,7 @@ export const staticRouter: RouteRecordRaw[] = [
         name: "Analysis",
         component: () => import("@/views/Dashboard/Analysis.vue"),
         meta: {
-          title: "routes.analysis"
+          title: t("routes.analysis")
         }
       }
     ]
@@ -57,7 +58,7 @@ export const staticRouter: RouteRecordRaw[] = [
     path: "/:catchAll(.*)",
     component: () => import("@/views/Error/404.vue"),
     meta: {
-      title: "routes.notfound"
+      title: t("routes.notfound")
     }
   }
   // 其他路由配置

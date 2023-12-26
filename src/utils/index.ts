@@ -22,3 +22,8 @@ export const getStaticSource = (sourceUrl: string): string | undefined => {
 
   return void 0
 }
+
+// 刷新页面
+export const reload = () => {
+  window.location.reload()
+}

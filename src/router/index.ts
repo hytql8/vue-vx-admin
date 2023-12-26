@@ -7,7 +7,7 @@ const Layout = () => import("@/layout/src/index.vue")
 export const staticRouter: RouteRecordRaw[] = [
   {
     path: "/",
-    redirect: "/vx-admin/dashboard",
+    redirect: "/dashboard/welcome",
     name: "Root"
   },
   {
@@ -19,69 +19,35 @@ export const staticRouter: RouteRecordRaw[] = [
     }
   },
   {
-    path: "/vx-admin",
-    name: "VxAdmin",
+    path: "/dashboard",
+    name: "Dashboard",
     component: Layout,
     meta: {
-      title: "routes.vxAdmin"
+      title: "routes.dashboard"
     },
     children: [
       {
-        path: "/vx-admin/dashboard",
-        name: "Dashboard",
-        component: () => import("@/views/Dashboard/Dashboard.vue"),
+        path: "welcome",
+        name: "Welcome",
+        component: () => import("@/views/Dashboard/Welcome.vue"),
         meta: {
-          title: "routes.vxAdmin"
-        },
-        children: [
-          {
-            path: "/vx-admin/dashboard1",
-            name: "Dashboard1",
-            component: () => import("@/views/Dashboard/Dashboard.vue"),
-            meta: {
-              title: "routes.Dashboard1"
-            },
-            children: [
-              {
-                path: "/vx-admin/dashboard2",
-                name: "Dashboard2",
-                component: () => import("@/views/Dashboard/Dashboard.vue"),
-                meta: {
-                  title: "routes.Dashboard2"
-                },
-                children: [
-                  {
-                    path: "/vx-admin/dashboard3",
-                    name: "Dashboard3",
-                    component: () => import("@/views/Dashboard/Dashboard.vue"),
-                    meta: {
-                      title: "routes.Dashboard3",
-                      hidden: true
-                    },
-                    children: []
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    path: "/welcome",
-    name: "Welcome",
-    component: Layout,
-    meta: {
-      title: "routes.welcome"
-    },
-    children: [
+          title: "routes.welcome"
+        }
+      },
       {
-        path: "/welcome/home",
-        name: "Home",
-        component: () => import("@/views/Home/Home.vue"),
+        path: "workplace",
+        name: "Workplace",
+        component: () => import("@/views/Dashboard/Workplace.vue"),
         meta: {
-          title: "routes.home"
+          title: "routes.workplace"
+        }
+      },
+      {
+        path: "analysis",
+        name: "Analysis",
+        component: () => import("@/views/Dashboard/Analysis.vue"),
+        meta: {
+          title: "routes.analysis"
         }
       }
     ]

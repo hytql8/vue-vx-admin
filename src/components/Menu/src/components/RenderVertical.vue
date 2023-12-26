@@ -1,15 +1,4 @@
 <template>
-  <!-- <template v-if="route.children && route.children.length">
-    <ElSubMenu :index="String(route.name)">
-      <template #title>
-        <span>{{ t(route.meta.title) }}</span>
-      </template>
-      <RenderVertical v-for="childRoute in route.children" :route="childRoute" :key="childRoute.name" />
-    </ElSubMenu>
-  </template>
-  <template v-else>
-    <ElMenuItem :index="String(route.name)">{{ t(route.meta.title) }}</ElMenuItem>
-  </template> -->
   <template v-for="v in routes" :key="v.name">
     <ElSubMenu v-if="v?.children?.length && !v.meta.hidden" :index="String(v.name)">
       <template #title>
@@ -24,7 +13,9 @@
             <ElMenuItem v-if="!n.meta.hidden" :index="String(n.name)">{{ t(n.meta.title) }}</ElMenuItem>
           </template>
         </ElSubMenu>
-        <ElMenuItem v-if="!m?.children?.length && !m.meta.hidden" :index="String(m.name)">{{ t(m.meta.title) }}</ElMenuItem>
+        <ElMenuItem v-if="!m?.children?.length && !m.meta.hidden" :index="String(m.name)" @click="goTo(m.name)">{{
+          t(m.meta.title)
+        }}</ElMenuItem>
       </template>
     </ElSubMenu>
     <ElMenuItem v-if="!v?.children?.length && !v.meta.hidden" :index="String(v.name)">{{ t(v.meta.title) }}</ElMenuItem>
@@ -33,17 +24,23 @@
 <script setup lang="ts">
 import type { RouteRecordRaw } from "vue-router"
 import { computed } from "vue"
-import { useI18n } from "@/hooks/useI18n"
+import { useI18n } from "vue-i18n"
+import { useRouter } from "vue-router"
 
+const { push } = useRouter()
+
+const { t } = useI18n()
 defineOptions({
   name: "RenderVertical"
 })
-
-const { t } = useI18n()
 
 const props = defineProps<{
   routes: RouteRecordRaw[]
 }>()
 
 const routes = computed(() => props.routes)
+
+const goTo = name => {
+  push({ name })
+}
 </script>

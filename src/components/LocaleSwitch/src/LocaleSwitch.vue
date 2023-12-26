@@ -2,9 +2,10 @@
 import { watch, computed } from "vue"
 import { VxIcon } from "@/components/VxIcon"
 import { useLocaleStore } from "@/store/modules/locale"
-import { setHtmlLang } from "@/hooks/useLocale"
+import { setHtmlLang, useCustomLocale } from "@/hooks/useLocale"
 
 const localeStore = useLocaleStore()
+const { changeLocale } = useCustomLocale()
 
 defineOptions({
   name: "VxLocaleSwitch"
@@ -14,6 +15,7 @@ const localeMaps = computed(() => localeStore.getLocaleMap)
 
 const toggleLang = (localeMap: LocaleMap) => {
   localeStore.setCurrentLocale({ lang: localeMap.lang })
+  changeLocale(localeMap)
 }
 
 const activeLang = computed(() => localeStore.getCurrentLocale.lang)

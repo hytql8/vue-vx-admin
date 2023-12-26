@@ -12,7 +12,7 @@ const createI18nOptions = async (): Promise<I18nOptions> => {
   const defaultLocal = await import(`../../locales/lang/${locale.lang === "en" ? "en" : "cn"}.ts`)
   const message = defaultLocal.default ?? {}
 
-  setHtmlLang(locale.lang)
+  setHtmlLang(locale)
 
   localeStore.setCurrentLocale({
     lang: locale.lang

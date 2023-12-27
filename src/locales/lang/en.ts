@@ -8,6 +8,10 @@ export default {
     welcome: "Welcome",
     workplace: "Workplace",
     analysis: "Analysis",
-    notfound: "not found"
+    notfound: "not found",
+    system: "System Management",
+    user: "User Management",
+    role: "Role Management",
+    menu: "Menu Management"
   }
 }

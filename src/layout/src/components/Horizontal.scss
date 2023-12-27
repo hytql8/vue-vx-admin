@@ -27,7 +27,7 @@
       }
     }
     &__menu-switch {
-      padding: 0 5px;
+      // padding: 0 5px;
 
       @include cursor;
       @include flex(start, center, nowrap);
@@ -56,5 +56,4 @@
       padding: 10px;
     }
   }
-
 }

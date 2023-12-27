@@ -24,7 +24,8 @@ export const staticRouter: RouteRecordRaw[] = [
     name: "Dashboard",
     component: Layout,
     meta: {
-      title: t("routes.dashboard")
+      title: t("routes.dashboard"),
+      icon: "ri:dashboard-line"
     },
     children: [
       {
@@ -32,7 +33,8 @@ export const staticRouter: RouteRecordRaw[] = [
         name: "Welcome",
         component: () => import("@/views/Dashboard/Welcome.vue"),
         meta: {
-          title: t("routes.welcome")
+          title: t("routes.welcome"),
+          icon: "fe:smile"
         }
       },
       {
@@ -40,7 +42,8 @@ export const staticRouter: RouteRecordRaw[] = [
         name: "Workplace",
         component: () => import("@/views/Dashboard/Workplace.vue"),
         meta: {
-          title: t("routes.workplace")
+          title: t("routes.workplace"),
+          icon: "bx:bxs-briefcase-alt-2"
         }
       },
       {
@@ -48,7 +51,46 @@ export const staticRouter: RouteRecordRaw[] = [
         name: "Analysis",
         component: () => import("@/views/Dashboard/Analysis.vue"),
         meta: {
-          title: t("routes.analysis")
+          title: t("routes.analysis"),
+          icon: "ri:line-chart-line"
+        }
+      }
+    ]
+  },
+  {
+    path: "/system",
+    name: "System",
+    component: Layout,
+    meta: {
+      title: t("routes.system"),
+      icon: "ri:settings-3-line"
+    },
+    children: [
+      {
+        path: "user",
+        name: "User",
+        component: () => import("@/views/Dashboard/Analysis.vue"),
+        meta: {
+          title: t("routes.user"),
+          icon: "mdi:account"
+        }
+      },
+      {
+        path: "role",
+        name: "Role",
+        component: () => import("@/views/Dashboard/Analysis.vue"),
+        meta: {
+          title: t("routes.role"),
+          icon: "mdi:account-group"
+        }
+      },
+      {
+        path: "menu",
+        name: "Menu",
+        component: () => import("@/views/Dashboard/Analysis.vue"),
+        meta: {
+          title: t("routes.menu"),
+          icon: "mdi:menu"
         }
       }
     ]
@@ -58,7 +100,8 @@ export const staticRouter: RouteRecordRaw[] = [
     path: "/:catchAll(.*)",
     component: () => import("@/views/Error/404.vue"),
     meta: {
-      title: t("routes.notfound")
+      title: t("routes.notfound"),
+      icon: "mdi:arrow-up-bold"
     }
   }
   // 其他路由配置

@@ -25,7 +25,7 @@ console.log(routes, "===========")
     class="vx-menu"
     active-text-color="var(--left-menu-text-active-color)"
     background-color="var(--left-menu-bg-color)"
-    default-active="1"
+    default-active="Welcome"
     :collapse="isFold"
     text-color="var(--left-menu-text-color)"
     @open="handleOpen"

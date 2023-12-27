@@ -54,4 +54,9 @@
   :deep(.el-menu .is-active .el-sub-menu__title) {
     color: var(--left-menu-text-active-color) !important;
   }
+
+  // 重置padding
+  :deep(.el-sub-menu__title) {
+    padding: 0 16px;
+  }
 }

@@ -12,19 +12,22 @@
             <span class="span-ml">{{ t(m.meta.title) }}</span>
           </template>
           <template v-for="n in m.children" :key="n.name">
-            <ElMenuItem v-if="!n.meta.hidden" :index="String(n.name)">
+            <!-- 三级路由子项(仅允许最多存在三级路由,超出部分会降级) -->
+            <ElMenuItem v-if="!n.meta.hidden" :index="String(n.name)" @click="goTo(v.path, m.path, n.path)">
               <VxIcon v-if="n.meta.icon" :icon="n.meta.icon" :size="16" />
               <span class="span-ml">{{ t(n.meta.title) }}</span>
             </ElMenuItem>
           </template>
         </ElSubMenu>
-        <ElMenuItem v-if="!m?.children?.length && !m.meta.hidden" :index="String(m.name)" @click="goTo(m.name)">
+        <!-- 二级路由子项 -->
+        <ElMenuItem v-if="!m?.children?.length && !m.meta.hidden" :index="String(m.name)" @click="goTo(v.path, m.path)">
           <VxIcon v-if="m.meta.icon" :icon="m.meta.icon" :size="16" />
           <span class="span-ml">{{ t(m.meta.title) }}</span>
         </ElMenuItem>
       </template>
     </ElSubMenu>
-    <ElMenuItem v-if="!v?.children?.length && !v.meta.hidden" :index="String(v.name)">
+    <!-- 一级路由子项 -->
+    <ElMenuItem v-if="!v?.children?.length && !v.meta.hidden" :index="String(v.name)" @click="goTo(v.path)">
       <VxIcon v-if="v.meta.icon" :icon="v.meta.icon" :size="16" />
       <span class="span-ml">{{ t(v.meta.title) }}</span>
     </ElMenuItem>
@@ -50,8 +53,11 @@ const props = defineProps<{
 
 const routes = computed(() => props.routes)
 
-const goTo = name => {
-  push({ name })
+const goTo = (...args: string[]) => {
+  const path = args.join("/")
+  push({
+    path
+  })
 }
 </script>
 <style lang="scss" scoped>

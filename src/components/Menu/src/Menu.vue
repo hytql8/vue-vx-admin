@@ -4,6 +4,7 @@ import { useAppStore } from "@/store/modules/app"
 import { staticRouter } from "@/router"
 import { createMenuRoutes } from "@/utils/routerUtils"
 import RenderVertical from "./components/RenderVertical.vue"
+import type { RouteRecordRaw } from "vue-router"
 
 const appStore = useAppStore()
 
@@ -16,7 +17,7 @@ const handleClose = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
 }
 
-const routes = createMenuRoutes(staticRouter)
+const routes = createMenuRoutes(staticRouter as RouteRecordRaw[])
 console.log(routes, "===========")
 </script>
 

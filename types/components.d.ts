@@ -12,16 +12,13 @@ declare module 'vue' {
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElCard: typeof import('element-plus/es')['ElCard']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
-    ElContainer: typeof import('element-plus/es')['ElContainer']
     ElDropdown: typeof import('element-plus/es')['ElDropdown']
     ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
     ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
-    ElDropdownMenuItem: typeof import('element-plus/es')['ElDropdownMenuItem']
     ElHeader: typeof import('element-plus/es')['ElHeader']
     ElMain: typeof import('element-plus/es')['ElMain']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
-    ElMenuItemGroup: typeof import('element-plus/es')['ElMenuItemGroup']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     Fullscreen: typeof import('./../src/components/Fullscreen/src/Fullscreen.vue')['default']
@@ -35,5 +32,6 @@ declare module 'vue' {
     ThemeSwitch: typeof import('./../src/components/ThemeSwitch/src/ThemeSwitch.vue')['default']
     VxContainer: typeof import('./../src/components/VxContainer/src/VxContainer.vue')['default']
     VxIcon: typeof import('./../src/components/VxIcon/src/VxIcon.vue')['default']
+    VXIcon: typeof import('./../src/components/VXIcon/src/VXIcon.vue')['default']
   }
 }

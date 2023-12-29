@@ -1,6 +1,5 @@
 import { App } from "vue"
-import { createRouter, createWebHistory } from "vue-router"
-import type { RouteRecordRaw } from "vue-router"
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
 import { t } from "@/hooks/useLocale"
 
 const Layout = () => import("@/layout/src/index.vue")

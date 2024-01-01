@@ -53,6 +53,14 @@ declare global {
   type refTypes<T = any> = Ref<HTMLElement | ComponentType<T> | InstanceType<typeof T> | null>
 
   type ReturnType<T extends (...args: any) => any> = T extends (...args: any) => infer R ? R : any
+
+  type TagsList = {
+    title: string
+    path: string
+    icon: string
+    isFixed: boolean
+    current: boolean
+  }
 }
 
 export {}

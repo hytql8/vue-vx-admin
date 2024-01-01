@@ -32,6 +32,5 @@ declare module 'vue' {
     ThemeSwitch: typeof import('./../src/components/ThemeSwitch/src/ThemeSwitch.vue')['default']
     VxContainer: typeof import('./../src/components/VxContainer/src/VxContainer.vue')['default']
     VxIcon: typeof import('./../src/components/VxIcon/src/VxIcon.vue')['default']
-    VXIcon: typeof import('./../src/components/VXIcon/src/VXIcon.vue')['default']
   }
 }

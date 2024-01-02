@@ -54,6 +54,7 @@ const props = defineProps<{
 const routes = computed(() => props.routes)
 
 const goTo = (...args: string[]) => {
+  console.log(args)
   const path = args.join("/")
   push({
     path

@@ -1,6 +1,13 @@
 <script lang="tsx" setup>
+import { computed } from "vue"
 import { VxIcon } from "@/components/VxIcon"
-import { ElDropdownItem, ElDropdownMenu } from "element-plus"
+import { useTagsStore } from "@/store/modules/tags"
+import { useI18n } from "vue-i18n"
+
+const { t } = useI18n()
+const tagsStore = useTagsStore()
+
+const tagsList = computed(() => tagsStore.getTagsList)
 </script>
 <template>
   <div class="vx-tags">
@@ -9,21 +16,17 @@ import { ElDropdownItem, ElDropdownMenu } from "element-plus"
     </div>
     <ElScrollbar class="vx-scrollbar">
       <div class="vx-tags-list">
-        <div class="vx-tags-list__item vx-tags-list__item--normal">
-          <div class="vx-tags-list__item--normal__left">
-            <VxIcon icon="ep:guide" :size="14"></VxIcon>
-            <span>导航</span>
+        <div
+          :class="`vx-tags-list__item vx-tags-list__item--${v.current ? 'current' : 'normal'}`"
+          v-for="v in tagsList"
+          :key="v.path"
+        >
+          <div :class="`vx-tags-list__item--${v.current ? 'current' : 'normal'}__left`">
+            <VxIcon :icon="v.icon" :size="14"></VxIcon>
+            <span>{{ t(v.title) }}</span>
           </div>
-          <div class="vx-tags-list__item--normal__right">
+          <div :class="`vx-tags-list__item--${v.current ? 'current' : 'normal'}__right`">
             <VxIcon icon="ep:close" :size="14"></VxIcon>
-          </div>
-        </div>
-        <div class="vx-tags-list__item vx-tags-list__item--current">
-          <div class="vx-tags-list__item--current__left">
-            <span>标签页</span>
-          </div>
-          <div class="vx-tags-list__item--current__right">
-            <VxIcon icon="ep:close" :size="14" color="#fff"></VxIcon>
           </div>
         </div>
       </div>

@@ -29,15 +29,16 @@
   }
   &-list {
     width: 100%;
-    width: 300px;
+    // width: 300px;
     padding: 2px 0;
 
     @include flex(start, center, nowrap);
     &__item {
-      width: fit-content;
-      min-width: 78px;
+      // width: fit-content;
+      min-width: 95px;
       height: 28px;
       margin-left: 5px;
+      overflow: hidden;
       font-size: var(--text-small-size);
       color: var(--theme-text-color);
       border-radius: 2px;

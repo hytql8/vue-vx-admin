@@ -1,13 +1,26 @@
 <script lang="tsx" setup>
-import { computed } from "vue"
-import { VxIcon } from "@/components/VxIcon"
+import { computed, toRaw } from "vue"
+import { VxIcon } from "@/components/VXIcon"
 import { useTagsStore } from "@/store/modules/tags"
 import { useI18n } from "vue-i18n"
+import { useRouter } from "vue-router"
 
 const { t } = useI18n()
+const { push } = useRouter()
 const tagsStore = useTagsStore()
 
 const tagsList = computed(() => tagsStore.getTagsList)
+
+const routingJump = (tags: TagsList) => {
+  tagsStore.updateTagsByTags(toRaw(tags))
+  push(tags.path)
+}
+
+const delTags = (tags: TagsList) => {
+  const path = tagsStore.delTagsByTags(toRaw(tags))
+  console.log(path)
+  push(path)
+}
 </script>
 <template>
   <div class="vx-tags">
@@ -20,13 +33,14 @@ const tagsList = computed(() => tagsStore.getTagsList)
           :class="`vx-tags-list__item vx-tags-list__item--${v.current ? 'current' : 'normal'}`"
           v-for="v in tagsList"
           :key="v.path"
+          @click="routingJump(v)"
         >
           <div :class="`vx-tags-list__item--${v.current ? 'current' : 'normal'}__left`">
             <VxIcon :icon="v.icon" :size="14"></VxIcon>
             <span>{{ t(v.title) }}</span>
           </div>
-          <div :class="`vx-tags-list__item--${v.current ? 'current' : 'normal'}__right`">
-            <VxIcon icon="ep:close" :size="14"></VxIcon>
+          <div v-if="tagsList.length > 1" :class="`vx-tags-list__item--${v.current ? 'current' : 'normal'}__right`">
+            <VxIcon icon="ep:close" :size="14" @click.stop="delTags(v)"></VxIcon>
           </div>
         </div>
       </div>
@@ -42,7 +56,6 @@ const tagsList = computed(() => tagsStore.getTagsList)
         <VxIcon icon="uiw:setting-o" color="#8D9095" :size="14"></VxIcon>
       </div>
       <template #dropdown>
-        <!-- <div>13</div> -->
         <ElDropdownMenu>
           <ElDropdownItem>
             <VxIcon icon="solar:refresh-bold" :size="16" />

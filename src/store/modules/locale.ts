@@ -50,7 +50,7 @@ export const useLocaleStore = defineStore("locale", {
     }
   }
 })
-// setup外部调用pinia
+
 export const useLocaleStoreWithOut = () => {
   return useLocaleStore(store)
 }

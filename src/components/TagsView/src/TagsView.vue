@@ -1,15 +1,42 @@
 <script lang="tsx" setup>
-import { computed, toRaw } from "vue"
-import { VxIcon } from "@/components/VXIcon"
+import { computed, toRaw, unref } from "vue"
+import { VxIcon } from "@/components/VxIcon"
 import { useTagsStore } from "@/store/modules/tags"
 import { useI18n } from "vue-i18n"
 import { useRouter } from "vue-router"
+import { tagsViewInit } from "@/components/TagsView"
+import { reload } from "@/utils"
 
 const { t } = useI18n()
-const { push } = useRouter()
+const { push, currentRoute } = useRouter()
 const tagsStore = useTagsStore()
 
 const tagsList = computed(() => tagsStore.getTagsList)
+
+const currentIndex = computed(() => {
+  let currentTag = tagsStore.getCurrentTag
+  for (let [i, v] of unref(tagsList).entries()) {
+    if (v.path === currentTag.path) {
+      return i
+    }
+  }
+  return -1
+})
+
+// 1 关闭左侧按钮启用， 2 关闭右侧按钮启用， 3 关闭其他tags按钮启用， 4 关闭所有按钮按钮启用
+const isCloseLeftTagsVisable = () => {
+  return unref(currentIndex) <= 0
+}
+const isCloseRightTagsVisable = () => {
+  return unref(currentIndex) + 1 === unref(tagsList).length
+}
+const isCloseOtherTagsVisable = () => {
+  return unref(currentIndex) === 0 && unref(tagsList).length === 1
+}
+
+const isCloseAllTagsVisible = () => {
+  return unref(currentIndex) === 0 && unref(currentRoute).path === unref(tagsList)[0].path
+}
 
 const routingJump = (tags: TagsList) => {
   tagsStore.updateTagsByTags(toRaw(tags))
@@ -18,8 +45,36 @@ const routingJump = (tags: TagsList) => {
 
 const delTags = (tags: TagsList) => {
   const path = tagsStore.delTagsByTags(toRaw(tags))
-  console.log(path)
   push(path)
+}
+
+const closeTag = () => {
+  const path = tagsStore.delCurrentTags()
+  push(path)
+}
+
+const closeOtherTag = () => {
+  tagsStore.delOtherTags()
+}
+
+const closeLeftTag = () => {
+  tagsStore.delLeftTags()
+}
+
+const closeRightTag = () => {
+  tagsStore.delRightTags()
+}
+
+const closeAllTag = () => {
+  tagsStore.delAllTags()
+  const path = tagsViewInit()
+  if (path) {
+    push(path)
+  }
+}
+
+const refresh = () => {
+  reload()
 }
 </script>
 <template>
@@ -39,8 +94,9 @@ const delTags = (tags: TagsList) => {
             <VxIcon :icon="v.icon" :size="14"></VxIcon>
             <span>{{ t(v.title) }}</span>
           </div>
-          <div v-if="tagsList.length > 1" :class="`vx-tags-list__item--${v.current ? 'current' : 'normal'}__right`">
-            <VxIcon icon="ep:close" :size="14" @click.stop="delTags(v)"></VxIcon>
+          <div :class="`vx-tags-list__item--${v.current ? 'current' : 'normal'}__right`">
+            <VxIcon v-if="tagsList.length > 1" icon="ep:close" :size="14" @click.stop="delTags(v)"></VxIcon>
+            <div class="seat"></div>
           </div>
         </div>
       </div>
@@ -48,7 +104,7 @@ const delTags = (tags: TagsList) => {
     <div class="vx-tags-list-pre">
       <VxIcon icon="line-md:chevron-double-right" color="#8D9095" :size="16"></VxIcon>
     </div>
-    <div class="vx-tags-list-suf">
+    <div class="vx-tags-list-suf" @click="refresh">
       <VxIcon icon="clarity:refresh-line" color="#8D9095" :size="14"></VxIcon>
     </div>
     <ElDropdown>
@@ -57,29 +113,29 @@ const delTags = (tags: TagsList) => {
       </div>
       <template #dropdown>
         <ElDropdownMenu>
-          <ElDropdownItem>
+          <!-- <ElDropdownItem @click="refresh">
             <VxIcon icon="solar:refresh-bold" :size="16" />
-            <span class="dropItem__span">重新加载</span>
-          </ElDropdownItem>
-          <ElDropdownItem>
+            <span class="dropItem__span">t('tagsOperations.reload')</span>
+          </ElDropdownItem> -->
+          <ElDropdownItem @click="closeTag" :disabled="isCloseOtherTagsVisable()">
             <VxIcon icon="line-md:close" :size="16" />
-            <span class="dropItem__span">关闭标签页</span>
+            <span class="dropItem__span">{{ t("tagsOperations.closeTag") }}</span>
           </ElDropdownItem>
-          <ElDropdownItem>
+          <ElDropdownItem @click="closeLeftTag" :disabled="isCloseLeftTagsVisable()">
             <VxIcon icon="line-md:arrow-close-left" :size="16" />
-            <span class="dropItem__span">关闭左侧标签页</span>
+            <span class="dropItem__span">{{ t("tagsOperations.closeLeftTag") }}</span>
           </ElDropdownItem>
-          <ElDropdownItem>
+          <ElDropdownItem @click="closeRightTag" :disabled="isCloseRightTagsVisable()">
             <VxIcon icon="line-md:arrow-close-right" :size="16" />
-            <span class="dropItem__span">关闭右侧标签页</span>
+            <span class="dropItem__span">{{ t("tagsOperations.closeRightTag") }}</span>
           </ElDropdownItem>
-          <ElDropdownItem>
+          <ElDropdownItem @click="closeOtherTag" :disabled="isCloseOtherTagsVisable()">
             <VxIcon icon="ant-design:tag-outlined" :size="16" />
-            <span class="dropItem__span">关闭其他标签页</span>
+            <span class="dropItem__span">{{ t("tagsOperations.closeOtherTag") }}</span>
           </ElDropdownItem>
-          <ElDropdownItem>
+          <ElDropdownItem @click="closeAllTag" :disabled="isCloseAllTagsVisible()">
             <VxIcon icon="ep:semi-select" :size="16" />
-            <span class="dropItem__span">关闭全部标签页</span>
+            <span class="dropItem__span">{{ t("tagsOperations.closeAllTag") }}</span>
           </ElDropdownItem>
         </ElDropdownMenu>
       </template>

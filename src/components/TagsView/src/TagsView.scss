@@ -29,26 +29,25 @@
   }
   &-list {
     width: 100%;
-    // width: 300px;
     padding: 2px 0;
 
     @include flex(start, center, nowrap);
     &__item {
-      // width: fit-content;
-      min-width: 95px;
       height: 28px;
       margin-left: 5px;
-      overflow: hidden;
       font-size: var(--text-small-size);
       color: var(--theme-text-color);
       border-radius: 2px;
       &--current {
         color: #ffffff;
+        white-space: nowrap;
         background-color: var(--el-color-primary);
+
+        @include flex(start, center, nowrap);
         &__left {
           height: inherit;
           padding-top: 2px;
-          padding-left: 15px;
+          padding-left: 10px;
 
           @include flex(space-between, center, nowrap);
         }
@@ -56,24 +55,33 @@
           height: inherit;
           padding: 0 4px;
           color: #ffffff;
+          & > .seat {
+            width: 10px
+          }
 
           @include flex(center, center, nowrap);
         }
       }
       &--normal {
+        white-space: nowrap;
         background-color: var(--theme-div-color);
         border: 1px solid var(--divider-color);
+
+        @include flex(start, center, nowrap);
         &:hover {
           color: var(--el-color-primary);
         }
         &__left {
-          padding-left: 15px;
+          padding-left: 10px;
 
-          @include flex(start);
+          @include flex(start, center, nowrap);
         }
         &__right {
           height: inherit;
           padding: 0 4px;
+          & > .seat {
+            width: 10px
+          }
 
           @include flex(center, center, nowrap);
         }

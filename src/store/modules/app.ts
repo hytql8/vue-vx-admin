@@ -82,7 +82,7 @@ export const useAppStore = defineStore("app", {
     }
   }
 })
-// setup外部调用pinia
+
 export const useAppStoreWithOut = () => {
   return useAppStore(store)
 }

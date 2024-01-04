@@ -1,4 +1,4 @@
-import VxIcon from "./src/VxIcon.vue"
+import VxIcon from "./src/VXIcon.vue"
 
 export type { IconTypes } from "./src/types"
 export { VxIcon }

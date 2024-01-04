@@ -13,5 +13,13 @@ export default {
     user: "User Management",
     role: "Role Management",
     menu: "Menu Management"
+  },
+  tagsOperations: {
+    reload: "Reload",
+    closeTag: "Close Tab",
+    closeLeftTag: "Close The Left Tab",
+    closeRightTag: "Close The Right Tab",
+    closeOtherTag: "Close Other Tabs",
+    closeAllTag: "Close All Tabs"
   }
 }

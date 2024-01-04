@@ -2,6 +2,7 @@ import { defineStore } from "pinia"
 import { useStorage } from "@/hooks/useStorage"
 import { RouteRecordRaw } from "vue-router"
 import { toRaw } from "vue"
+import { store } from "../index"
 
 const { getStorage, setStorage } = useStorage()
 
@@ -18,6 +19,10 @@ export const useTagsStore = defineStore("tags", {
   getters: {
     getTagsList(): TagsList[] {
       return this.tagsList
+    },
+    // 获取当前选中的tag
+    getCurrentTag(): TagsList {
+      return this.tagsList.filter((v: TagsList) => v.current)[0]
     }
   },
   actions: {
@@ -74,7 +79,7 @@ export const useTagsStore = defineStore("tags", {
       setStorage("tagsList", this.tagsList)
     },
     // 根据传入Tags删除tags
-    delTagsByTags(tag: TagsList) {
+    delTagsByTags(tag: TagsList): string {
       let index = this.tagsList.findIndex((v: TagsList, index: number) => (v.path === tag.path ? index : -1))
       for (let [i, v] of this.tagsList.entries()) {
         if (tag.path === v.path) {
@@ -88,6 +93,47 @@ export const useTagsStore = defineStore("tags", {
       let path = index > 0 ? this.tagsList[index - 1].path : index === 0 ? this.tagsList[this.tagsList.length - 1].path : "/404"
       this.updateTagsByTags(toRaw(this.tagsList.filter((v: TagsList) => v.path === path)[0]))
       return path
+    },
+    // 关闭当前标签页
+    delCurrentTags(): string {
+      return this.delTagsByTags(toRaw(this.getCurrentTag))
+    },
+    // 关闭全部标签页
+    delOtherTags() {
+      const currentTag = toRaw(this.getCurrentTag) as TagsList
+      this.tagsList.splice(0, this.tagsList.length)
+      this.tagsList.push(currentTag)
+      setStorage("tagsList", this.tagsList)
+    },
+    // 关闭左侧标签页
+    delLeftTags() {
+      const currentTag = toRaw(this.getCurrentTag) as TagsList
+      for (let [i, v] of toRaw(this.getTagsList).entries()) {
+        if (v.path === currentTag.path) {
+          this.tagsList.splice(0, i)
+          break
+        }
+      }
+      setStorage("tagsList", this.tagsList)
+    },
+    // 关闭右侧标签页
+    delRightTags() {
+      const currentTag = toRaw(this.getCurrentTag) as TagsList
+      for (let [i, v] of toRaw(this.getTagsList).entries()) {
+        if (v.path === currentTag.path) {
+          this.tagsList.splice(i + 1, this.tagsList.length)
+          break
+        }
+      }
+      setStorage("tagsList", this.tagsList)
+    },
+    delAllTags() {
+      this.tagsList.splice(0, this.tagsList.length)
+      setStorage("tagsList", this.tagsList)
     }
   }
 })
+
+export const useTagsStoreWithOut = () => {
+  return useTagsStore(store)
+}

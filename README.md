@@ -1,4 +1,5 @@
 # VXAdmin
+
 A practical front-end template for Vue3+TypeScript+Vite+Pinia+Vueuse, based on the latest/cutting-edge front-end technologies
 
 # VSCode setting（复制下面就可以，必须要，因为这个是stylelint和I18n Ally插件生效的关键配置）

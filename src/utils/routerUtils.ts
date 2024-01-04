@@ -1,4 +1,4 @@
-import _ from "lodash"
+import { cloneDeep, remove } from "lodash-es"
 import type { RouteRecordRaw } from "vue-router"
 
 // 处理静态路由，降级，keepalive最多只支持缓存二级, 此方法直接使用forEach直接改变传入的routes
@@ -62,8 +62,8 @@ export const toLowerRoutes = (
 @params staticRouter 传入的原始路由
 **/
 export const createMenuRoutes = (staticRouter: RouteRecordRaw[]): RouteRecordRaw[] => {
-  const localRoutes: RouteRecordRaw[] = _.cloneDeep(staticRouter)
-  _.remove(localRoutes, route => route.path === "/" || route.name === "404" || route.name === "Login")
+  const localRoutes: RouteRecordRaw[] = cloneDeep(staticRouter)
+  remove(localRoutes, route => route.path === "/" || route.name === "404" || route.name === "Login")
   toLowerRoutes(localRoutes)
   return localRoutes
 }

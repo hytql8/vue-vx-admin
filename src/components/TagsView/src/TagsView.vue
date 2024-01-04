@@ -35,7 +35,7 @@ const isCloseOtherTagsVisable = () => {
 }
 
 const isCloseAllTagsVisible = () => {
-  return unref(currentIndex) === 0 && unref(currentRoute).path === unref(tagsList)[0].path
+  return unref(tagsList).length === 0 && unref(currentRoute).path === unref(tagsList)[0].path
 }
 
 const routingJump = (tags: TagsList) => {

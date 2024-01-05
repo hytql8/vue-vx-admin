@@ -81,7 +81,7 @@ const refresh = () => {
 const scrollViewRef = ref<InstanceType<typeof ElScrollbar>>()
 const scrollLeftNumber = ref(0)
 // 默认滚动距离
-const step = 300
+const step = 250
 
 const getScroll = ({ scrollLeft }) => {
   scrollLeftNumber.value = scrollLeft as number

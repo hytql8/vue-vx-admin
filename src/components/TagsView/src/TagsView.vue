@@ -1,5 +1,5 @@
 <script lang="tsx" setup>
-import { ref, computed, toRaw, unref, nextTick, watch } from "vue"
+import { ref, computed, toRaw, unref, nextTick } from "vue"
 import { VxIcon } from "@/components/VxIcon"
 import { useTagsStore } from "@/store/modules/tags"
 import { useI18n } from "vue-i18n"
@@ -82,6 +82,8 @@ const scrollViewRef = ref<InstanceType<typeof ElScrollbar>>()
 const scrollLeftNumber = ref(0)
 // 默认滚动距离
 const step = 250
+// 实际left滚动距离
+let left: number
 
 const getScroll = ({ scrollLeft }) => {
   scrollLeftNumber.value = scrollLeft as number
@@ -89,30 +91,20 @@ const getScroll = ({ scrollLeft }) => {
 
 const getScrollViewRef = async () => {
   await nextTick()
-  return unref(scrollViewRef)
+  return scrollViewRef
 }
-
-// scrollbar包裹着的div的width
-const wrapRefWidth = computed(() => unref(scrollViewRef).wrapRef.offsetWidth)
 
 const scrollPre = async () => {
   const scrollbarRef = await getScrollViewRef()
-  let left = unref(scrollLeftNumber) - step < 0 ? 0 : unref(scrollLeftNumber) - step
-  scrollbarRef.scrollTo({ left, behavior: "smooth" })
+  left = unref(scrollLeftNumber) - step < 0 ? 0 : unref(scrollLeftNumber) - step
+  unref(scrollbarRef).scrollTo({ left, behavior: "smooth" })
 }
 
 const scrollNext = async () => {
   const scrollbarRef = await getScrollViewRef()
-  let left = unref(scrollLeftNumber) + step > unref(wrapRefWidth) ? unref(wrapRefWidth) : unref(scrollLeftNumber) + step
-  scrollbarRef.scrollTo({ left, behavior: "smooth" })
+  left = unref(scrollLeftNumber) + step
+  unref(scrollbarRef).scrollTo({ left, behavior: "smooth" })
 }
-
-watch(
-  () => unref(scrollLeftNumber),
-  (val: number) => {
-    console.log(val)
-  }
-)
 </script>
 <template>
   <div class="vx-tags">

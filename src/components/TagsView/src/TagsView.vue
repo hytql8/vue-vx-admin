@@ -1,11 +1,12 @@
 <script lang="tsx" setup>
-import { computed, toRaw, unref } from "vue"
+import { ref, computed, toRaw, unref, nextTick, watch } from "vue"
 import { VxIcon } from "@/components/VxIcon"
 import { useTagsStore } from "@/store/modules/tags"
 import { useI18n } from "vue-i18n"
 import { useRouter } from "vue-router"
 import { tagsViewInit } from "@/components/TagsView"
 import { reload } from "@/utils"
+import { ElScrollbar } from "element-plus"
 
 const { t } = useI18n()
 const { push, currentRoute } = useRouter()
@@ -76,13 +77,49 @@ const closeAllTag = () => {
 const refresh = () => {
   reload()
 }
+
+const scrollViewRef = ref<InstanceType<typeof ElScrollbar>>()
+const scrollLeftNumber = ref(0)
+// 默认滚动距离
+const step = 300
+
+const getScroll = ({ scrollLeft }) => {
+  scrollLeftNumber.value = scrollLeft as number
+}
+
+const getScrollViewRef = async () => {
+  await nextTick()
+  return unref(scrollViewRef)
+}
+
+// scrollbar包裹着的div的width
+const wrapRefWidth = computed(() => unref(scrollViewRef).wrapRef.offsetWidth)
+
+const scrollPre = async () => {
+  const scrollbarRef = await getScrollViewRef()
+  let left = unref(scrollLeftNumber) - step < 0 ? 0 : unref(scrollLeftNumber) - step
+  scrollbarRef.scrollTo({ left, behavior: "smooth" })
+}
+
+const scrollNext = async () => {
+  const scrollbarRef = await getScrollViewRef()
+  let left = unref(scrollLeftNumber) + step > unref(wrapRefWidth) ? unref(wrapRefWidth) : unref(scrollLeftNumber) + step
+  scrollbarRef.scrollTo({ left, behavior: "smooth" })
+}
+
+watch(
+  () => unref(scrollLeftNumber),
+  (val: number) => {
+    console.log(val)
+  }
+)
 </script>
 <template>
   <div class="vx-tags">
-    <div class="vx-tags-list-pre">
+    <div class="vx-tags-list-pre" @click="scrollPre">
       <VxIcon icon="line-md:chevron-double-left" color="#8D9095" :size="16"></VxIcon>
     </div>
-    <ElScrollbar class="vx-scrollbar">
+    <ElScrollbar class="vx-scrollbar" ref="scrollViewRef" @scroll="getScroll">
       <div class="vx-tags-list">
         <div
           :class="`vx-tags-list__item vx-tags-list__item--${v.current ? 'current' : 'normal'}`"
@@ -101,7 +138,7 @@ const refresh = () => {
         </div>
       </div>
     </ElScrollbar>
-    <div class="vx-tags-list-pre">
+    <div class="vx-tags-list-pre" @click="scrollNext">
       <VxIcon icon="line-md:chevron-double-right" color="#8D9095" :size="16"></VxIcon>
     </div>
     <div class="vx-tags-list-suf" @click="refresh">

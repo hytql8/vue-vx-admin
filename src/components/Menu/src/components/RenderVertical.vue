@@ -38,7 +38,7 @@ import type { RouteRecordRaw } from "vue-router"
 import { computed } from "vue"
 import { useI18n } from "vue-i18n"
 import { useRouter } from "vue-router"
-import { VxIcon } from "@/components/VxIcon"
+import { VxIcon } from "@/components/VXIcon"
 import { useTagsStore } from "@/store/modules/tags"
 
 const { push, getRoutes } = useRouter()
@@ -60,7 +60,6 @@ const props = defineProps<{
 const routes = computed(() => props.routes)
 
 const routingJump = (...args: string[]) => {
-  console.log(findRoute(args))
   tagsStore.addTags(findRoute(args))
   const path = args.join("/")
   push({

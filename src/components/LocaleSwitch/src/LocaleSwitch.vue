@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { watch, computed } from "vue"
-import { VxIcon } from "@/components/VXIcon"
+import { VxIcon } from "@/components/VxIcon"
 import { useLocaleStore } from "@/store/modules/locale"
 import { setHtmlLang, useCustomLocale } from "@/hooks/useLocale"
 

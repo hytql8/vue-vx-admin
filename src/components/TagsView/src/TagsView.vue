@@ -1,6 +1,6 @@
 <script lang="tsx" setup>
 import { ref, computed, toRaw, unref, nextTick } from "vue"
-import { VxIcon } from "@/components/VXIcon"
+import { VxIcon } from "@/components/VxIcon"
 import { useTagsStore } from "@/store/modules/tags"
 import { useI18n } from "vue-i18n"
 import { useRouter } from "vue-router"

@@ -9,7 +9,7 @@ import { LocaleSwitch } from "@/components/LocaleSwitch"
 import { Fullscreen } from "@/components/Fullscreen"
 import { Breadcrumb } from "@/components/Breadcrumb"
 import { useAppStore } from "@/store/modules/app"
-import { VxIcon } from "@/components/VXIcon"
+import { VxIcon } from "@/components/VxIcon"
 import { ElContainer } from "element-plus"
 
 const appStore = useAppStore()

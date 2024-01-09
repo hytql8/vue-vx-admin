@@ -21,5 +21,10 @@ export default {
     closeRightTag: "关闭右侧标签页",
     closeOtherTag: "关闭其他标签页",
     closeAllTag: "关闭全部标签页"
+  },
+  personalCenter: {
+    personalCenter: "个人中心",
+    changePassword: "修改密码",
+    loginOut: "退出登录"
   }
 }

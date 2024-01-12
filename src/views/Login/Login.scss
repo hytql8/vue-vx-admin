@@ -1,0 +1,16 @@
+@import "@/styles/var.scss";
+.vx-login {
+    &__left {
+        width: 50%;
+        & > img {
+            margin-top: 200px;
+        }
+
+        @include flex(end,center,nowrap)
+    }
+    &__right {
+        width: 50%;
+    }
+
+    @include flex(start,center,nowrap)
+}

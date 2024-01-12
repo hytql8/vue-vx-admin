@@ -6,6 +6,7 @@ import Components from "unplugin-vue-components/vite"
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers"
 import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite"
 import { createStyleImportPlugin, ElementPlusResolve } from "vite-plugin-style-import"
+import { viteMockServe, ViteMockOptions } from "vite-plugin-mock"
 
 export const getPluginsList = (VITE_CDN: boolean) => {
   return [
@@ -42,6 +43,14 @@ export const getPluginsList = (VITE_CDN: boolean) => {
       runtimeOnly: true,
       compositionOnly: true,
       include: [resolve("locales/**")]
-    })
+    }),
+    viteMockServe({
+      ignore: /^\_/,
+      mockPath: "mock",
+      localEnabled: true,
+      prodEnabled: false,
+      injectCode: `import { setupProdMockServer } from '../mock/_createProductionServer'
+      setupProdMockServer()`
+    } as ViteMockOptions)
   ]
 }

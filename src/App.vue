@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watch, onMounted, computed, toRaw, unref } from "vue"
+import { watch, onMounted, computed, toRaw } from "vue"
 import { useAppStore } from "@/store/modules/app"
 import { useLocaleStore } from "@/store/modules/locale"
 import { normalTheme, darkTheme } from "@/utils/theme"

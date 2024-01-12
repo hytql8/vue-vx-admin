@@ -27,6 +27,6 @@
     "types": ["node", "vite/client", "pinia-plugin-persist"]
   },
   //需要编译的
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "types/**/*.d.ts", "types/*.d.ts", "vite.config.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "types/**/*.d.ts", "types/*.d.ts", "vite.config.ts", "mock/**/*.ts"],
   "exclude": ["dist", "**/*.js", "node_modules"] //需要排除的
 }

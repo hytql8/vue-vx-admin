@@ -60,7 +60,6 @@ const props = defineProps<{
 const routes = computed(() => props.routes)
 
 const routingJump = (...args: string[]) => {
-  console.log(findRoute(args))
   tagsStore.addTags(findRoute(args))
   const path = args.join("/")
   push({

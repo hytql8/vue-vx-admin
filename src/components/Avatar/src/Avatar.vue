@@ -1,10 +1,13 @@
 <script lang="ts" setup>
 import { getStaticSource } from "@/utils/index"
 import { VxIcon } from "@/components/VxIcon"
+import { useI18n } from "vue-i18n"
 
 defineOptions({
   name: "VxAvatar"
 })
+
+const { t } = useI18n()
 
 const url = getStaticSource("@/assets/imgs/Avatar.png")
 </script>
@@ -19,15 +22,15 @@ const url = getStaticSource("@/assets/imgs/Avatar.png")
         <ElDropdownMenu>
           <ElDropdownItem>
             <VxIcon icon="ant-design:user-outlined" />
-            <span class="vx-dropdown-item__text">个人中心</span>
+            <span class="vx-dropdown-item__text">{{ t("personalCenter.personalCenter") }}</span>
           </ElDropdownItem>
           <ElDropdownItem>
             <VxIcon icon="ant-design:unlock-outlined" />
-            <span class="vx-dropdown-item__text">修改密码</span>
+            <span class="vx-dropdown-item__text">{{ t("personalCenter.changePassword") }}</span>
           </ElDropdownItem>
           <ElDropdownItem>
             <VxIcon icon="mdi:logout" />
-            <span class="vx-dropdown-item__text">退出登录</span>
+            <span class="vx-dropdown-item__text">{{ t("personalCenter.loginOut") }}</span>
           </ElDropdownItem>
         </ElDropdownMenu>
       </template>

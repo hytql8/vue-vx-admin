@@ -21,5 +21,10 @@ export default {
     closeRightTag: "Close The Right Tab",
     closeOtherTag: "Close Other Tabs",
     closeAllTag: "Close All Tabs"
+  },
+  personalCenter: {
+    personalCenter: "Personal Center",
+    changePassword: "Change Password",
+    loginOut: "Login Out"
   }
 }

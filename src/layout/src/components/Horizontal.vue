@@ -7,6 +7,7 @@ import { ThemeSwitch } from "@/components/ThemeSwitch"
 import { Avatar } from "@/components/Avatar"
 import { LocaleSwitch } from "@/components/LocaleSwitch"
 import { Fullscreen } from "@/components/Fullscreen"
+import { Breadcrumb } from "@/components/Breadcrumb"
 import { useAppStore } from "@/store/modules/app"
 import { VxIcon } from "@/components/VxIcon"
 import { ElContainer } from "element-plus"
@@ -36,7 +37,7 @@ const toggleExpand = () => {
     <ElHeader class="vx-header">
       <Logo class="vx-header__logo" />
       <div class="vx-header__nav">
-        <div class="vx-header__menu-switch"><MenuSwitch @click="toggleExpand" /></div>
+        <div class="vx-header__menu-switch"><MenuSwitch @click="toggleExpand" /><Breadcrumb /></div>
         <div class="vx-header__info"><ThemeSwitch /> <Fullscreen /> <LocaleSwitch /> <Avatar /></div>
       </div>
     </ElHeader>
@@ -47,7 +48,11 @@ const toggleExpand = () => {
       <ElMain class="vx-main">
         <TagsView />
         <div class="vx-main__container">
-          <RouterView></RouterView>
+          <RouterView v-slot="{ Component }">
+            <Transition name="container" mode="out-in">
+              <component :is="Component" />
+            </Transition>
+          </RouterView>
         </div>
       </ElMain>
     </ElContainer>

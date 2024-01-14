@@ -1,0 +1,12 @@
+.vx-breadcrumb {
+    margin-left: 10px;
+}
+.breadcrumb-enter-active,
+.breadcrumb-leave-active {
+    transition: opacity 0.3s;
+}
+.breadcrumb-enter,
+.breadcrumb-leave-to {
+    opacity: 0;
+    transform: translateX(-5px);
+}

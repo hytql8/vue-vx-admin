@@ -3,10 +3,10 @@ import type { RouteRecordRaw } from "vue-router"
 
 // 处理静态路由，降级，keepalive最多只支持缓存二级, 此方法直接使用forEach直接改变传入的routes
 /**  
-@params routes 传入的原始路由
-@params level 原始level（不建议改变，如果要改，请注意expectedLevel需要＞level的值）
-@params parentRoute 临时暂存的parent节点，用于赋值
-@params expectedLevel 需要降级为最多几级，比如level === 1 ，expectedLevel === 2时，此时最多有（expectedLevel - level + 1） = 2级路由 
+@param routes 传入的原始路由
+@param level 原始level（不建议改变，如果要改，请注意expectedLevel需要＞level的值）
+@param parentRoute 临时暂存的parent节点，用于赋值
+@param expectedLevel 需要降级为最多几级，比如level === 1 ，expectedLevel === 2时，此时最多有（expectedLevel - level + 1） = 2级路由 
 **/
 export const toLowerRoutes = (
   routes: RouteRecordRaw[],
@@ -59,7 +59,7 @@ export const toLowerRoutes = (
 
 // 生成菜单渲染的expectedLevel级的路由 ,当前加载的路由需要去掉根目录， login和错误页面路由
 /**  
-@params staticRouter 传入的原始路由
+@param staticRouter 传入的原始路由
 **/
 export const createMenuRoutes = (staticRouter: RouteRecordRaw[]): RouteRecordRaw[] => {
   const localRoutes: RouteRecordRaw[] = cloneDeep(staticRouter)
@@ -70,7 +70,7 @@ export const createMenuRoutes = (staticRouter: RouteRecordRaw[]): RouteRecordRaw
 
 // 处理路由：全部打平为一级
 /**  
-@params staticRouter 传入的原始路由
+@param staticRouter 传入的原始路由
 **/
 export const flattenRoutes = (routes: RouteRecordRaw[]): RouteRecordRaw[] => {
   let flattenedRoutes: RouteRecordRaw[] = []
@@ -86,4 +86,21 @@ export const flattenRoutes = (routes: RouteRecordRaw[]): RouteRecordRaw[] => {
     }
   })
   return flattenedRoutes
+}
+
+// 根据传入路由找到父级路由
+/**
+@param routes 原始路由
+@param parentPath 指定父级path 默认为空
+ */
+export const findParentRoute = (routes: RouteRecordRaw[], parentPath = "") => {
+  for (const route of routes) {
+    if (route.path.substring(1, route.path.length) === parentPath) {
+      return route
+    }
+    if (route.children?.length) {
+      findParentRoute(route.children, parentPath)
+    }
+  }
+  return null
 }

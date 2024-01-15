@@ -111,6 +111,19 @@ export const router = createRouter({
   routes: staticRouter
 })
 
+router.beforeEach(async to => {
+  let auth = false
+  if (
+    // 检查用户是否已登录
+    !auth &&
+    // ❗️ 避免无限重定向
+    to.name !== "Login"
+  ) {
+    // 将用户重定向到登录页面
+    return { name: "Login" }
+  }
+})
+
 // 在路由加载完毕后，导出之前将router注册方法导出
 export const setupRouter = (app: App<Element>) => {
   app.use(router)

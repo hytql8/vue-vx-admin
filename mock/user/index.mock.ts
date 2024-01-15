@@ -4,25 +4,21 @@ import { MockMethod } from "vite-plugin-mock"
 // const { code } = config
 const timeout = 1000
 
-const List: {
-  username: string
-  password: string
-  role: string
-  roleId: string
-  permissions: string | string[]
-}[] = [
+const List = [
   {
+    userId: 0,
     username: "admin",
     password: "admin",
-    role: "admin",
-    roleId: "1",
-    permissions: ["*.*.*"]
+    roleId: 0,
+    roles: ["admin"],
+    auths: ["*.*.*"]
   },
   {
+    userId: 1,
     username: "test",
     password: "test",
-    role: "test",
-    roleId: "2",
+    roleId: 1,
+    role: ["test", "admin"],
     permissions: ["example:dialog:create", "example:dialog:delete"]
   }
 ]

@@ -112,7 +112,7 @@ export const router = createRouter({
 })
 
 router.beforeEach(async to => {
-  let auth = false
+  let auth = true
   if (
     // 检查用户是否已登录
     !auth &&

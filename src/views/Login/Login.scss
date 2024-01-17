@@ -1,5 +1,6 @@
 @import "@/styles/var.scss";
 .vx-login {
+    background-color: #ffffff;
     &__left {
         width: 50%;
         & > img {
@@ -10,6 +11,9 @@
     }
     &__right {
         width: 50%;
+        &__login-box {
+            width: 40%;
+        }
     }
 
     @include flex(start,center,nowrap)

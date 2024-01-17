@@ -21,6 +21,7 @@
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
     "mockjs": "^1.1.0",
+    "nprogress": "^0.2.0",
     "pinia": "^2.1.7",
     "pinia-plugin-persist": "^1.0.0",
     "vite-plugin-cdn-import": "^0.3.5",

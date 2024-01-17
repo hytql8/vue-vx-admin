@@ -6,10 +6,11 @@ import { setupI18n } from "@/plugins/vueI18n"
 import { setupVxeTable } from "./plugins/vxeTable"
 
 // 引入样式
+// import "vxe-table/styles/cssvar.scss"
+
 import "animate.css"
 import "./styles/reset.scss"
 import "./styles/index.scss"
-import "vxe-table/styles/cssvar.scss"
 
 const setupApp = async () => {
   const app = createApp(App)

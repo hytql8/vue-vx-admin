@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { VxContainer } from "@/components/VxContainer"
 import { ref } from "vue"
+import { VxeTable, VxeColumn } from "vxe-table"
 
 interface RowVO {
   id: number

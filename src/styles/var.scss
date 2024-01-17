@@ -1,3 +1,5 @@
+@use "vxe-table/lib/style.css";
+
 // 全局变量文件
 :root {
   // 主题
@@ -35,6 +37,18 @@
 
   // 分割线
   --divider-color: #dbdcdd;
+}
+html.dark {
+  --vxe-font-color: #98989E;
+  --vxe-primary-color: #3a6ee8;
+  --vxe-icon-background-color: #98989E;
+  --vxe-table-font-color: #98989E;
+  --vxe-table-resizable-color: #95969a;
+  --vxe-table-header-background-color: #28282A;
+  --vxe-table-body-background-color: #151518;
+  --vxe-table-background-color: #4a5663;
+  --vxe-table-border-width: 1px;
+  --vxe-table-border-color: #37373A;
 }
 
 @mixin flex($justify: space-between, $align: center, $wrap: nowrap) {

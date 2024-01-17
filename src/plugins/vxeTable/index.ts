@@ -1,51 +1,10 @@
-import type { App, Component } from "vue"
-
-import {
-  // 表格功能
-  // Filter,
-  // Edit,
-  // Menu,
-  // Export,
-  // Keyboard,
-  // Validator,
-
-  // 可选组件
-  Icon,
-  Column,
-  // Colgroup,
-  // Grid,
-  // Tooltip,
-  // Toolbar,
-  // Pager,
-  // Form,
-  // FormItem,
-  // FormGather,
-  // Checkbox,
-  // CheckboxGroup,
-  // Radio,
-  // RadioGroup,
-  // RadioButton,
-  // Switch,
-  // Input,
-  // Select,
-  // Optgroup,
-  // Option,
-  // Textarea,
-  // Button,
-  // Modal,
-  // List,
-  // Pulldown,
-
-  // 表格
-  Table
-} from "vxe-table"
-
-// 需要全局引入的组件
-const components = [Icon, Column, Table]
+import type { App } from "vue"
+import { i18n } from "@/plugins/vueI18n"
+import VXETable from "vxe-table"
 
 export function setupVxeTable(app: App) {
-  // 注册组件
-  components.forEach((component: Component) => {
-    app.component(component.name, component)
+  VXETable.config({
+    i18n: (key, args) => i18n.global.t(key, args)
   })
+  app.use(VXETable)
 }

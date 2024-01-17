@@ -5,7 +5,7 @@ import { cdn } from "./cdn"
 import Components from "unplugin-vue-components/vite"
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers"
 import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite"
-import { createStyleImportPlugin, ElementPlusResolve } from "vite-plugin-style-import"
+import { createStyleImportPlugin, ElementPlusResolve, VxeTableResolve } from "vite-plugin-style-import"
 import { viteMockServe, ViteMockOptions } from "vite-plugin-mock"
 
 export const getPluginsList = (VITE_CDN: boolean) => {
@@ -16,7 +16,7 @@ export const getPluginsList = (VITE_CDN: boolean) => {
     VITE_CDN ? cdn : null,
     // 自动导入组件对应样式
     createStyleImportPlugin({
-      resolves: [ElementPlusResolve()],
+      resolves: [ElementPlusResolve(), VxeTableResolve()],
       libs: [
         {
           libraryName: "element-plus",

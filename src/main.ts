@@ -3,8 +3,11 @@ import App from "./App.vue"
 import { router, setupRouter } from "@/router"
 import { setupStore } from "@/store"
 import { setupI18n } from "@/plugins/vueI18n"
+import { setupVxeTable } from "./plugins/vxeTable"
 
 // 引入样式
+// import "vxe-table/styles/cssvar.scss"
+
 import "animate.css"
 import "./styles/reset.scss"
 import "./styles/index.scss"
@@ -16,6 +19,7 @@ const setupApp = async () => {
   setupRouter(app)
   await router.isReady()
   setupStore(app)
+  setupVxeTable(app)
   app.mount("#app")
 }
 setupApp()

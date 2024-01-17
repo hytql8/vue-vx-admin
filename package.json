@@ -28,7 +28,8 @@
     "vite-plugin-style-import": "^2.0.0",
     "vue": "^3.3.8",
     "vue-i18n": "^9.8.0",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vxe-table": "^4.5.18"
   },
   "devDependencies": {
     "@iconify-icons/ep": "^1.2.12",

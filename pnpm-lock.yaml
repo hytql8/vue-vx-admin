@@ -65,6 +65,9 @@ dependencies:
   vue-router:
     specifier: ^4.2.5
     version: registry.npmmirror.com/vue-router@4.2.5(vue@3.3.8)
+  vxe-table:
+    specifier: ^4.5.18
+    version: 4.5.18(vue@3.3.8)(xe-utils@3.5.17)
 
 devDependencies:
   '@iconify-icons/ep':
@@ -480,6 +483,10 @@ packages:
       domhandler: 5.0.3
       entities: 4.5.0
     dev: true
+
+  /dom-zindex@1.0.1:
+    resolution: {integrity: sha512-M/MERVDZ8hguvjl6MAlLWSLYLS7PzEyXaTb5gEeJ+SF+e9iUC0sdvlzqe91MMDHBoy+nqw7wKcUOrDSyvMCrRg==, tarball: https://registry.npmmirror.com/dom-zindex/-/dom-zindex-1.0.1.tgz}
+    dev: false
 
   /domelementtype@2.3.0:
     resolution: {integrity: sha512-OLETBj6w0OsagBwdXnPdN0cnMfF9opN69co+7ZrbfPGrdpPVNBUj02spi6B1N7wChLQiPn4CSH/zJvXw56gmHw==, tarball: https://registry.npmmirror.com/domelementtype/-/domelementtype-2.3.0.tgz}
@@ -1017,6 +1024,21 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /vxe-table@4.5.18(vue@3.3.8)(xe-utils@3.5.17):
+    resolution: {integrity: sha512-YQJhYjLsB7OqHFQJ0X6jO8uMuerqgGCzvh+wYk14dUqGMv96tBwv5LhHDW7odW7OnUkVrp3mZIRmvq33r/0djQ==, tarball: https://registry.npmmirror.com/vxe-table/-/vxe-table-4.5.18.tgz}
+    peerDependencies:
+      vue: ^3.2.28
+      xe-utils: ^3.5.0
+    dependencies:
+      dom-zindex: 1.0.1
+      vue: registry.npmmirror.com/vue@3.3.8(typescript@5.3.2)
+      xe-utils: 3.5.17
+    dev: false
+
+  /xe-utils@3.5.17:
+    resolution: {integrity: sha512-UcKt3KppdHPTeH3omhW4m198VlgMJeuczwndeB7WnbSmkPksVXLLb7cnwonkSvtLiP6ge2uEonD4Hc1/mRxPVw==, tarball: https://registry.npmmirror.com/xe-utils/-/xe-utils-3.5.17.tgz}
+    dev: false
 
   registry.npmmirror.com/@aashutoshrathi/word-wrap@1.2.6:
     resolution: {integrity: sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz}

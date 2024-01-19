@@ -60,7 +60,7 @@ watch(
 </script>
 <template>
   <ElBreadcrumb separator="/" class="vx-breadcrumb">
-    <TransitionGroup name="breadcrumb">
+    <TransitionGroup enter-active-class="animate__animated animate__fadeInRight">
       <ElBreadcrumbItem v-for="bread in breadcrumbList" :key="bread.route[0].name" :to="{ path: bread.currentTarget }">
         {{ t(bread.route[0].meta.title) }}
       </ElBreadcrumbItem>

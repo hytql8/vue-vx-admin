@@ -26,6 +26,7 @@ declare module 'vue' {
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElScrollbar: (typeof import("element-plus/es"))["ElScrollbar"]
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
+    ElTable: typeof import('element-plus/es')['ElTable']
     Fullscreen: typeof import('./../src/components/Fullscreen/src/Fullscreen.vue')['default']
     LocaleSwitch: typeof import('./../src/components/LocaleSwitch/src/LocaleSwitch.vue')['default']
     Logo: typeof import('./../src/components/Logo/src/Logo.vue')['default']

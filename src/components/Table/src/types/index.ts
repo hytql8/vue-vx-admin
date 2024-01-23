@@ -1,8 +1,12 @@
-import type { ElTooltipProps } from "element-plus"
+import type { ElTooltipProps, ElTable } from "element-plus"
 import type { CSSProperties } from "vue"
+import { VxIcon } from "@/components/VxIcon"
 /**
  * @description Table的参数的类型
  * @param data 显示的数据
+ * @param columns 渲染的列配置
+ * @param pagination 是否显示分页
+ * @param loading 是否展示加载中动画
  * @param height Table 的高度， 默认为自动高度。 如果 height 为 number 类型，单位 px；如果 height 为 string 类型，则这个高度会设置为 Table 的 style.height 的值，Table 的高度会受控于外部样式。
  * @param maxHeight Table 的最大高度。 合法的值为数字或者单位为 px 的高度。
  * @param stripe 是否为斑马纹 table
@@ -43,6 +47,9 @@ import type { CSSProperties } from "vue"
  */
 interface TableParameterTypes {
   data?: Recordable[]
+  columns?: TableColumnParameterTypes[]
+  pagination?: Pagination | undefined
+  loading?: boolean
   height?: string | number
   maxHeight?: string | number
   stripe?: boolean
@@ -155,7 +162,29 @@ interface TableColumnParameterTypes {
   [key: string]: any
 }
 
-export interface Pagination {
+/**
+ * @description 分页
+ * @param small 是否使用小型分页样式
+ * @param background 是否为分页按钮添加背景色
+ * @param pageSize 每页显示条目个数
+ * @param defaultPageSize 每页默认的条目个数，不设置时默认为10
+ * @param total 总条目数
+ * @param pageCount 总页数， total 和 page-count 设置任意一个就可以达到显示页码的功能；如果要支持 page-sizes 的更改，则需要使用 total 属性
+ * @param pagerCount 设置最大页码按钮数。 页码按钮的数量，当总页数超过该值时会折叠
+ * @param currentPage 当前页数
+ * @param defaultCurrentPage 当前页数的默认初始值，不设置时默认为 1
+ * @param layout 组件布局，子组件名用逗号分隔
+ * @param pageSizes 每页显示个数选择器的选项设置
+ * @param popperClass 每页显示个数选择器的下拉框类名
+ * @param prevText 替代图标显示的上一页文字
+ * @param prevIcon 上一页的图标， 比 prev-text 优先级更高
+ * @param nextText 替代图标显示的下一页文字
+ * @param prevIcon 下一页的图标， 比 next-text 优先级更低
+ * @param disabled 是否禁用分页
+ * @param teleported 是否将下拉菜单teleport至 body
+ * @param hideOnSinglePage 	只有一页时是否隐藏
+ */
+interface Pagination {
   small?: boolean
   background?: boolean
   pageSize?: number
@@ -169,12 +198,16 @@ export interface Pagination {
   pageSizes?: number[]
   popperClass?: string
   prevText?: string
+  prevIcon?: string | InstanceType<typeof VxIcon>
   nextText?: string
+  nextIcon?: string | InstanceType<typeof VxIcon>
   disabled?: boolean
+  teleported?: boolean
   hideOnSinglePage?: boolean
 }
 
-export interface TableProps extends Omit<Partial<TableParameterTypes>, "data"> {
+type ElTablePropsType = InstanceType<typeof ElTable> extends { $props: infer P } ? P : never
+interface TableProps extends Omit<Partial<ElTablePropsType & TableParameterTypes>, "data"> {
   pageSize?: number
   currentPage?: number
   showAction?: boolean
@@ -199,4 +232,4 @@ export interface TableProps extends Omit<Partial<TableParameterTypes>, "data"> {
   data?: Recordable
 }
 
-export type { TableParameterTypes, TableColumnParameterTypes }
+export type { TableParameterTypes, TableColumnParameterTypes, Pagination, TableProps }

@@ -1,13 +1,15 @@
 <script lang="tsx" setup>
-import { ref, unref, nextTick } from "vue"
+import { ref, unref, nextTick, computed } from "vue"
 import { ElTable, ElTableColumn } from "element-plus"
 import type { TableParameterTypes } from "./types"
+import { table } from "console"
 defineOptions({
   name: "VxTable"
 })
 
 const props = withDefaults(defineProps<TableParameterTypes>(), {
   data: () => [],
+  columns: () => [],
   stripe: false,
   border: false,
   fit: true,
@@ -37,38 +39,16 @@ const props = withDefaults(defineProps<TableParameterTypes>(), {
 const vxTableRef = ref<HTMLElement>(null)
 const elTableRef = ref<InstanceType<typeof ElTable>>()
 
-const getVxTableRef = async () => {
-  await nextTick()
-  return unref(vxTableRef)
-}
-
-const getElTableRef = async () => {
-  await nextTick()
-  return unref(elTableRef)
-}
-
-const VxTable = () => {
-  const JsxDom = (
-    <>
-      <ElTable ref="elTable" data={props.data}>
-        {{
-          default: () => {
-            return (
-              <>
-                <ElTableColumn></ElTableColumn>
-              </>
-            )
-          }
-        }}
-      </ElTable>
-    </>
-  )
-  return JsxDom
-}
+const data = computed(() => props.data)
+const columns = computed(() => props.columns)
 </script>
 <template>
+  <div>Searchform</div>
   <div>
-    <VxTable ref="vxTable" />
+    <ElTable :data="data">
+      <ElTableColumn v-for="v in columns" :key="v.id" :field="field" :label="label" :prop="prop" :width="width"></ElTableColumn>
+    </ElTable>
   </div>
+  <div>pagenation</div>
 </template>
 <style lang="scss" scoped></style>

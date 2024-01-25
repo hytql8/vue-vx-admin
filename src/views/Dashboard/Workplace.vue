@@ -1,7 +1,8 @@
-<script setup lang="ts">
+<script setup lang="tsx">
 import { ref } from "vue"
 import { VxContainer } from "@/components/VxContainer"
 import { Table } from "@/components/Table"
+import { ElButton } from "element-plus"
 
 interface RowVO {
   id: number
@@ -20,6 +21,16 @@ const tableData = [
 ]
 
 const columns = [
+  {
+    label: "#",
+    width: 55,
+    type: "selection"
+  },
+  {
+    label: "序号",
+    width: 55,
+    type: "index"
+  },
   {
     field: "id",
     label: "Id",
@@ -42,19 +53,34 @@ const columns = [
     field: "sex",
     label: "性别",
     prop: "sex",
-    width: 120
+    width: 120,
+    fixed: "right"
   },
   {
     field: "age",
     label: "年龄",
     prop: "age",
-    width: 120
+    width: 250,
+    slots: {
+      default: () => {
+        return (
+          <>
+            <ElButton>123</ElButton>
+          </>
+        )
+      }
+    }
   }
 ]
+const rowClick = e => {
+  console.log(e)
+}
 </script>
 <template>
   <VxContainer>
     <div>Workplace</div>
-    <div><Table :data="tableData" :columns="columns" /></div>
+    <div>
+      <Table :data="tableData" @row-click="rowClick" :columns="columns" />
+    </div>
   </VxContainer>
 </template>

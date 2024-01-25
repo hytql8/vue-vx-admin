@@ -1,6 +1,18 @@
-import type { ElTooltipProps, ElTable } from "element-plus"
-import type { CSSProperties } from "vue"
+import type {
+  ElTooltipProps,
+  ElTable,
+  ElTableColumn,
+  ColumnCls,
+  ColumnStyle,
+  CellCls,
+  CellStyle,
+  SummaryMethod
+} from "element-plus"
 import { VxIcon } from "@/components/VxIcon"
+
+type ElTablePropsType = InstanceType<typeof ElTable> extends { $props: infer P } ? P : never
+type ElTableColumnPropsType = InstanceType<typeof ElTableColumn> extends { $props: infer P } ? P : never
+
 /**
  * @description Table的参数的类型
  * @param data 显示的数据
@@ -45,7 +57,7 @@ import { VxIcon } from "@/components/VxIcon"
  * @param showOverflowTooltip 是否隐藏额外内容并在单元格悬停时使用 Tooltip 显示它们。这将影响全部列的展示。
  * @param flexible 确保主轴的最小尺寸，以便不超过内容
  */
-interface TableParameterTypes {
+interface TableParameterTypes extends /* @vue-ignore */ ElTablePropsType {
   data?: Recordable[]
   columns?: TableColumnParameterTypes[]
   pagination?: Pagination | undefined
@@ -59,19 +71,22 @@ interface TableParameterTypes {
   showHeader?: boolean
   highlightCurrentRow?: boolean
   currentRowKey?: string | number
-  rowClassName?: string | ((row: Recordable, rowIndex: number) => string)
-  rowStyle?: CSSProperties | ((row: Recordable, rowIndex: number) => Recordable)
-  cellClassName?: string | ((row: Recordable, column: any, rowIndex: number) => string)
-  cellStyle?: CSSProperties | ((row: Recordable, column: any, rowIndex: number) => Recordable)
-  headerRowClassName?: string | ((row: Recordable, rowIndex: number) => string)
-  headerRowStyle?: CSSProperties | ((row: Recordable, rowIndex: number) => Recordable)
-  headerCellClassName?: string | ((row: Recordable, column: any, rowIndex: number) => string)
-  headerCellStyle?: CSSProperties | ((row: Recordable, column: any, rowIndex: number) => Recordable)
-  rowKey?: string | (({ row }) => void)
+  rowClassName?: ColumnCls<any>
+  rowStyle?: ColumnStyle<any>
+  cellClassName?: CellCls<any>
+  cellStyle?: CellStyle<any>
+  headerRowClassName?: ColumnCls<any>
+  headerRowStyle?: ColumnStyle<any>
+  headerCellClassName?: CellCls<any>
+  headerCellStyle?: CellStyle<any>
+  rowKey?: string | ((row: any) => string)
   emptyText?: string
   defaultExpandAll?: boolean
   expandRowKeys?: Recordable[]
-  defaultSort?: Recordable
+  defaultSort?: Recordable & {
+    order: "ascending" | "descending"
+    prop: string
+  }
   tooltipEffect?: string & ("dark" | "light")
   tooltipOptions?: Partial<
     Pick<
@@ -81,8 +96,8 @@ interface TableParameterTypes {
   >
   showSummary?: boolean
   sumText?: string
-  summaryMethod?: ({ columns, data }) => any
-  spanMethod?: ({ row, column, rowIndex, columnIndex }) => void
+  summaryMethod?: SummaryMethod<any>
+  spanMethod?: ({ row, column, rowIndex, columnIndex }) => number[] | { rowspan: number; colspan: number }
   selectOnIndeterminate?: boolean
   indent?: number
   lazy?: boolean
@@ -125,7 +140,7 @@ interface TableParameterTypes {
  * @param filterMethod 数据过滤使用的方法， 如果是多选的筛选项，对每一条数据会执行多次，任意一次返回 true 就会显示。
  * @param filteredValue 选中的数据过滤项，如果需要自定义表头过滤的渲染方式，可能会需要此属性。
  */
-interface TableColumnParameterTypes {
+interface TableColumnParameterTypes extends ElTableColumnPropsType {
   field: string
   label?: string
   type?: string
@@ -142,8 +157,8 @@ interface TableColumnParameterTypes {
   fixed?: boolean | "left" | "right"
   renderHeader?: (...args: any[]) => null
   sortMethod?: (...args: any[]) => number
-  sortBy?: string | string[] | ((...args: any[]) => string | string[])
-  sortOrders?: (string | null)[]
+  sortBy?: string | string[] | ((row: any, index: number) => string)
+  sortOrders?: ("ascending" | "descending")[]
   resizable?: boolean
   formatter?: (...args: any[]) => any
   showOverflowTooltip?: boolean
@@ -163,7 +178,7 @@ interface TableColumnParameterTypes {
 }
 
 /**
- * @description 分页
+ * @description 分页参数类型
  * @param small 是否使用小型分页样式
  * @param background 是否为分页按钮添加背景色
  * @param pageSize 每页显示条目个数
@@ -206,30 +221,4 @@ interface Pagination {
   hideOnSinglePage?: boolean
 }
 
-type ElTablePropsType = InstanceType<typeof ElTable> extends { $props: infer P } ? P : never
-interface TableProps extends Omit<Partial<ElTablePropsType & TableParameterTypes>, "data"> {
-  pageSize?: number
-  currentPage?: number
-  showAction?: boolean
-  // 是否所有的超出隐藏，优先级低于schema中的showOverflowTooltip,
-  showOverflowTooltip?: boolean
-  // 表头
-  columns?: TableColumnParameterTypes[]
-  // 是否展示分页
-  pagination?: Pagination | undefined
-  // 仅对 type=selection 的列有效，类型为 Boolean，为 true 则会在数据更新之后保留之前选中的数据（需指定 row-key）
-  reserveSelection?: boolean
-  // 加载状态
-  loading?: boolean
-  // 是否叠加索引
-  reserveIndex?: boolean
-  // 对齐方式
-  align?: "left" | "center" | "right"
-  // 表头对齐方式
-  headerAlign?: "left" | "center" | "right"
-  preview?: string[]
-  sortable?: boolean
-  data?: Recordable
-}
-
-export type { TableParameterTypes, TableColumnParameterTypes, Pagination, TableProps }
+export type { TableParameterTypes, TableColumnParameterTypes, Pagination }

@@ -21,10 +21,12 @@ declare module 'vue' {
     ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
     ElHeader: typeof import('element-plus/es')['ElHeader']
     ElIcon: typeof import('element-plus/es')['ElIcon']
+    ElImage: typeof import('element-plus/es')['ElImage']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElMain: typeof import('element-plus/es')['ElMain']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
+    ElPagination: typeof import('element-plus/es')['ElPagination']
     ElRadio: typeof import('element-plus/es')['ElRadio']
     ElScrollbar: (typeof import("element-plus/es"))["ElScrollbar"]
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
@@ -42,5 +44,8 @@ declare module 'vue' {
     ThemeSwitch: typeof import('./../src/components/ThemeSwitch/src/ThemeSwitch.vue')['default']
     VxContainer: typeof import('./../src/components/VxContainer/src/VxContainer.vue')['default']
     VxIcon: typeof import('./../src/components/VxIcon/src/VxIcon.vue')['default']
+  }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }

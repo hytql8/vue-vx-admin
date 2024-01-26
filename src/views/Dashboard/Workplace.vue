@@ -2,7 +2,7 @@
 import { ref } from "vue"
 import { VxContainer } from "@/components/VxContainer"
 import { Table } from "@/components/Table"
-import { ElButton } from "element-plus"
+import { ElButton, ElTag } from "element-plus"
 
 interface RowVO {
   id: number
@@ -65,7 +65,14 @@ const columns = [
       default: () => {
         return (
           <>
-            <ElButton>123</ElButton>
+            <ElButton>这是default</ElButton>
+          </>
+        )
+      },
+      newSlots: () => {
+        return (
+          <>
+            <ElTag>这是newSlots</ElTag>
           </>
         )
       }

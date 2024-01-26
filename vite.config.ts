@@ -28,6 +28,10 @@ export default ({ mode }: ConfigEnv): UserConfig => {
     resolve: {
       alias
     },
+    // vue 3.4去除控制台warning
+    define: {
+      __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: "true"
+    },
     // css配置
     css: {
       preprocessorOptions: {

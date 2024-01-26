@@ -20,12 +20,18 @@ declare module 'vue' {
     ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
     ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
     ElHeader: typeof import('element-plus/es')['ElHeader']
+    ElIcon: typeof import('element-plus/es')['ElIcon']
+    ElImage: typeof import('element-plus/es')['ElImage']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElMain: typeof import('element-plus/es')['ElMain']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
+    ElPagination: typeof import('element-plus/es')['ElPagination']
+    ElRadio: typeof import('element-plus/es')['ElRadio']
     ElScrollbar: (typeof import("element-plus/es"))["ElScrollbar"]
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
+    ElTable: typeof import('element-plus/es')['ElTable']
+    ElTag: typeof import('element-plus/es')['ElTag']
     Fullscreen: typeof import('./../src/components/Fullscreen/src/Fullscreen.vue')['default']
     LocaleSwitch: typeof import('./../src/components/LocaleSwitch/src/LocaleSwitch.vue')['default']
     Logo: typeof import('./../src/components/Logo/src/Logo.vue')['default']
@@ -33,9 +39,13 @@ declare module 'vue' {
     RenderVertical: typeof import('./../src/components/Menu/src/components/RenderVertical.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Table: typeof import('./../src/components/Table/src/Table.vue')['default']
     TagsView: typeof import('./../src/components/TagsView/src/TagsView.vue')['default']
     ThemeSwitch: typeof import('./../src/components/ThemeSwitch/src/ThemeSwitch.vue')['default']
     VxContainer: typeof import('./../src/components/VxContainer/src/VxContainer.vue')['default']
     VxIcon: typeof import('./../src/components/VxIcon/src/VxIcon.vue')['default']
+  }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }

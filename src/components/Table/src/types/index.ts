@@ -141,7 +141,7 @@ interface TableParameterTypes extends /* @vue-ignore */ ElTablePropsType {
  * @param filteredValue 选中的数据过滤项，如果需要自定义表头过滤的渲染方式，可能会需要此属性。
  */
 interface TableColumnParameterTypes extends ElTableColumnPropsType {
-  field: string
+  field?: string
   label?: string
   type?: string
   hidden?: boolean

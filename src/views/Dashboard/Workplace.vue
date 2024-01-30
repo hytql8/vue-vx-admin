@@ -53,41 +53,30 @@ const columns = [
     field: "sex",
     label: "性别",
     prop: "sex",
-    width: 120,
-    fixed: "right"
+    width: 120
   },
   {
     field: "age",
     label: "年龄",
     prop: "age",
-    width: 250,
-    slots: {
-      default: () => {
-        return (
-          <>
-            <ElButton>这是default</ElButton>
-          </>
-        )
-      },
-      newSlots: () => {
-        return (
-          <>
-            <ElTag>这是newSlots</ElTag>
-          </>
-        )
-      }
-    }
+    width: 250
   }
 ]
 const rowClick = e => {
   console.log(e)
 }
+
+const register = (a, b) => {
+  console.log(a, b)
+}
+
+const randomNumber = Math.floor(Math.random() * 10000) + 1
 </script>
 <template>
   <VxContainer>
     <div>Workplace</div>
     <div>
-      <Table :data="tableData" @row-click="rowClick" :columns="columns" />
+      <Table :data="tableData" @row-click="rowClick" :columns="columns" @register="register" :row-key="String(randomNumber)" />
     </div>
   </VxContainer>
 </template>

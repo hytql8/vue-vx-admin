@@ -242,12 +242,46 @@ export default defineComponent({
     }
     registerTable()
     // 获取参数
-    // 非proxy对象的props和attr(props中不包含的事件和属性)合集，用来直接传给ElTable
+    // 非proxy对象的props和attr(props中不包含的事件和属性)合集
     const staticProps = { ...props, ...attrs }
-    // 需要渲染的表格column
+    // 需要动态渲染的表格column
     const columns = computed(() => props.columns)
+    // 需要动态绑定的pageSize， currentPage
+    const pageSize = computed({
+      get: () => {
+        return props.pageSize
+      },
+      set: e => {
+        console.log("pageSize set", e)
+        // 触发即为ElPagination切换了pageSize，在此进行useTable的操作
+      }
+    })
+    const currentPage = computed({
+      get: () => {
+        console.log("get")
+        return props.currentPage
+      },
+      set: e => {
+        console.log("currentPage set", e)
+      }
+    })
     // 获取绑定值
     // 分页
+    const pagination = computed(() => {
+      return Object.assign(
+        {
+          small: false,
+          background: false,
+          pagerCount: 7,
+          layout: "sizes, prev, pager, next, jumper, ->, total",
+          pageSizes: [10, 20, 30, 40, 50, 100],
+          disabled: false,
+          hideOnSinglePage: false,
+          total: 0
+        },
+        props.pagination
+      )
+    })
     // 多级表头table column渲染
     const renderMultiTableColumn = (columnsChildren?: TableColumnParameterTypes[]) => {
       const { align, headerAlign, showOverflowTooltip } = staticProps
@@ -345,6 +379,15 @@ export default defineComponent({
           <ElTable {...staticProps} data={props.data}>
             {{ default: () => renderTableColumn(), ...tableSlots }}
           </ElTable>
+          {staticProps.pagination ? (
+            <ElPagination
+              v-model:pageSize={pageSize.value}
+              v-model:currentPage={currentPage.value}
+              {...unref(pagination)}
+            ></ElPagination>
+          ) : (
+            void 0
+          )}
         </div>
       )
     }

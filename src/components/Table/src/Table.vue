@@ -1,104 +1,397 @@
-<script lang="tsx" setup>
-import { ref, unref, nextTick, computed, toRaw, useAttrs } from "vue"
-import { ElTable, ElTableColumn } from "element-plus"
-import type { TableParameterTypes } from "./types"
+<script lang="tsx">
+import { ref, unref, nextTick, computed, defineComponent, PropType, CSSProperties } from "vue"
+import { ElTable, ElTableColumn, ElPagination, ElCard, ElEmpty, ElButton, ElImage } from "element-plus"
+import type { ElTooltipProps } from "element-plus"
+import type { TableParameterTypes, TableColumnParameterTypes, Pagination } from "./types"
 import { getSlot } from "@/utils/tsxUtils"
-import { omit } from "lodash-es"
+import { get } from "lodash-es"
+import { VxIcon } from "@/components/VxIcon"
 
-defineOptions({
-  name: "VxTable"
-})
-
-const props = withDefaults(defineProps<TableParameterTypes>(), {
-  data: () => [],
-  columns: () => [],
-  stripe: false,
-  border: false,
-  fit: true,
-  showHeader: true,
-  highlightCurrentRow: false,
-  emptyText: "No Data",
-  defaultExpandAll: false,
-  cellClassName: "123",
-  tooltipEffect: "dark",
-  tooltipOptions: () => ({
-    enterable: true,
-    placement: "top",
-    showArrow: true,
-    hideAfter: 200,
-    popperOptions: { strategy: "fixed" }
-  }),
-  showSummary: false,
-  sumText: "Sum",
-  selectOnIndeterminate: false,
-  indent: 16,
-  treeProps: () => ({ hasChildren: "hasChildren", children: "children" }),
-  tableLayout: "fixed",
-  scrollbarAlwaysOn: false,
-  flexible: false
-})
-
-const vxTableRef = ref<HTMLElement>(null)
-const elTableRef = ref<InstanceType<typeof ElTable>>()
-const elTableColumnRef = ref<InstanceType<typeof ElTableColumn>>()
-
-const data = computed(() => props.data)
-const columns = computed(() => props.columns)
-const border = computed(() => props.border)
-// 获取父组件传递来的所有attrs，属性props无方法，attrs为所有参数，包括方法
-const attrs = useAttrs()
-const mergeAttrs = Object.assign(omit(attrs, ["data", "border"]), { data: unref(data), border: unref(border) })
-const VxTableDom = (
-  <>
-    <ElTable {...unref(mergeAttrs)}>
-      <slot />
-      {unref(columns).map(v => {
-        return v.type ? (
-          <>
-            <ElTableColumn {...v} />
-          </>
-        ) : (
-          <ElTableColumn {...v}>
-            {v.slots
-              ? Object.keys(v.slots).forEach(slot => {
-                  console.log(slot)
-                  return (
-                    <template slot={slot} key={slot}>
-                      {v.slots[slot]()}
-                    </template>
-                  )
-                })
-              : void 0}
-          </ElTableColumn>
-        )
-      })}
-    </ElTable>
-  </>
-)
-
-const VxTable = () => VxTableDom
-</script>
-<template>
-  <VxTable />
-</template>
-<!-- <template>
-  <div>Searchform待展示</div>
-  <div>
-    v-bind="$attrs" 可以将vxTable组件身上的事件透传到ElTable上(父组件传入且未定义为props的属性可以透传)
-    <ElTable ref="elTableRef" v-bind="$attrs" :data="data" :border="border" :row-key="rowKey">
-      默认插槽
-      <slot />
-      <template v-for="v in columns" :key="v.field || v.label">
-        selection || radio || index || expand || sort
-        <ElTableColumn v-if="v.type && v.type == 'selection'" type="selection" v-bind="v"> </ElTableColumn>
-        <ElTableColumn v-else-if="v.type && v.type == 'index'" type="index" v-bind="v"> </ElTableColumn>
-        普通列
-        <ElTableColumn v-else v-bind="v">
-          <template v-for="slot in v.slots" #[slot]="scope"> <slot :name="slot" v-bind="scope" /> </template>
+/**  接受参数详情请见 @type TableParameterTypes */
+export default defineComponent({
+  name: "VxTable",
+  props: {
+    pageSize: {
+      type: Number,
+      default: 10
+    },
+    currentPage: {
+      type: Number,
+      default: 1
+    },
+    showOverflowTooltip: {
+      type: Boolean,
+      default: false
+    },
+    // 是否展示分页
+    pagination: {
+      type: Object as PropType<Pagination>,
+      default: (): Pagination | undefined => undefined
+    },
+    // 仅对 type=selection 的列有效，类型为 Boolean，为 true 则会在数据更新之后保留之前选中的数据（需指定 row-key）
+    reserveSelection: {
+      type: Boolean,
+      default: false
+    },
+    // 加载状态
+    loading: {
+      type: Boolean,
+      default: false
+    },
+    // 是否叠加索引
+    reserveIndex: {
+      type: Boolean,
+      default: false
+    },
+    // 对齐方式
+    align: {
+      type: String as PropType<string & ("left" | "center" | "right")>,
+      default: "left"
+    },
+    // 表头对齐方式
+    headerAlign: {
+      type: String as PropType<string & ("left" | "center" | "right")>,
+      default: "left"
+    },
+    // 图片自动预览字段数组
+    imagePreview: {
+      type: Array as PropType<string[]>,
+      default: () => []
+    },
+    // 视频自动预览字段数组
+    videoPreview: {
+      type: Array as PropType<string[]>,
+      default: () => []
+    },
+    data: {
+      type: Array as PropType<Recordable[]>,
+      default: () => []
+    },
+    columns: {
+      type: Array as PropType<TableColumnParameterTypes[]>,
+      default: () => []
+    },
+    height: {
+      type: [String, Number] as PropType<string | number>
+    },
+    maxHeight: {
+      type: [String, Number] as PropType<string | number>
+    },
+    stripe: {
+      type: Boolean,
+      default: false
+    },
+    border: {
+      type: Boolean,
+      default: false
+    },
+    size: {
+      type: String as PropType<string & ("large" | "default" | "small")>,
+      default: "default"
+    },
+    fit: {
+      type: Boolean as PropType<boolean>,
+      default: true
+    },
+    showHeader: {
+      type: Boolean as PropType<boolean>,
+      default: true
+    },
+    highlightCurrentRow: {
+      type: Boolean as PropType<boolean>,
+      default: false
+    },
+    currentRowKey: {
+      type: [String, Number] as PropType<string | number>
+    },
+    rowClassName: {
+      type: [Function, String] as PropType<(row: Recordable, rowIndex: number) => string | string>,
+      default: ""
+    },
+    rowStyle: {
+      type: [Function, Object] as PropType<(row: Recordable, rowIndex: number) => Recordable | CSSProperties>,
+      default: () => undefined
+    },
+    cellClassName: {
+      type: [Function, String] as PropType<(row: Recordable, column: any, rowIndex: number) => string | string>,
+      default: ""
+    },
+    cellStyle: {
+      type: [Function, Object] as PropType<(row: Recordable, column: any, rowIndex: number) => Recordable | CSSProperties>,
+      default: () => undefined
+    },
+    headerRowClassName: {
+      type: [Function, String] as PropType<(row: Recordable, rowIndex: number) => string | string>,
+      default: ""
+    },
+    headerRowStyle: {
+      type: [Function, Object] as PropType<(row: Recordable, rowIndex: number) => Recordable | CSSProperties>,
+      default: () => undefined
+    },
+    headerCellClassName: {
+      type: [Function, String] as PropType<(row: Recordable, column: any, rowIndex: number) => string | string>,
+      default: ""
+    },
+    headerCellStyle: {
+      type: [Function, Object] as PropType<(row: Recordable, column: any, rowIndex: number) => Recordable | CSSProperties>,
+      default: () => undefined
+    },
+    rowKey: {
+      type: [String, Function] as PropType<string | ((row: any) => string)>,
+      default: "id"
+    },
+    emptyText: {
+      type: String,
+      default: "No Data"
+    },
+    defaultExpandAll: {
+      type: Boolean,
+      default: false
+    },
+    expandRowKeys: {
+      type: Array as PropType<string[]>,
+      default: () => []
+    },
+    defaultSort: {
+      type: Object as PropType<{ prop: string; order: string }>,
+      default: () => ({})
+    },
+    tooltipEffect: {
+      type: String as PropType<"dark" | "light">,
+      default: "dark"
+    },
+    tooltipOptions: {
+      type: Object as PropType<
+        Pick<
+          ElTooltipProps,
+          | "effect"
+          | "enterable"
+          | "hideAfter"
+          | "offset"
+          | "placement"
+          | "popperClass"
+          | "popperOptions"
+          | "showAfter"
+          | "showArrow"
+        >
+      >,
+      default: () => ({
+        enterable: true,
+        placement: "top",
+        showArrow: true,
+        hideAfter: 200,
+        popperOptions: { strategy: "fixed" }
+      })
+    },
+    showSummary: {
+      type: Boolean,
+      default: false
+    },
+    sumText: {
+      type: String
+    },
+    summaryMethod: {
+      type: Function as PropType<(param: { columns: any[]; data: any[] }) => any[]>,
+      default: () => undefined
+    },
+    spanMethod: {
+      type: Function as PropType<(param: { row: any; column: any; rowIndex: number; columnIndex: number }) => any[]>,
+      default: () => undefined
+    },
+    selectOnIndeterminate: {
+      type: Boolean,
+      default: false
+    },
+    indent: {
+      type: Number,
+      default: 16
+    },
+    lazy: {
+      type: Boolean,
+      default: false
+    },
+    load: {
+      type: Function as PropType<(row: Recordable, treeNode: any, resolve: Function) => void>,
+      default: () => undefined
+    },
+    treeProps: {
+      type: Object as PropType<{ hasChildren?: string; children?: string; label?: string }>,
+      default: () => ({ hasChildren: "hasChildren", children: "children", label: "label" })
+    },
+    tableLayout: {
+      type: String as PropType<"auto" | "fixed">,
+      default: "fixed"
+    },
+    scrollbarAlwaysOn: {
+      type: Boolean,
+      default: false
+    },
+    flexible: {
+      type: Boolean,
+      default: false
+    }
+  },
+  emits: ["update:pageSize", "update:currentPage", "register", "refresh"],
+  setup(props, { attrs, emit, slots, expose }) {
+    const elTableRef = ref<InstanceType<typeof ElTable>>()
+    // 注册
+    const registerTable = async () => {
+      await nextTick()
+      const tableRef = unref(elTableRef)
+      emit("register", tableRef?.$parent, elTableRef)
+    }
+    registerTable()
+    // 获取参数
+    // 非proxy对象的props和attr(props中不包含的事件和属性)合集
+    const staticProps = { ...props, ...attrs }
+    // 需要动态渲染的表格column
+    const columns = computed(() => props.columns)
+    // 需要动态绑定的pageSize， currentPage
+    const pageSize = computed({
+      get: () => {
+        return props.pageSize
+      },
+      set: e => {
+        console.log("pageSize set", e)
+        // 触发即为ElPagination切换了pageSize，在此进行useTable的操作
+      }
+    })
+    const currentPage = computed({
+      get: () => {
+        console.log("get")
+        return props.currentPage
+      },
+      set: e => {
+        console.log("currentPage set", e)
+      }
+    })
+    // 获取绑定值
+    // 分页
+    const pagination = computed(() => {
+      return Object.assign(
+        {
+          small: false,
+          background: false,
+          pagerCount: 7,
+          layout: "sizes, prev, pager, next, jumper, ->, total",
+          pageSizes: [10, 20, 30, 40, 50, 100],
+          disabled: false,
+          hideOnSinglePage: false,
+          total: 0
+        },
+        props.pagination
+      )
+    })
+    // 多级表头table column渲染
+    const renderMultiTableColumn = (columnsChildren?: TableColumnParameterTypes[]) => {
+      const { align, headerAlign, showOverflowTooltip } = staticProps
+      return columnsChildren.map(v => {
+        if (v.hidden) return null
+        let params = {
+          showOverflowTooltip,
+          align,
+          headerAlign
+        }
+        return publicTableColumnsRender(v, params)
+      })
+    }
+    // 渲染table column
+    const renderTableColumn = (columnsChildren?: TableColumnParameterTypes[]) => {
+      {
+        const { pageSize, currentPage, align, headerAlign, showOverflowTooltip, reserveSelection } = staticProps
+        return unref(columnsChildren || columns).map(v => {
+          if (v.hidden) return null
+          if (v.type === "index") {
+            return (
+              <ElTableColumn
+                type="index"
+                index={v.index ? v.index : currentPage < 2 ? 1 : currentPage * pageSize + 1}
+                align={v.align || align}
+                headerAlign={v.headerAlign || headerAlign}
+                label={v.label}
+                fixed={v.fixed}
+                width="65px"
+              ></ElTableColumn>
+            )
+          } else if (v.type === "selection") {
+            return (
+              <ElTableColumn
+                type="selection"
+                reserveSelection={reserveSelection}
+                align={align}
+                headerAlign={headerAlign}
+                selectable={v.selectable}
+                width="50"
+              ></ElTableColumn>
+            )
+          } else {
+            let params = {
+              showOverflowTooltip,
+              align,
+              headerAlign
+            }
+            return publicTableColumnsRender(v, params)
+          }
+        })
+      }
+    }
+    // tableColumn 渲染主要代码
+    const publicTableColumnsRender = (v: TableColumnParameterTypes, params) => {
+      const props = { ...v }
+      const children = v.children
+      if (props?.children?.length) delete props.children
+      const tableColumnSlots = {
+        default: (...args: any[]) => {
+          const data = args[0]
+          return children && children.length
+            ? renderMultiTableColumn(children)
+            : props?.slots?.default
+            ? props.slots.default(...args)
+            : v?.formatter
+            ? v?.formatter?.(data.row, data.column, get(data.row, v.field), data.$index)
+            : get(data.row, v.field)
+        }
+      }
+      if (props?.slots?.header) {
+        tableColumnSlots["header"] = (...args: any[]) => props.slots.header(...args)
+      }
+      return (
+        <ElTableColumn {...params} {...props} prop={v.field}>
+          {tableColumnSlots}
         </ElTableColumn>
-      </template>
-    </ElTable>
-  </div>
-  <div>pagenation待展示</div>
-</template> -->
+      )
+    }
+    // 暴露
+    expose({
+      elTableRef
+    })
+    // render
+    return () => {
+      const tableSlots = {}
+      if (getSlot(slots, "empty")) {
+        tableSlots["empty"] = (...args: any[]) => getSlot(slots, "empty", args)
+      }
+      if (getSlot(slots, "append")) {
+        tableSlots["append"] = (...args: any[]) => getSlot(slots, "append", args)
+      }
+      return (
+        <div>
+          <ElTable {...staticProps} data={props.data}>
+            {{ default: () => renderTableColumn(), ...tableSlots }}
+          </ElTable>
+          {staticProps.pagination ? (
+            <ElPagination
+              v-model:pageSize={pageSize.value}
+              v-model:currentPage={currentPage.value}
+              {...unref(pagination)}
+            ></ElPagination>
+          ) : (
+            void 0
+          )}
+        </div>
+      )
+    }
+  }
+})
+</script>
 <style lang="scss" scoped></style>

@@ -220,5 +220,20 @@ interface Pagination {
   teleported?: boolean
   hideOnSinglePage?: boolean
 }
+// 设置table的参数类型
+interface TableSetProps {
+  field: string
+  path: string
+  value: any
+}
 
-export type { TableParameterTypes, TableColumnParameterTypes, Pagination }
+// 暴露方法的类型
+interface TableExpose {
+  setProps: (props: Recordable) => void
+  setColumn: (columnProps: TableSetProps[]) => void
+  addColumn: (column: TableColumn, index?: number) => void
+  delColumn: (field: string) => void
+  elTableRef: ComponentRef<typeof ElTable>
+}
+
+export type { TableParameterTypes, TableColumnParameterTypes, Pagination, TableSetProps, TableExpose }

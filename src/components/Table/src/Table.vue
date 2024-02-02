@@ -1,5 +1,5 @@
 <script lang="tsx">
-import { ref, unref, watch, nextTick, computed, defineComponent, PropType, CSSProperties } from "vue"
+import { ref, unref, toRefs, reactive, watch, nextTick, computed, defineComponent, PropType, CSSProperties } from "vue"
 import { ElTable, ElTableColumn, ElPagination } from "element-plus"
 import type { ElTooltipProps } from "element-plus"
 import type { TableParameterTypes, TableColumnParameterTypes, Pagination, TableSetProps } from "./types"
@@ -244,7 +244,7 @@ export default defineComponent({
     // 非proxy对象的props和attr(props中不包含的事件和属性)合集
     const staticProps = { ...props, ...attrs }
     // proxy对象的props和attr(props中不包含的事件和属性)合集
-    const activeProps = ref(Object.assign(props, attrs))
+    const activeProps = reactive({ ...toRefs(props), ...attrs })
     // 需要动态渲染的表格column
     const columns = computed(() => props.columns)
     // 需要动态绑定的pageSize， currentPage
@@ -277,7 +277,7 @@ export default defineComponent({
     )
     //table方法
     const setProps = (setProps: TableParameterTypes = {}) => {
-      activeProps.value = Object.assign(props, setProps)
+      Object.assign(activeProps, setProps)
     }
 
     const setColumn = (columnProps: TableSetProps[], columnsChildren?: TableColumnParameterTypes[]) => {

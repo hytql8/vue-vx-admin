@@ -56,6 +56,7 @@ type ElTableColumnPropsType = InstanceType<typeof ElTableColumn> extends { $prop
  * @param scrollbarAlwaysOn 总是显示滚动条
  * @param showOverflowTooltip 是否隐藏额外内容并在单元格悬停时使用 Tooltip 显示它们。这将影响全部列的展示。
  * @param flexible 确保主轴的最小尺寸，以便不超过内容
+ * @param fillUp table高度是否铺满剩下空间
  */
 interface TableParameterTypes extends /* @vue-ignore */ ElTablePropsType {
   data?: Recordable[]
@@ -107,6 +108,7 @@ interface TableParameterTypes extends /* @vue-ignore */ ElTablePropsType {
   scrollbarAlwaysOn?: boolean
   showOverflowTooltip?: boolean | [object]
   flexible?: boolean
+  fillUp?: boolean
   [key: string]: any
 }
 

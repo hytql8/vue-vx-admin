@@ -21,7 +21,7 @@ export const useAppStore = defineStore("app", {
       // 当前系统的layout布局 默认为 horizontal
       layout: getStorage("layout") || "horizontal",
       // 左侧菜单是否折叠
-      isFold: false,
+      isFold: getStorage("isFold") || false,
       // 默认主题 需要变化的项目这里需要定义默认值，建议与var.less中保持一致
       theme: getStorage("theme") || {
         elPrimaryColor: "#3a6ee8",
@@ -66,6 +66,7 @@ export const useAppStore = defineStore("app", {
     },
     setIsFold(isFold: boolean) {
       this.isFold = isFold
+      setStorage("isFold", this.isFold)
     },
     setTheme(theme: ThemeTypes) {
       if (this.isDark) {

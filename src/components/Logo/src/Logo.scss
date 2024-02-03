@@ -1,6 +1,6 @@
 @import "@/styles/var.scss";
 .vx-logo {
-  height: 50px;
+  height: var(--header-global-height);
   background-color: var(--logo-bg-color);
   border-right: 1px solid var(--divider-color);
   border-left: 1px solid var(--logo-bg-color);

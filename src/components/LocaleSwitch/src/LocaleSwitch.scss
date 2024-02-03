@@ -1,6 +1,6 @@
 @import "@/styles/var.scss";
 .vx-locale-switch {
-  height: 50px;
+  height: var(--header-global-height);
   padding: 0 5px;
   background-color: var(--theme-div-color);
   :deep(.el-dropdown-link > svg) {

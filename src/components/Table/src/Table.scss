@@ -3,12 +3,9 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    &:deep(.el-table) {
-        flex: 1;
-    }
     &__pagination {
-        height: 50px;
-        line-height: 50px;
+        height: var(--pagination-global-height);
+        line-height: var(--pagination-global-height);
         background-color: var(--theme-div-color);
     }
 };

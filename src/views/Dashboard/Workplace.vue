@@ -69,7 +69,6 @@ const rowClick = e => {
 const { tableRegister, tableState, tableMethods } = useTable({
   getDataApi: async () => {
     const { currentPage, pageSize } = tableState
-    console.log(unref(currentPage), unref(pageSize), "=====================")
     let list = []
     let total = 0
     const res = await axios({
@@ -96,6 +95,7 @@ const { getList, getElTableExpose, delList } = tableMethods
   <VxContainer>
     <div class="vx-workplace">
       <Table
+        fill-up
         :loading="loading"
         v-model:pageSize="pageSize"
         v-model:currentPage="currentPage"

@@ -228,6 +228,10 @@ export default defineComponent({
     flexible: {
       type: Boolean,
       default: false
+    },
+    fillUp: {
+      type: Boolean,
+      default: false
     }
   },
   emits: ["update:pageSize", "update:currentPage", "register", "refresh"],
@@ -268,6 +272,10 @@ export default defineComponent({
         emit("update:currentPage", val)
       }
     })
+    // table高度是否占满的对应style
+    const style = {
+      flex: unref(computed(() => (props.fillUp ? 1 : "unset")))
+    }
     // 获取绑定值
     //table方法
     const setProps = (setProps: TableParameterTypes = {}) => {
@@ -430,7 +438,7 @@ export default defineComponent({
       }
       return (
         <div class="vx-table" v-loading={unref(activeProps).loading}>
-          <ElTable ref={elTableRef} {...unref(activeProps)} data={props.data}>
+          <ElTable ref={elTableRef} {...unref(activeProps)} data={props.data} style={style}>
             {{ default: () => renderTableColumn(), ...tableSlots }}
           </ElTable>
           {staticProps.pagination ? (
@@ -451,5 +459,14 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
-@import "./Table.scss";
+.vx-table {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  &__pagination {
+    height: var(--pagination-global-height);
+    line-height: var(--pagination-global-height);
+    background-color: var(--theme-div-color);
+  }
+}
 </style>

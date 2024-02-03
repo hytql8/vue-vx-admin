@@ -1,6 +1,14 @@
+@import "@/styles/var.scss";
 .vx-table {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    &:deep(.el-table) {
+        flex: 1;
+    }
     &__pagination {
-        padding: 10px 0;
+        height: 50px;
+        line-height: 50px;
         background-color: var(--theme-div-color);
     }
-}
+};

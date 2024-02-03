@@ -6,7 +6,7 @@ const demoList = (() => {
   const result: any[] = []
   for (let index = 0; index < 60; index++) {
     result.push({
-      "id|+1": 10000,
+      id: index + 1,
       name: () => Mock.Random.cname(),
       "role|1": ["Develop", "Test", "PM"],
       "sex|1": ["Man", "Women"],
@@ -22,8 +22,9 @@ export default [
     url: "/useTable/list",
     timeout: 2000,
     method: "post",
-    response: ({ query }) => {
-      const { page = 1, pageSize = 10 } = query
+    response: ({ body }) => {
+      const { page = 1, pageSize = 10 } = body
+
       return resultPageSuccess(page, pageSize, demoList)
     }
   }

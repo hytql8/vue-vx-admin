@@ -5,9 +5,9 @@ defineOptions({
 </script>
 <template>
   <div class="vx-container">
-    <ElCard class="vx-container__card" shadow="never">
+    <ElScrollbar class="vx-container__scrollbar">
       <slot></slot>
-    </ElCard>
+    </ElScrollbar>
   </div>
 </template>
 

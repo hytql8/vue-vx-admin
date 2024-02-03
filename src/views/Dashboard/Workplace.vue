@@ -1,21 +1,10 @@
 <script setup lang="tsx">
-import { ref, unref } from "vue"
+import { ref, unref, watch } from "vue"
 import { VxContainer } from "@/components/VxContainer"
 import { Table } from "@/components/Table"
+import { useTable } from "@/hooks/useTable"
 import { ElButton, ElTag } from "element-plus"
 import axios from "axios"
-
-interface RowVO {
-  id: number
-  name: string
-  role: string
-  sex: string
-  age: number
-  address: string
-}
-const randomNumber = Math.floor(Math.random() * 10000) + 1
-
-let tableData = ref([])
 
 const columns = [
   {
@@ -27,7 +16,6 @@ const columns = [
     label: "序号",
     width: 55,
     type: "index"
-    // index: randomNumber
   },
   {
     field: "id",
@@ -67,6 +55,9 @@ const columns = [
     slots: {
       default: () => {
         return <ElButton type="primary">我是column的插槽</ElButton>
+      },
+      header: () => {
+        return <ElTag effect="dark">操作 我是header的插槽</ElTag>
       }
     }
   }
@@ -75,34 +66,45 @@ const rowClick = e => {
   console.log(e)
 }
 
-const register = (a, b) => {
-  console.log(a, b)
-}
-
-const total = ref(0)
-
-axios({
-  method: "post",
-  url: "/useTable/list"
-}).then(res => {
-  console.log(res.data.result)
-  tableData.value = res.data.result.items
-  total.value = res.data.result.total
+const { tableRegister, tableState, tableMethods } = useTable({
+  getDataApi: async () => {
+    const { currentPage, pageSize } = tableState
+    let list = []
+    let total = 0
+    const res = await axios({
+      url: "/useTable/list",
+      method: "post",
+      data: {
+        page: unref(currentPage),
+        pageSize: unref(pageSize)
+      }
+    })
+    console.log(res)
+    list = res.data.result.items
+    total = res.data.result.total
+    return {
+      list,
+      total
+    }
+  }
 })
+const { loading, dataList, total, currentPage, pageSize } = tableState
+const { getList, getElTableExpose, delList } = tableMethods
 </script>
 <template>
   <VxContainer>
-    <div>Workplace</div>
-    <div>
+    <div class="vx-workplace">
       <Table
-        stripe
-        :height="200"
+        fill-up
+        :loading="loading"
+        v-model:pageSize="pageSize"
+        v-model:currentPage="currentPage"
         :border="true"
         style="width: 100%"
-        :data="tableData"
+        :data="dataList"
         @row-click="rowClick"
         :columns="columns"
-        @register="register"
+        @register="tableRegister"
         row-key="id"
         :pagination="{
           total
@@ -112,3 +114,8 @@ axios({
     </div>
   </VxContainer>
 </template>
+<style scoped>
+.vx-workplace {
+  height: 100%;
+}
+</style>

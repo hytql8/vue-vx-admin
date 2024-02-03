@@ -1,0 +1,10 @@
+.vx-table {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    &__pagination {
+        height: var(--pagination-global-height);
+        line-height: var(--pagination-global-height);
+        background-color: var(--theme-div-color);
+    }
+};

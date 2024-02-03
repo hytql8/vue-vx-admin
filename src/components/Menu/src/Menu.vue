@@ -28,18 +28,20 @@ const activeMenu = computed(() => {
 </script>
 
 <template>
-  <ElMenu
-    class="vx-menu"
-    active-text-color="var(--left-menu-text-active-color)"
-    background-color="var(--left-menu-bg-color)"
-    :default-active="activeMenu"
-    :collapse="isFold"
-    text-color="var(--left-menu-text-color)"
-    @open="handleOpen"
-    @close="handleClose"
-  >
-    <RenderVertical :routes="routes" />
-  </ElMenu>
+  <ElScrollbar class="vx-scrollbar">
+    <ElMenu
+      class="vx-menu"
+      active-text-color="var(--left-menu-text-active-color)"
+      background-color="var(--left-menu-bg-color)"
+      :default-active="activeMenu"
+      :collapse="isFold"
+      text-color="var(--left-menu-text-color)"
+      @open="handleOpen"
+      @close="handleClose"
+    >
+      <RenderVertical :routes="routes" />
+    </ElMenu>
+  </ElScrollbar>
 </template>
 <style lang="scss" scoped>
 @import "./Menu.scss";

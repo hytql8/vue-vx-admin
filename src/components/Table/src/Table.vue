@@ -1,11 +1,10 @@
 <script lang="tsx">
-import { ref, unref, nextTick, computed, defineComponent, PropType, CSSProperties } from "vue"
-import { ElTable, ElTableColumn, ElPagination, ElCard, ElEmpty, ElButton, ElImage } from "element-plus"
+import { ref, unref, toRefs, reactive, nextTick, computed, defineComponent, PropType, CSSProperties } from "vue"
+import { ElTable, ElTableColumn, ElPagination } from "element-plus"
 import type { ElTooltipProps } from "element-plus"
-import type { TableParameterTypes, TableColumnParameterTypes, Pagination } from "./types"
+import type { TableParameterTypes, TableColumnParameterTypes, Pagination, TableSetProps } from "./types"
 import { getSlot } from "@/utils/tsxUtils"
-import { get } from "lodash-es"
-import { VxIcon } from "@/components/VxIcon"
+import { get, set } from "lodash-es"
 
 /**  接受参数详情请见 @type TableParameterTypes */
 export default defineComponent({
@@ -229,6 +228,10 @@ export default defineComponent({
     flexible: {
       type: Boolean,
       default: false
+    },
+    fillUp: {
+      type: Boolean,
+      default: false
     }
   },
   emits: ["update:pageSize", "update:currentPage", "register", "refresh"],
@@ -244,6 +247,8 @@ export default defineComponent({
     // 获取参数
     // 非proxy对象的props和attr(props中不包含的事件和属性)合集
     const staticProps = { ...props, ...attrs }
+    // proxy对象的props和attr(props中不包含的事件和属性)合集
+    const activeProps = reactive({ ...toRefs(props), ...attrs })
     // 需要动态渲染的表格column
     const columns = computed(() => props.columns)
     // 需要动态绑定的pageSize， currentPage
@@ -251,8 +256,9 @@ export default defineComponent({
       get: () => {
         return props.pageSize
       },
-      set: e => {
-        console.log("pageSize set", e)
+      set: (val: number) => {
+        console.log("pageSize set", val)
+        emit("update:pageSize", val)
         // 触发即为ElPagination切换了pageSize，在此进行useTable的操作
       }
     })
@@ -261,11 +267,63 @@ export default defineComponent({
         console.log("get")
         return props.currentPage
       },
-      set: e => {
-        console.log("currentPage set", e)
+      set: (val: number) => {
+        console.log("currentPage set", val)
+        emit("update:currentPage", val)
       }
     })
+    // table高度是否占满的对应style
+    const style = {
+      flex: unref(computed(() => (props.fillUp ? 1 : "unset")))
+    }
     // 获取绑定值
+    //table方法
+    const setProps = (setProps: TableParameterTypes = {}) => {
+      Object.assign(activeProps, setProps)
+    }
+
+    const setColumn = (columnProps: TableSetProps[], columnsChildren?: TableColumnParameterTypes[]) => {
+      const { columns } = staticProps
+      for (const v of columnsChildren || columns) {
+        for (const item of columnProps) {
+          if (v.field === item.field) {
+            set(v, item.path, item.value)
+          } else if (v.children?.length) {
+            setColumn(columnProps, v.children)
+          }
+        }
+      }
+    }
+
+    const addColumn = (column: TableColumnParameterTypes, index?: number) => {
+      const { columns } = staticProps
+      if (index !== void 0) {
+        columns.splice(index, 0, column)
+      } else {
+        columns.push(column)
+      }
+    }
+
+    const delColumn = (field: string) => {
+      const { columns } = staticProps
+      const index = columns.findIndex(item => item.field === field)
+      if (index > -1) {
+        columns.splice(index, 1)
+      }
+    }
+
+    // const refresh = () => {
+    //   emit("refresh")
+    // }
+
+    // const changSize = (size: any) => {
+    //   setProps({ size })
+    // }
+
+    // const confirmSetColumn = (columns: TableColumnParameterTypes[]) => {
+    //   setProps({ columns })
+    // }
+
     // 分页
     const pagination = computed(() => {
       return Object.assign(
@@ -298,14 +356,14 @@ export default defineComponent({
     // 渲染table column
     const renderTableColumn = (columnsChildren?: TableColumnParameterTypes[]) => {
       {
-        const { pageSize, currentPage, align, headerAlign, showOverflowTooltip, reserveSelection } = staticProps
+        const { pageSize, currentPage, align, headerAlign, showOverflowTooltip, reserveSelection } = unref(activeProps)
         return unref(columnsChildren || columns).map(v => {
           if (v.hidden) return null
           if (v.type === "index") {
             return (
               <ElTableColumn
                 type="index"
-                index={v.index ? v.index : currentPage < 2 ? 1 : currentPage * pageSize + 1}
+                index={v.index ? v.index : (currentPage - 1) * pageSize + 1}
                 align={v.align || align}
                 headerAlign={v.headerAlign || headerAlign}
                 label={v.label}
@@ -363,6 +421,10 @@ export default defineComponent({
     }
     // 暴露
     expose({
+      setProps,
+      setColumn,
+      delColumn,
+      addColumn,
       elTableRef
     })
     // render
@@ -375,16 +437,18 @@ export default defineComponent({
         tableSlots["append"] = (...args: any[]) => getSlot(slots, "append", args)
       }
       return (
-        <div>
-          <ElTable {...staticProps} data={props.data}>
+        <div class="vx-table" v-loading={unref(activeProps).loading}>
+          <ElTable ref={elTableRef} {...unref(activeProps)} data={props.data} style={style}>
             {{ default: () => renderTableColumn(), ...tableSlots }}
           </ElTable>
           {staticProps.pagination ? (
-            <ElPagination
-              v-model:pageSize={pageSize.value}
-              v-model:currentPage={currentPage.value}
-              {...unref(pagination)}
-            ></ElPagination>
+            <div class="vx-table__pagination">
+              <ElPagination
+                v-model:pageSize={pageSize.value}
+                v-model:currentPage={currentPage.value}
+                {...unref(pagination)}
+              ></ElPagination>
+            </div>
           ) : (
             void 0
           )}
@@ -394,4 +458,15 @@ export default defineComponent({
   }
 })
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.vx-table {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  &__pagination {
+    height: var(--pagination-global-height);
+    line-height: var(--pagination-global-height);
+    background-color: var(--theme-div-color);
+  }
+}
+</style>

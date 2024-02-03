@@ -1,4 +1,4 @@
-import { ref, onMounted, unref, nextTick } from "vue"
+import { ref, onMounted, unref, nextTick, watch } from "vue"
 import { Table } from "@/components/Table"
 import type { TableParameterTypes, TableColumnParameterTypes, TableSetProps, TableExpose } from "@/components/Table/src/types"
 import { ElTable, ElMessageBox, ElMessage } from "element-plus"
@@ -50,6 +50,23 @@ export const useTable = (config: UseTableConfig) => {
     }
     return table
   }
+  //监听变化的pageSize和currentPage
+  watch(
+    () => unref(pageSize),
+    (val: number) => {
+      pageSize.value = val
+      methods.getList()
+    }
+  )
+
+  watch(
+    () => unref(currentPage),
+    (val: number) => {
+      currentPage.value = val
+      methods.getList()
+    }
+  )
+
   const methods = {
     // 请求table数据
     getList: async () => {

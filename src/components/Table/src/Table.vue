@@ -1,5 +1,5 @@
 <script lang="tsx">
-import { ref, unref, toRefs, reactive, watch, nextTick, computed, defineComponent, PropType, CSSProperties } from "vue"
+import { ref, unref, toRefs, reactive, nextTick, computed, defineComponent, PropType, CSSProperties } from "vue"
 import { ElTable, ElTableColumn, ElPagination } from "element-plus"
 import type { ElTooltipProps } from "element-plus"
 import type { TableParameterTypes, TableColumnParameterTypes, Pagination, TableSetProps } from "./types"
@@ -269,12 +269,6 @@ export default defineComponent({
       }
     })
     // 获取绑定值
-    watch(
-      () => props.loading,
-      val => {
-        console.log(val)
-      }
-    )
     //table方法
     const setProps = (setProps: TableParameterTypes = {}) => {
       Object.assign(activeProps, setProps)
@@ -354,14 +348,14 @@ export default defineComponent({
     // 渲染table column
     const renderTableColumn = (columnsChildren?: TableColumnParameterTypes[]) => {
       {
-        const { pageSize, currentPage, align, headerAlign, showOverflowTooltip, reserveSelection } = staticProps
+        const { pageSize, currentPage, align, headerAlign, showOverflowTooltip, reserveSelection } = unref(activeProps)
         return unref(columnsChildren || columns).map(v => {
           if (v.hidden) return null
           if (v.type === "index") {
             return (
               <ElTableColumn
                 type="index"
-                index={v.index ? v.index : currentPage < 2 ? 1 : currentPage * pageSize + 1}
+                index={v.index ? v.index : (currentPage - 1) * pageSize + 1}
                 align={v.align || align}
                 headerAlign={v.headerAlign || headerAlign}
                 label={v.label}

@@ -231,9 +231,9 @@ interface TableSetProps {
 interface TableExpose {
   setProps: (props: Recordable) => void
   setColumn: (columnProps: TableSetProps[]) => void
-  addColumn: (column: TableColumn, index?: number) => void
+  addColumn: (column: TableColumnParameterTypes, index?: number) => void
   delColumn: (field: string) => void
-  elTableRef: ComponentRef<typeof ElTable>
+  elTableRef: InstanceType<typeof ElTable>
 }
 
 export type { TableParameterTypes, TableColumnParameterTypes, Pagination, TableSetProps, TableExpose }

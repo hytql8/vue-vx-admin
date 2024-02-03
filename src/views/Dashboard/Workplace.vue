@@ -6,18 +6,6 @@ import { useTable } from "@/hooks/useTable"
 import { ElButton, ElTag } from "element-plus"
 import axios from "axios"
 
-interface RowVO {
-  id: number
-  name: string
-  role: string
-  sex: string
-  age: number
-  address: string
-}
-const randomNumber = Math.floor(Math.random() * 10000) + 1
-
-let tableData = ref([])
-
 const columns = [
   {
     label: "#",
@@ -28,7 +16,6 @@ const columns = [
     label: "序号",
     width: 55,
     type: "index"
-    // index: randomNumber
   },
   {
     field: "id",
@@ -68,6 +55,9 @@ const columns = [
     slots: {
       default: () => {
         return <ElButton type="primary">我是column的插槽</ElButton>
+      },
+      header: () => {
+        return <ElTag effect="dark">操作 我是header的插槽</ElTag>
       }
     }
   }
@@ -79,6 +69,7 @@ const rowClick = e => {
 const { tableRegister, tableState, tableMethods } = useTable({
   getDataApi: async () => {
     const { currentPage, pageSize } = tableState
+    console.log(unref(currentPage), unref(pageSize), "=====================")
     let list = []
     let total = 0
     const res = await axios({

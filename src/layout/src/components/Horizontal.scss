@@ -55,6 +55,9 @@
       height: calc(100vh - 83px);
       padding: 10px;
     }
+    &:deep(.vx-table) {
+      height: calc(100vh - 133px);
+    }
   }
 }
 

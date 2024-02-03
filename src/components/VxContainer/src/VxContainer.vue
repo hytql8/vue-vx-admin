@@ -6,9 +6,7 @@ defineOptions({
 <template>
   <div class="vx-container">
     <ElScrollbar class="vx-container__scrollbar">
-      <!-- <div class="vx-container__scrollbar-block"> -->
-      <slot />
-      <!-- </div> -->
+      <slot></slot>
     </ElScrollbar>
   </div>
 </template>

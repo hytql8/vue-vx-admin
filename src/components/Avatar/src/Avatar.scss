@@ -2,7 +2,7 @@
 .vx-avatar {
   height: inherit;
   .vx-dropdown {
-    height: 50px;
+    height: var(--header-global-height);
     padding: 0 15px 0 5px;
     &__username {
       margin-right: 10px;

@@ -1,6 +1,6 @@
 @import "@/styles/var.scss";
 .vx-fullscreen {
-  height: 50px;
+  height: var(--header-global-height);
   padding: 0 5px;
   &__icon {
     @include cursor;

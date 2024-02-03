@@ -9,7 +9,7 @@
   }
   .vx-header {
     width: 100%;
-    height: 50px;
+    height: var(--header-global-height);
     &__nav {
       position: relative;
       flex: 1;
@@ -52,11 +52,11 @@
   }
   .vx-main {
     &__container {
-      height: calc(100vh - 83px);
+      height: calc(100vh - var(--header-global-height) - var(--tags-view-global-height));
       padding: 10px;
     }
     &:deep(.vx-table) {
-      height: calc(100vh - 133px);
+      height: calc(100vh - var(--header-global-height) - var(--tags-view-global-height) - var(--pagination-global-height));
     }
   }
 }

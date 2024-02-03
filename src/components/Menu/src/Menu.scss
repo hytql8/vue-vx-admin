@@ -60,3 +60,6 @@
     padding: 0 16px;
   }
 }
+.vx-scrollbar {
+  height: calc(100vh - var(--header-global-height))!important;
+}

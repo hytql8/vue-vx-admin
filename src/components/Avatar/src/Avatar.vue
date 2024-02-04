@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { getStaticSource } from "@/utils/index"
+// import { getStaticSource } from "@/utils/index"
 import { VxIcon } from "@/components/VxIcon"
 import { useI18n } from "vue-i18n"
 
@@ -9,7 +9,8 @@ defineOptions({
 
 const { t } = useI18n()
 
-const url = getStaticSource("@/assets/imgs/Avatar.png")
+// const url = getStaticSource("@/assets/imgs/Avatar.png")
+const url = new URL("@/assets/imgs/Avatar.png", import.meta.url).href
 </script>
 <template>
   <div class="vx-avatar">

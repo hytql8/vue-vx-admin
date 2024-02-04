@@ -48,7 +48,7 @@ export const getPluginsList = (VITE_CDN: boolean) => {
       ignore: /^\_/,
       mockPath: "mock",
       localEnabled: true,
-      prodEnabled: false,
+      prodEnabled: true,
       injectCode: `import { setupProdMockServer } from '../mock/_createProductionServer'
       setupProdMockServer()`
     } as ViteMockOptions)

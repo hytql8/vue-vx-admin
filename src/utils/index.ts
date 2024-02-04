@@ -6,7 +6,7 @@ export const setCssVar = (prop: string, val: any, dom = document.documentElement
 export const toCssVariable = (variable: string): string => {
   return `--${variable.replace(/[A-Z]/g, "-$&").toLowerCase()}`
 }
-// 静态资源路径转换
+// 静态资源路径转换（生产环境不生效，暂时弃用）
 export const getStaticSource = (sourceUrl: string): string | undefined => {
   // 当前import.meta.url是当前index.ts的路径，需要提取此url src及以前的部分
   const parseUrl = new URL(import.meta.url)

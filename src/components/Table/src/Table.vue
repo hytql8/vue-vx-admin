@@ -280,7 +280,9 @@ export default defineComponent({
     // 获取绑定值
     //table方法
     const setProps = (setProps: TableParameterTypes = {}) => {
-      Object.assign(activeProps, setProps)
+      // 接受普通对象需要转换为reactive对象
+      let updateProps = reactive(setProps)
+      Object.assign(activeProps, { ...toRefs(updateProps) })
     }
 
     const setColumn = (columnProps: TableSetProps[], columnsChildren?: TableColumnParameterTypes[]) => {

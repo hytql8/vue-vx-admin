@@ -30,7 +30,7 @@ pnpm run dev
 pnpm run build
 ```
 
-代码部署/发布
+代码部署/发布之前预览打包后的页面
 
 ```markdown
 pnpm run preview
@@ -94,8 +94,6 @@ vscode 配置 (项目下的.vscode文件夹下的.settings.json，如果没有�
 ```
 
 项目图片预览
-
-![](D:\TGYCWork\HY\vx-admin-preview.png)
 
 ![](http://hytql8.top/vx-admin-preview.png)
 

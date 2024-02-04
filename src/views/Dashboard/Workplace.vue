@@ -80,7 +80,7 @@ const { tableRegister, tableState, tableMethods } = useTable({
   }
 })
 const { loading, dataList, total, currentPage, pageSize } = tableState
-const { getElTableExpose } = tableMethods
+const { getElTableExpose, setProps } = tableMethods
 
 const getElTableRef = async () => {
   const elTableRef = await getElTableExpose()
@@ -88,16 +88,21 @@ const getElTableRef = async () => {
 }
 
 getElTableRef()
+const clickSetProps = () => {
+  setProps({
+    stripe: true
+  })
+}
 </script>
 <template>
   <VxContainer>
     <div class="vx-workplace">
+      <ElButton @click="clickSetProps">设置属性</ElButton>
       <Table
         fill-up
         :loading="loading"
         v-model:pageSize="pageSize"
         v-model:currentPage="currentPage"
-        :border="true"
         style="width: 100%"
         :data="dataList"
         @row-click="rowClick"

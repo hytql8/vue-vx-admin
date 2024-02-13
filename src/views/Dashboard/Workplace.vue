@@ -1,10 +1,10 @@
 <script setup lang="tsx">
-import { ref, unref, watch } from "vue"
+import { unref } from "vue"
 import { VxContainer } from "@/components/VxContainer"
 import { Table } from "@/components/Table"
 import { useTable } from "@/hooks/useTable"
 import { ElButton, ElTag } from "element-plus"
-import axios from "axios"
+import { getUseTableList } from "@/api/workplace"
 
 const columns = [
   {
@@ -69,37 +69,40 @@ const rowClick = e => {
 const { tableRegister, tableState, tableMethods } = useTable({
   getDataApi: async () => {
     const { currentPage, pageSize } = tableState
-    let list = []
-    let total = 0
-    const res = await axios({
-      url: "/useTable/list",
-      method: "post",
-      data: {
-        page: unref(currentPage),
-        pageSize: unref(pageSize)
-      }
+    const res = await getUseTableList({
+      page: unref(currentPage),
+      pageSize: unref(pageSize)
     })
-    console.log(res)
-    list = res.data.result.items
-    total = res.data.result.total
     return {
-      list,
-      total
+      list: res.result.items,
+      total: res.result.total
     }
   }
 })
 const { loading, dataList, total, currentPage, pageSize } = tableState
-const { getList, getElTableExpose, delList } = tableMethods
+const { getElTableExpose, setProps } = tableMethods
+
+const getElTableRef = async () => {
+  const elTableRef = await getElTableExpose()
+  console.log(elTableRef, "el-table-ref")
+}
+
+getElTableRef()
+const clickSetProps = () => {
+  setProps({
+    stripe: true
+  })
+}
 </script>
 <template>
   <VxContainer>
     <div class="vx-workplace">
+      <ElButton @click="clickSetProps">设置属性</ElButton>
       <Table
         fill-up
         :loading="loading"
         v-model:pageSize="pageSize"
         v-model:currentPage="currentPage"
-        :border="true"
         style="width: 100%"
         :data="dataList"
         @row-click="rowClick"

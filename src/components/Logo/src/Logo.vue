@@ -1,14 +1,15 @@
 <script lang="tsx" setup>
 import { computed, unref } from "vue"
 import { useAppStore } from "@/store/modules/app"
-import { getStaticSource } from "@/utils"
+// import { getStaticSource } from "@/utils"
 
 const appStore = useAppStore()
 const isFold = computed(() => appStore.getIsFold)
 
 const menuWidth = computed(() => (unref(isFold) ? "0" : "148.5px"))
 
-const logoUrl = getStaticSource("@/assets/imgs/VxLogo.png")
+// const logoUrl = getStaticSource("@/assets/imgs/VxLogo.png")
+const logoUrl = new URL("@/assets/imgs/VxLogo.png", import.meta.url).href
 const vxTitle = import.meta.env.VITE_APP_TITLE
 </script>
 <template>

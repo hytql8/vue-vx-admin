@@ -1,5 +1,5 @@
 <script lang="tsx">
-import { ref, unref, toRefs, reactive, nextTick, computed, defineComponent, PropType, CSSProperties } from "vue"
+import { ref, unref, toRefs, onMounted, reactive, computed, defineComponent, PropType, CSSProperties } from "vue"
 import { ElTable, ElTableColumn, ElPagination } from "element-plus"
 import type { ElTooltipProps } from "element-plus"
 import type { TableParameterTypes, TableColumnParameterTypes, Pagination, TableSetProps } from "./types"
@@ -238,12 +238,16 @@ export default defineComponent({
   setup(props, { attrs, emit, slots, expose }) {
     const elTableRef = ref<InstanceType<typeof ElTable>>()
     // 注册
-    const registerTable = async () => {
-      await nextTick()
+    // const registerTable = async () => {
+    //   await nextTick()
+    //   const tableRef = unref(elTableRef)
+    //   emit("register", tableRef?.$parent, elTableRef)
+    // }
+    // registerTable()
+    onMounted(() => {
       const tableRef = unref(elTableRef)
       emit("register", tableRef?.$parent, elTableRef)
-    }
-    registerTable()
+    })
     // 获取参数
     // 非proxy对象的props和attr(props中不包含的事件和属性)合集
     const staticProps = { ...props, ...attrs }
@@ -257,18 +261,15 @@ export default defineComponent({
         return props.pageSize
       },
       set: (val: number) => {
-        console.log("pageSize set", val)
         emit("update:pageSize", val)
         // 触发即为ElPagination切换了pageSize，在此进行useTable的操作
       }
     })
     const currentPage = computed({
       get: () => {
-        console.log("get")
         return props.currentPage
       },
       set: (val: number) => {
-        console.log("currentPage set", val)
         emit("update:currentPage", val)
       }
     })
@@ -279,7 +280,9 @@ export default defineComponent({
     // 获取绑定值
     //table方法
     const setProps = (setProps: TableParameterTypes = {}) => {
-      Object.assign(activeProps, setProps)
+      // 接受普通对象需要转换为reactive对象
+      let updateProps = reactive(setProps)
+      Object.assign(activeProps, { ...toRefs(updateProps) })
     }
 
     const setColumn = (columnProps: TableSetProps[], columnsChildren?: TableColumnParameterTypes[]) => {

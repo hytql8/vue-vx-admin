@@ -45,9 +45,9 @@ export const useTable = (config: UseTableConfig) => {
   const getTable = async () => {
     await nextTick()
     const table = unref(tableRef)
-    if (!table) {
-      console.warn("table注册失败")
-    }
+    // if (!table) {
+    //   console.warn("table注册失败")
+    // }
     return table
   }
   //监听变化的pageSize和currentPage

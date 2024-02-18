@@ -97,7 +97,6 @@ const clickSetProps = () => {
 <template>
   <VxContainer>
     <div class="vx-workplace">
-      <ElButton @click="clickSetProps">设置属性</ElButton>
       <Table
         fill-up
         :loading="loading"
@@ -113,6 +112,12 @@ const clickSetProps = () => {
           total
         }"
       >
+        <template #search>
+          <ElButton @click="clickSetProps">设置属性search</ElButton>
+        </template>
+        <template #prefix>
+          <ElButton @click="clickSetProps">设置属性prefix</ElButton>
+        </template>
       </Table>
     </div>
   </VxContainer>

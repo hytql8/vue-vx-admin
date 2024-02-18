@@ -1,10 +1,17 @@
+@import "@/styles/var.scss";
 .vx-table {
-    display: flex;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  &__pagination {
+    height: var(--pagination-global-height);
+    line-height: var(--pagination-global-height);
+    background-color: var(--theme-div-color);
+  }
+  &__prefix {
     flex-direction: column;
-    height: 100%;
-    &__pagination {
-        height: var(--pagination-global-height);
-        line-height: var(--pagination-global-height);
-        background-color: var(--theme-div-color);
-    }
-};
+    align-content: start;
+
+    @include flex(start, start, wrap);
+  }
+}

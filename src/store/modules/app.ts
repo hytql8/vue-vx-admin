@@ -10,6 +10,7 @@ type appState = {
   isDark: boolean
   layout: LayoutType
   isFold: boolean
+  columnSize: string[]
   theme: ThemeTypes
 }
 
@@ -22,6 +23,8 @@ export const useAppStore = defineStore("app", {
       layout: getStorage("layout") || "horizontal",
       // 左侧菜单是否折叠
       isFold: getStorage("isFold") || false,
+      // table密度
+      columnSize: ["default", "large", "small"],
       // 默认主题 需要变化的项目这里需要定义默认值，建议与var.less中保持一致
       theme: getStorage("theme") || {
         elPrimaryColor: "#3a6ee8",
@@ -47,6 +50,9 @@ export const useAppStore = defineStore("app", {
     },
     getIsFold(): boolean {
       return this.isFold
+    },
+    getColumnSize(): string[] {
+      return this.columnSize
     },
     getTheme(): ThemeTypes {
       return this.theme

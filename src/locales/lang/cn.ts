@@ -29,6 +29,11 @@ export default Object.assign(
       personalCenter: "个人中心",
       changePassword: "修改密码",
       loginOut: "退出登录"
+    },
+    size: {
+      default: "默认",
+      small: "紧凑",
+      large: "中等"
     }
   },
   vxeCn

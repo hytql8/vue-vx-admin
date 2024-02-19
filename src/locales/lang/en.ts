@@ -29,6 +29,11 @@ export default Object.assign(
       personalCenter: "Personal Center",
       changePassword: "Change Password",
       loginOut: "Login Out"
+    },
+    size: {
+      default: "Default",
+      small: "Compact",
+      large: "Medium"
     }
   },
   vxeEn

@@ -80,7 +80,7 @@ const { tableRegister, tableState, tableMethods } = useTable({
   }
 })
 const { loading, dataList, total, currentPage, pageSize } = tableState
-const { getElTableExpose, setProps } = tableMethods
+const { getElTableExpose, setProps, refresh } = tableMethods
 
 const getElTableRef = async () => {
   const elTableRef = await getElTableExpose()
@@ -107,15 +107,17 @@ const clickSetProps = () => {
         @row-click="rowClick"
         :columns="columns"
         @register="tableRegister"
+        @refresh="refresh"
         row-key="id"
         :pagination="{
           total
         }"
       >
         <template #search>
-          <ElButton @click="clickSetProps">设置属性search</ElButton>
+          <span>待添加搜索Form部分的插槽</span>
         </template>
         <template #prefix>
+          <span>自定义部分插槽，不需要可忽略</span>
           <ElButton @click="clickSetProps">设置属性prefix</ElButton>
         </template>
       </Table>

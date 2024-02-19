@@ -1,10 +1,12 @@
 <script lang="tsx">
-import { ref, unref, toRefs, onMounted, reactive, computed, defineComponent, PropType, CSSProperties } from "vue"
+import { ref, nextTick, unref, toRefs, onMounted, reactive, computed, defineComponent, PropType, CSSProperties } from "vue"
 import { ElTable, ElTableColumn, ElPagination } from "element-plus"
 import type { ElTooltipProps } from "element-plus"
 import type { TableParameterTypes, TableColumnParameterTypes, Pagination, TableSetProps } from "./types"
 import { getSlot } from "@/utils/tsxUtils"
 import { get, set } from "lodash-es"
+import TableSetting from "./components/TableSettings.vue"
+import { useFullscreen } from "@vueuse/core"
 
 /**  接受参数详情请见 @type TableParameterTypes */
 export default defineComponent({
@@ -238,12 +240,6 @@ export default defineComponent({
   setup(props, { attrs, emit, slots, expose }) {
     const elTableRef = ref<InstanceType<typeof ElTable>>()
     // 注册
-    // const registerTable = async () => {
-    //   await nextTick()
-    //   const tableRef = unref(elTableRef)
-    //   emit("register", tableRef?.$parent, elTableRef)
-    // }
-    // registerTable()
     onMounted(() => {
       const tableRef = unref(elTableRef)
       emit("register", tableRef?.$parent, elTableRef)
@@ -315,12 +311,17 @@ export default defineComponent({
       }
     }
 
-    // const refresh = () => {
-    //   emit("refresh")
-    // }
+    const refresh = () => {
+      emit("refresh")
+    }
 
-    // const changSize = (size: any) => {
-    //   setProps({ size })
+    const changSize = (size: any) => {
+      setProps({ size })
+    }
+    // const { toggle } = useFullscreen(unref(unref(elTableRef)?.$parent))
+
+    // const changeFullScreen = () => {
+    //   toggle()
     // }
 
     // const confirmSetColumn = (columns: TableColumnParameterTypes[]) => {
@@ -455,6 +456,8 @@ export default defineComponent({
               return <div>{prefixSlots[key]?.()}</div>
             })}
           </div>
+          {/* <TableSetting onChangeSize={changSize} onRefresh={refresh} onChangeFullScreen={changeFullScreen} /> */}
+          <TableSetting onChangeSize={changSize} onRefresh={refresh} />
           <ElTable ref={elTableRef} {...unref(activeProps)} data={props.data} style={style}>
             {{ default: () => renderTableColumn(), ...tableSlots }}
           </ElTable>

@@ -439,8 +439,22 @@ export default defineComponent({
       if (getSlot(slots, "append")) {
         tableSlots["append"] = (...args: any[]) => getSlot(slots, "append", args)
       }
+      // 表格头部之前部分的插槽（自定义为prefix）
+      const prefixSlots = {}
+      if (getSlot(slots, "prefix")) {
+        prefixSlots["prefix"] = (...args: any[]) => getSlot(slots, "prefix", args)
+      }
+      if (getSlot(slots, "search")) {
+        prefixSlots["search"] = (...args: any[]) => getSlot(slots, "search", args)
+      }
+
       return (
         <div class="vx-table" v-loading={unref(activeProps).loading}>
+          <div class="vx-table__prefix">
+            {Object.keys(prefixSlots).map((key: string) => {
+              return <div>{prefixSlots[key]?.()}</div>
+            })}
+          </div>
           <ElTable ref={elTableRef} {...unref(activeProps)} data={props.data} style={style}>
             {{ default: () => renderTableColumn(), ...tableSlots }}
           </ElTable>
@@ -462,14 +476,5 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
-.vx-table {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  &__pagination {
-    height: var(--pagination-global-height);
-    line-height: var(--pagination-global-height);
-    background-color: var(--theme-div-color);
-  }
-}
+@use "./Table.scss";
 </style>

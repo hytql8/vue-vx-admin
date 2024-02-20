@@ -463,12 +463,14 @@ export default defineComponent({
             class={unref(isUnFullscreen) ? "vx-table__fullscreen" : "vx-table__fullscreen fullscreen-padding"}
             ref={fullscreenRef}
           >
-            <TableSetting
-              onChangeSize={changSize}
-              onRefresh={refresh}
-              onChangeFullScreen={changeFullScreen}
-              slot={tableSettingSlot()}
-            />
+            {getSlot(slots, "setting") ? (
+              <TableSetting
+                onChangeSize={changSize}
+                onRefresh={refresh}
+                onChangeFullScreen={changeFullScreen}
+                slot={tableSettingSlot()}
+              />
+            ) : null}
             <ElTable ref={elTableRef} {...unref(activeProps)} data={props.data} style={style}>
               {{ default: () => renderTableColumn(), ...tableSlots }}
             </ElTable>

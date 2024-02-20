@@ -470,7 +470,9 @@ export default defineComponent({
                 onChangeFullScreen={changeFullScreen}
                 slot={tableSettingSlot()}
               />
-            ) : null}
+            ) : (
+              void 0
+            )}
             <ElTable ref={elTableRef} {...unref(activeProps)} data={props.data} style={style}>
               {{ default: () => renderTableColumn(), ...tableSlots }}
             </ElTable>

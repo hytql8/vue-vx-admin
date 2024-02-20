@@ -108,7 +108,7 @@ const scrollNext = async () => {
 </script>
 <template>
   <div class="vx-tags">
-    <div class="vx-tags-list-pre" @click="scrollPre">
+    <div class="vx-tags-list-pre first-pre" @click="scrollPre">
       <VxIcon icon="line-md:chevron-double-left" color="#8D9095" :size="16"></VxIcon>
     </div>
     <ElScrollbar class="vx-scrollbar" ref="scrollViewRef" @scroll="getScroll">

@@ -2,8 +2,9 @@
 .vx-logo {
   height: var(--header-global-height);
   background-color: var(--logo-bg-color);
-  border-right: 1px solid var(--divider-color);
-  border-left: 1px solid var(--logo-bg-color);
+
+  // border-right: 1px solid var(--divider-color);
+  // border-left: 1px solid var(--logo-bg-color);
   transition-timing-function: ease-in;
   &:hover {
     background-color: var(--logo-bg-active-color);

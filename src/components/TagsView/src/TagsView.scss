@@ -15,6 +15,9 @@
     @include flex(center, center, nowrap);
     @include transition(background-color);
   }
+  & .first-pre {
+    border-left: unset;
+  }
   &-list-suf {
     height: 32px;
     padding: 0 8px;

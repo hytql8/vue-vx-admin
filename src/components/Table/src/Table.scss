@@ -4,6 +4,12 @@
   flex-direction: column;
   height: 100%;
   background-color: var(--theme-div-color);
+  &__fullscreen {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: var(--theme-div-color);
+  }
   &__pagination {
     height: var(--pagination-global-height);
     line-height: var(--pagination-global-height);
@@ -15,4 +21,8 @@
 
     @include flex(start, start, wrap);
   }
+  .fullscreen-padding {
+    padding: 20px 20px 10px;
+  }
 }
+

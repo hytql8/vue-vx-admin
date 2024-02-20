@@ -1,5 +1,5 @@
 <script lang="tsx">
-import { ref, nextTick, unref, toRefs, onMounted, reactive, computed, defineComponent, PropType, CSSProperties } from "vue"
+import { ref, unref, toRefs, onMounted, reactive, computed, defineComponent, nextTick, PropType, CSSProperties } from "vue"
 import { ElTable, ElTableColumn, ElPagination } from "element-plus"
 import type { ElTooltipProps } from "element-plus"
 import type { TableParameterTypes, TableColumnParameterTypes, Pagination, TableSetProps } from "./types"
@@ -244,6 +244,7 @@ export default defineComponent({
       const tableRef = unref(elTableRef)
       emit("register", tableRef?.$parent, elTableRef)
     })
+
     // 获取参数
     // 非proxy对象的props和attr(props中不包含的事件和属性)合集
     const staticProps = { ...props, ...attrs }
@@ -318,16 +319,15 @@ export default defineComponent({
     const changSize = (size: any) => {
       setProps({ size })
     }
-    // const { toggle } = useFullscreen(unref(unref(elTableRef)?.$parent))
-
-    // const changeFullScreen = () => {
-    //   toggle()
-    // }
-
-    // const confirmSetColumn = (columns: TableColumnParameterTypes[]) => {
-    //   setProps({ columns })
-    // }
-
+    // 全屏
+    const fullscreenRef = ref<HTMLElement | null>(null)
+    const isUnFullscreen = ref(true)
+    const { toggle, isFullscreen } = useFullscreen(fullscreenRef)
+    const changeFullScreen = async () => {
+      await nextTick()
+      isUnFullscreen.value = unref(isFullscreen)
+      toggle()
+    }
     // 分页
     const pagination = computed(() => {
       return Object.assign(
@@ -448,6 +448,8 @@ export default defineComponent({
       if (getSlot(slots, "search")) {
         prefixSlots["search"] = (...args: any[]) => getSlot(slots, "search", args)
       }
+      //Table Setting部分插槽
+      const tableSettingSlot = (...args: any[]) => getSlot(slots, "setting", args)
 
       return (
         <div class="vx-table" v-loading={unref(activeProps).loading}>
@@ -456,22 +458,32 @@ export default defineComponent({
               return <div>{prefixSlots[key]?.()}</div>
             })}
           </div>
-          {/* <TableSetting onChangeSize={changSize} onRefresh={refresh} onChangeFullScreen={changeFullScreen} /> */}
-          <TableSetting onChangeSize={changSize} onRefresh={refresh} />
-          <ElTable ref={elTableRef} {...unref(activeProps)} data={props.data} style={style}>
-            {{ default: () => renderTableColumn(), ...tableSlots }}
-          </ElTable>
-          {staticProps.pagination ? (
-            <div class="vx-table__pagination">
-              <ElPagination
-                v-model:pageSize={pageSize.value}
-                v-model:currentPage={currentPage.value}
-                {...unref(pagination)}
-              ></ElPagination>
-            </div>
-          ) : (
-            void 0
-          )}
+          {/* 需要全屏的部分 */}
+          <div
+            class={unref(isUnFullscreen) ? "vx-table__fullscreen" : "vx-table__fullscreen fullscreen-padding"}
+            ref={fullscreenRef}
+          >
+            <TableSetting
+              onChangeSize={changSize}
+              onRefresh={refresh}
+              onChangeFullScreen={changeFullScreen}
+              slot={tableSettingSlot()}
+            />
+            <ElTable ref={elTableRef} {...unref(activeProps)} data={props.data} style={style}>
+              {{ default: () => renderTableColumn(), ...tableSlots }}
+            </ElTable>
+            {staticProps.pagination ? (
+              <div class="vx-table__pagination">
+                <ElPagination
+                  v-model:pageSize={pageSize.value}
+                  v-model:currentPage={currentPage.value}
+                  {...unref(pagination)}
+                ></ElPagination>
+              </div>
+            ) : (
+              void 0
+            )}
+          </div>
         </div>
       )
     }

@@ -104,8 +104,8 @@ const clickSetProps = () => {
         v-model:currentPage="currentPage"
         style="width: 100%"
         :data="dataList"
-        @row-click="rowClick"
         :columns="columns"
+        @row-click="rowClick"
         @register="tableRegister"
         @refresh="refresh"
         row-key="id"
@@ -119,6 +119,9 @@ const clickSetProps = () => {
         <template #prefix>
           <span>自定义部分插槽，不需要可忽略</span>
           <ElButton @click="clickSetProps">设置属性prefix</ElButton>
+        </template>
+        <template #setting>
+          <span>table setting部分插槽, 不需要可忽略</span>
         </template>
       </Table>
     </div>

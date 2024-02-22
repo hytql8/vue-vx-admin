@@ -7,7 +7,6 @@ import { useStorage } from "@/hooks/useStorage"
 import { setCssVar } from "./utils"
 import { setHtmlLang } from "@/hooks/useLocale"
 import type { Language } from "element-plus/es/locale"
-import { router } from "@/router"
 import { tagsViewInit } from "@/components/TagsView"
 import { useRouter } from "vue-router"
 
@@ -19,11 +18,6 @@ const { push } = useRouter()
 
 // el组件语言配置
 const elLocale = computed(() => toRaw(localeStore.currentLocale.elLang) as Language)
-// 获取当前路由列表的redirect
-const redirect = router.getRoutes().find(v => v.path === "/").redirect
-const defaultCurRoute = router.getRoutes().find(v => v.path === redirect)
-
-console.log(defaultCurRoute, `========defaultCurRoute`)
 
 // 初始化从storage中取 switch状态, 和主题配置， 语言设置默认
 appStore.setIsDark(getStorage("isDark"))
@@ -33,7 +27,6 @@ const path = tagsViewInit()
 
 // onMounted后开始加载store/storage中配置
 onMounted(() => {
-  console.log(path, "path=============")
   appStore.setCssVarTheme()
   setHtmlLang(localeStore.getCurrentLocale)
   setCssVar("--el-color-primary", appStore.getTheme.elPrimaryColor)
@@ -43,7 +36,6 @@ onMounted(() => {
 watch(
   () => appStore.getIsDark,
   val => {
-    console.log(val, getStorage("isDark"))
     if (val) {
       appStore.setTheme(darkTheme)
       appStore.setCssVarTheme()

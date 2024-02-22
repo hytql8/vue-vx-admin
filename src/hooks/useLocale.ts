@@ -14,7 +14,6 @@ export const useCustomLocale = () => {
   const changeLocale = async (locale: LocaleMap) => {
     const globalI18n = i18n.global
     const langModule = await import(`../locales/lang/${locale.lang === "en" ? "en" : "cn"}.ts`)
-    console.log(locale.lang)
 
     globalI18n.setLocaleMessage(locale.lang, langModule.default)
     setI18nLanguage(locale)

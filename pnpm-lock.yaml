@@ -29,6 +29,9 @@ dependencies:
   consola:
     specifier: ^3.2.3
     version: registry.npmmirror.com/consola@3.2.3
+  echarts:
+    specifier: ^5.5.0
+    version: 5.5.0
   element-plus:
     specifier: ^2.4.2
     version: registry.npmmirror.com/element-plus@2.4.2(vue@3.4.14)
@@ -126,7 +129,7 @@ devDependencies:
     version: registry.npmmirror.com/stylelint-config-recommended@13.0.0(stylelint@15.11.0)
   stylelint-config-recommended-scss:
     specifier: ^13.1.0
-    version: registry.npmmirror.com/stylelint-config-recommended-scss@13.1.0(postcss@8.4.31)(stylelint@15.11.0)
+    version: registry.npmmirror.com/stylelint-config-recommended-scss@13.1.0(postcss@8.4.33)(stylelint@15.11.0)
   stylelint-config-recommended-vue:
     specifier: ^1.5.0
     version: registry.npmmirror.com/stylelint-config-recommended-vue@1.5.0(postcss-html@1.5.0)(stylelint@15.11.0)
@@ -135,7 +138,7 @@ devDependencies:
     version: registry.npmmirror.com/stylelint-config-standard@34.0.0(stylelint@15.11.0)
   stylelint-config-standard-scss:
     specifier: ^11.1.0
-    version: registry.npmmirror.com/stylelint-config-standard-scss@11.1.0(postcss@8.4.31)(stylelint@15.11.0)
+    version: registry.npmmirror.com/stylelint-config-standard-scss@11.1.0(postcss@8.4.33)(stylelint@15.11.0)
   stylelint-order:
     specifier: ^6.0.3
     version: registry.npmmirror.com/stylelint-order@6.0.3(stylelint@15.11.0)
@@ -610,6 +613,13 @@ packages:
       domhandler: 5.0.3
     dev: true
 
+  /echarts@5.5.0:
+    resolution: {integrity: sha512-rNYnNCzqDAPCr4m/fqyUFv7fD9qIsd50S6GDFgO1DxZhncCsNsG7IfUlAlvZe5oSEQxtsjnHiUuppzccry93Xw==, tarball: https://registry.npmmirror.com/echarts/-/echarts-5.5.0.tgz}
+    dependencies:
+      tslib: 2.3.0
+      zrender: 5.5.0
+    dev: false
+
   /ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==, tarball: https://registry.npmmirror.com/ee-first/-/ee-first-1.1.1.tgz}
     dev: true
@@ -1021,26 +1031,17 @@ packages:
     dependencies:
       htmlparser2: 8.0.2
       js-tokens: 8.0.2
-      postcss: 8.4.31
-      postcss-safe-parser: 6.0.0(postcss@8.4.31)
+      postcss: 8.4.33
+      postcss-safe-parser: 6.0.0(postcss@8.4.33)
     dev: true
 
-  /postcss-safe-parser@6.0.0(postcss@8.4.31):
+  /postcss-safe-parser@6.0.0(postcss@8.4.33):
     resolution: {integrity: sha512-FARHN8pwH+WiS2OPCxJI8FuRJpTVnn6ZNFiqAM2aeW2LwTHWWmWgIyKC6cUo0L8aeKiF/14MNvnpls6R2PBeMQ==, tarball: https://registry.npmmirror.com/postcss-safe-parser/-/postcss-safe-parser-6.0.0.tgz}
     engines: {node: '>=12.0'}
     peerDependencies:
       postcss: ^8.3.3
     dependencies:
-      postcss: 8.4.31
-    dev: true
-
-  /postcss@8.4.31:
-    resolution: {integrity: sha512-PS08Iboia9mts/2ygV3eLpY5ghnUcfLV/EXTOW1E2qYxJKGGBUtNjN76FYHnMs36RmARn41bC0AZmn+rR0OVpQ==, tarball: https://registry.npmmirror.com/postcss/-/postcss-8.4.31.tgz}
-    engines: {node: ^10 || ^12 || >=14}
-    dependencies:
-      nanoid: 3.3.7
-      picocolors: 1.0.0
-      source-map-js: 1.0.2
+      postcss: 8.4.33
     dev: true
 
   /postcss@8.4.33:
@@ -1114,6 +1115,13 @@ packages:
       is-number: 7.0.0
     dev: true
 
+  /tslib@2.3.0:
+    resolution: {integrity: sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==, tarball: https://registry.npmmirror.com/tslib/-/tslib-2.3.0.tgz}
+    dev: false
+
+  /tslib@2.6.2:
+    resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==, tarball: https://registry.npmmirror.com/tslib/-/tslib-2.6.2.tgz}
+
   /unpipe@1.0.0:
     resolution: {integrity: sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==, tarball: https://registry.npmmirror.com/unpipe/-/unpipe-1.0.0.tgz}
     engines: {node: '>= 0.8'}
@@ -1173,6 +1181,12 @@ packages:
 
   /xe-utils@3.5.17:
     resolution: {integrity: sha512-UcKt3KppdHPTeH3omhW4m198VlgMJeuczwndeB7WnbSmkPksVXLLb7cnwonkSvtLiP6ge2uEonD4Hc1/mRxPVw==, tarball: https://registry.npmmirror.com/xe-utils/-/xe-utils-3.5.17.tgz}
+    dev: false
+
+  /zrender@5.5.0:
+    resolution: {integrity: sha512-O3MilSi/9mwoovx77m6ROZM7sXShR/O/JIanvzTwjN3FORfLSr81PsUGd7jlaYOeds9d8tw82oP44+3YucVo+w==, tarball: https://registry.npmmirror.com/zrender/-/zrender-5.5.0.tgz}
+    dependencies:
+      tslib: 2.3.0
     dev: false
 
   registry.npmmirror.com/@aashutoshrathi/word-wrap@1.2.6:
@@ -1906,7 +1920,7 @@ packages:
       is-glob: registry.npmmirror.com/is-glob@4.0.3
       open: registry.npmmirror.com/open@9.1.0
       picocolors: registry.npmmirror.com/picocolors@1.0.0
-      tslib: registry.npmmirror.com/tslib@2.6.2
+      tslib: 2.6.2
     dev: true
 
   registry.npmmirror.com/@rollup/pluginutils@4.2.1:
@@ -2626,7 +2640,7 @@ packages:
     version: 4.1.2
     dependencies:
       pascal-case: registry.npmmirror.com/pascal-case@3.1.2
-      tslib: registry.npmmirror.com/tslib@2.6.2
+      tslib: 2.6.2
     dev: false
 
   registry.npmmirror.com/camelcase-keys@7.0.2:
@@ -2660,7 +2674,7 @@ packages:
     version: 1.0.4
     dependencies:
       no-case: registry.npmmirror.com/no-case@3.0.4
-      tslib: registry.npmmirror.com/tslib@2.6.2
+      tslib: 2.6.2
       upper-case-first: registry.npmmirror.com/upper-case-first@2.0.2
     dev: false
 
@@ -2701,7 +2715,7 @@ packages:
       path-case: registry.npmmirror.com/path-case@3.0.4
       sentence-case: registry.npmmirror.com/sentence-case@3.0.4
       snake-case: registry.npmmirror.com/snake-case@3.0.4
-      tslib: registry.npmmirror.com/tslib@2.6.2
+      tslib: 2.6.2
     dev: false
 
   registry.npmmirror.com/chokidar@3.5.3:
@@ -2795,7 +2809,7 @@ packages:
     version: 3.0.4
     dependencies:
       no-case: registry.npmmirror.com/no-case@3.0.4
-      tslib: registry.npmmirror.com/tslib@2.6.2
+      tslib: 2.6.2
       upper-case: registry.npmmirror.com/upper-case@2.0.2
     dev: false
 
@@ -2975,7 +2989,7 @@ packages:
     version: 3.0.4
     dependencies:
       no-case: registry.npmmirror.com/no-case@3.0.4
-      tslib: registry.npmmirror.com/tslib@2.6.2
+      tslib: 2.6.2
     dev: false
 
   registry.npmmirror.com/electron-to-chromium@1.4.590:
@@ -3617,7 +3631,7 @@ packages:
     version: 2.0.4
     dependencies:
       capital-case: registry.npmmirror.com/capital-case@1.0.4
-      tslib: registry.npmmirror.com/tslib@2.6.2
+      tslib: 2.6.2
     dev: false
 
   registry.npmmirror.com/hosted-git-info@4.1.0:
@@ -4024,7 +4038,7 @@ packages:
     name: lower-case
     version: 2.0.2
     dependencies:
-      tslib: registry.npmmirror.com/tslib@2.6.2
+      tslib: 2.6.2
     dev: false
 
   registry.npmmirror.com/lru-cache@5.1.1:
@@ -4238,7 +4252,7 @@ packages:
     version: 3.0.4
     dependencies:
       lower-case: registry.npmmirror.com/lower-case@2.0.2
-      tslib: registry.npmmirror.com/tslib@2.6.2
+      tslib: 2.6.2
     dev: false
 
   registry.npmmirror.com/node-releases@2.0.13:
@@ -4373,7 +4387,7 @@ packages:
     version: 3.0.4
     dependencies:
       dot-case: registry.npmmirror.com/dot-case@3.0.4
-      tslib: registry.npmmirror.com/tslib@2.6.2
+      tslib: 2.6.2
     dev: false
 
   registry.npmmirror.com/parent-module@1.0.1:
@@ -4403,7 +4417,7 @@ packages:
     version: 3.1.2
     dependencies:
       no-case: registry.npmmirror.com/no-case@3.0.4
-      tslib: registry.npmmirror.com/tslib@2.6.2
+      tslib: 2.6.2
     dev: false
 
   registry.npmmirror.com/path-browserify@1.0.1:
@@ -4418,7 +4432,7 @@ packages:
     version: 3.0.4
     dependencies:
       dot-case: registry.npmmirror.com/dot-case@3.0.4
-      tslib: registry.npmmirror.com/tslib@2.6.2
+      tslib: 2.6.2
     dev: false
 
   registry.npmmirror.com/path-exists@4.0.0:
@@ -4558,7 +4572,7 @@ packages:
       postcss: registry.npmmirror.com/postcss@8.4.31
     dev: true
 
-  registry.npmmirror.com/postcss-scss@4.0.9(postcss@8.4.31):
+  registry.npmmirror.com/postcss-scss@4.0.9(postcss@8.4.33):
     resolution: {integrity: sha512-AjKOeiwAitL/MXxQW2DliT28EKukvvbEWx3LBmJIRN8KfBGZbRTxNYW0kSqi1COiTZ57nZ9NW06S6ux//N1c9A==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/postcss-scss/-/postcss-scss-4.0.9.tgz}
     id: registry.npmmirror.com/postcss-scss/4.0.9
     name: postcss-scss
@@ -4567,7 +4581,7 @@ packages:
     peerDependencies:
       postcss: ^8.4.29
     dependencies:
-      postcss: 8.4.31
+      postcss: 8.4.33
     dev: true
 
   registry.npmmirror.com/postcss-selector-parser@6.0.13:
@@ -4817,7 +4831,7 @@ packages:
     version: 3.0.4
     dependencies:
       no-case: registry.npmmirror.com/no-case@3.0.4
-      tslib: registry.npmmirror.com/tslib@2.6.2
+      tslib: 2.6.2
       upper-case-first: registry.npmmirror.com/upper-case-first@2.0.2
     dev: false
 
@@ -4874,7 +4888,7 @@ packages:
     version: 3.0.4
     dependencies:
       dot-case: registry.npmmirror.com/dot-case@3.0.4
-      tslib: registry.npmmirror.com/tslib@2.6.2
+      tslib: 2.6.2
     dev: false
 
   registry.npmmirror.com/source-map-js@1.0.2:
@@ -5002,7 +5016,7 @@ packages:
       stylelint-order: registry.npmmirror.com/stylelint-order@6.0.3(stylelint@15.11.0)
     dev: true
 
-  registry.npmmirror.com/stylelint-config-recommended-scss@13.1.0(postcss@8.4.31)(stylelint@15.11.0):
+  registry.npmmirror.com/stylelint-config-recommended-scss@13.1.0(postcss@8.4.33)(stylelint@15.11.0):
     resolution: {integrity: sha512-8L5nDfd+YH6AOoBGKmhH8pLWF1dpfY816JtGMePcBqqSsLU+Ysawx44fQSlMOJ2xTfI9yTGpup5JU77c17w1Ww==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/stylelint-config-recommended-scss/-/stylelint-config-recommended-scss-13.1.0.tgz}
     id: registry.npmmirror.com/stylelint-config-recommended-scss/13.1.0
     name: stylelint-config-recommended-scss
@@ -5014,8 +5028,8 @@ packages:
       postcss:
         optional: true
     dependencies:
-      postcss: 8.4.31
-      postcss-scss: registry.npmmirror.com/postcss-scss@4.0.9(postcss@8.4.31)
+      postcss: 8.4.33
+      postcss-scss: registry.npmmirror.com/postcss-scss@4.0.9(postcss@8.4.33)
       stylelint: registry.npmmirror.com/stylelint@15.11.0(typescript@5.3.2)
       stylelint-config-recommended: registry.npmmirror.com/stylelint-config-recommended@13.0.0(stylelint@15.11.0)
       stylelint-scss: registry.npmmirror.com/stylelint-scss@5.3.1(stylelint@15.11.0)
@@ -5050,7 +5064,7 @@ packages:
       stylelint: registry.npmmirror.com/stylelint@15.11.0(typescript@5.3.2)
     dev: true
 
-  registry.npmmirror.com/stylelint-config-standard-scss@11.1.0(postcss@8.4.31)(stylelint@15.11.0):
+  registry.npmmirror.com/stylelint-config-standard-scss@11.1.0(postcss@8.4.33)(stylelint@15.11.0):
     resolution: {integrity: sha512-5gnBgeNTgRVdchMwiFQPuBOtj9QefYtfXiddrOMJA2pI22zxt6ddI2s+e5Oh7/6QYl7QLJujGnaUR5YyGq72ow==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/stylelint-config-standard-scss/-/stylelint-config-standard-scss-11.1.0.tgz}
     id: registry.npmmirror.com/stylelint-config-standard-scss/11.1.0
     name: stylelint-config-standard-scss
@@ -5062,9 +5076,9 @@ packages:
       postcss:
         optional: true
     dependencies:
-      postcss: 8.4.31
+      postcss: 8.4.33
       stylelint: registry.npmmirror.com/stylelint@15.11.0(typescript@5.3.2)
-      stylelint-config-recommended-scss: registry.npmmirror.com/stylelint-config-recommended-scss@13.1.0(postcss@8.4.31)(stylelint@15.11.0)
+      stylelint-config-recommended-scss: registry.npmmirror.com/stylelint-config-recommended-scss@13.1.0(postcss@8.4.33)(stylelint@15.11.0)
       stylelint-config-standard: registry.npmmirror.com/stylelint-config-standard@34.0.0(stylelint@15.11.0)
     dev: true
 
@@ -5226,7 +5240,7 @@ packages:
     engines: {node: ^14.18.0 || >=16.0.0}
     dependencies:
       '@pkgr/utils': registry.npmmirror.com/@pkgr/utils@2.4.2
-      tslib: registry.npmmirror.com/tslib@2.6.2
+      tslib: 2.6.2
     dev: true
 
   registry.npmmirror.com/table@6.8.1:
@@ -5287,11 +5301,6 @@ packages:
     dependencies:
       typescript: registry.npmmirror.com/typescript@5.3.2
     dev: true
-
-  registry.npmmirror.com/tslib@2.6.2:
-    resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/tslib/-/tslib-2.6.2.tgz}
-    name: tslib
-    version: 2.6.2
 
   registry.npmmirror.com/type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/type-check/-/type-check-0.4.0.tgz}
@@ -5409,7 +5418,7 @@ packages:
     name: upper-case-first
     version: 2.0.2
     dependencies:
-      tslib: registry.npmmirror.com/tslib@2.6.2
+      tslib: 2.6.2
     dev: false
 
   registry.npmmirror.com/upper-case@2.0.2:
@@ -5417,7 +5426,7 @@ packages:
     name: upper-case
     version: 2.0.2
     dependencies:
-      tslib: registry.npmmirror.com/tslib@2.6.2
+      tslib: 2.6.2
     dev: false
 
   registry.npmmirror.com/uri-js@4.4.1:

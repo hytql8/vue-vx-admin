@@ -17,6 +17,7 @@
     "animate.css": "^4.1.1",
     "axios": "^1.6.2",
     "consola": "^3.2.3",
+    "echarts": "^5.5.0",
     "element-plus": "^2.4.2",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",

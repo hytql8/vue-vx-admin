@@ -21,7 +21,6 @@ const toggleLang = (localeMap: LocaleMap) => {
 const activeLang = computed(() => localeStore.getCurrentLocale.lang)
 
 setHtmlLang(localeStore.currentLocale)
-console.log(localeStore.currentLocale.lang, `localeStore.currentLocale`)
 
 watch(
   () => localeStore.currentLocale,

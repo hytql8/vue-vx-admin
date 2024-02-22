@@ -1,34 +1,55 @@
 <script setup lang="ts">
-import { VxContainer } from "@/components/VxContainer"
 import { ref } from "vue"
-import { VxeTable, VxeColumn } from "vxe-table"
+import { VxContainer } from "@/components/VxContainer"
+import { useECharts } from "@/hooks/useEcharts"
+const echarts = ref<HTMLDivElement>()
 
-interface RowVO {
-  id: number
-  name: string
-  role: string
-  sex: string
-  age: number
-  address: string
+const options = ref({
+  xAxis: {
+    data: ["A", "B", "C", "D", "E"]
+  },
+  yAxis: {},
+  series: [
+    {
+      type: "bar",
+      data: [
+        10,
+        22,
+        28,
+        {
+          value: 43,
+          // 设置单个柱子的样式
+          itemStyle: {
+            color: "#91cc75",
+            shadowColor: "#91cc75",
+            borderType: "dashed",
+            opacity: 0.5
+          }
+        },
+        49
+      ],
+      itemStyle: {
+        borderRadius: 5,
+        borderWidth: 1,
+        borderType: "solid",
+        borderColor: "#73c0de",
+        shadowColor: "#5470c6",
+        shadowBlur: 3
+      }
+    }
+  ]
+})
+const { setOptions } = useECharts(echarts)
+
+setOptions(options)
+
+const setRes = () => {
+  setOptions(options)
 }
-
-const tableData = ref<RowVO[]>([
-  { id: 10001, name: "Test1", role: "Develop", sex: "Man", age: 28, address: "test abc" },
-  { id: 10002, name: "Test2", role: "Test", sex: "Women", age: 22, address: "Guangzhou" },
-  { id: 10003, name: "Test3", role: "PM", sex: "Man", age: 32, address: "Shanghai" },
-  { id: 10004, name: "Test4", role: "Designer", sex: "Women", age: 24, address: "Shanghai" }
-])
 </script>
 <template>
   <VxContainer>
-    <div>Welcome</div>
-    <div>
-      <vxe-table :data="tableData">
-        <vxe-column type="seq" width="60"></vxe-column>
-        <vxe-column field="name" title="Name"></vxe-column>
-        <vxe-column field="sex" title="Sex"></vxe-column>
-        <vxe-column field="age" title="Age"></vxe-column>
-      </vxe-table>
-    </div>
+    <div @click="setRes">Welcome</div>
+    <div ref="echarts">123</div>
   </VxContainer>
 </template>

@@ -50,8 +50,6 @@ declare global {
     name: string
   }
 
-  type RefTypes<T = any> = Ref<HTMLElement | ComponentType<T> | InstanceType<typeof T> | null>
-
   type ReturnType<T extends (...args: any) => any> = T extends (...args: any) => infer R ? R : any
 
   type TagsList = {
@@ -60,6 +58,10 @@ declare global {
     icon: string
     isFixed: boolean
     current: boolean
+  }
+
+  declare interface Fn<T = any, R = T> {
+    (...arg: T[]): R
   }
 }
 

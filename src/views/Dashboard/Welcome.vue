@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref, onMounted } from "vue"
+import type { Ref } from "vue"
+import type { EChartsOption } from "echarts"
+
 import { VxContainer } from "@/components/VxContainer"
 import { useECharts } from "@/hooks/useEcharts"
 const echarts = ref<HTMLDivElement>()
@@ -38,7 +41,7 @@ const options = ref({
       }
     }
   ]
-})
+}) as Ref<EChartsOption>
 const { setOptions } = useECharts(echarts)
 
 setOptions(options)
@@ -46,10 +49,22 @@ setOptions(options)
 const setRes = () => {
   setOptions(options)
 }
+
+let a = ref(500)
+// setInterval(() => {
+// a.value += 10
+// options.value.series[0].itemStyle.borderRadius++
+// setOptions(options)
+// console.log(132)
+// }, 500)
+
+onMounted(() => {
+  console.log("父组件挂载")
+})
 </script>
 <template>
   <VxContainer>
     <div @click="setRes">Welcome</div>
-    <div ref="echarts">123</div>
+    <div ref="echarts" :style="`width: 50vw; height: 318px`"></div>
   </VxContainer>
 </template>

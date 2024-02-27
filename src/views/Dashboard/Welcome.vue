@@ -2,6 +2,7 @@
 import { ref, onMounted } from "vue"
 import type { Ref } from "vue"
 import type { EChartsOption } from "echarts"
+import { Form } from "@/components/Form"
 
 import { VxContainer } from "@/components/VxContainer"
 import { useECharts } from "@/hooks/useEcharts"
@@ -42,15 +43,16 @@ const options = ref({
     }
   ]
 }) as Ref<EChartsOption>
-const { setOptions } = useECharts(echarts)
+// const { setOptions } = useECharts(echarts)
 
-onMounted(() => {
-  setOptions(options)
-})
+// onMounted(() => {
+//   setOptions(options)
+// })
 </script>
 <template>
   <VxContainer>
     <div>Welcome</div>
-    <div ref="echarts" :style="`width: 100%; height: 318px`"></div>
+    <!-- <div ref="echarts" :style="`width: 100%; height: 318px`"></div> -->
+    <Form></Form>
   </VxContainer>
 </template>

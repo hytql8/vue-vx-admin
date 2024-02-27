@@ -1,7 +1,7 @@
 import type { EChartsOption } from "echarts"
 import type { Ref } from "vue"
-import { tryOnUnmounted, useDebounceFn, useElementSize } from "@vueuse/core"
-import { unref, nextTick, watch, ref, isRef, onMounted } from "vue"
+import { tryOnUnmounted, useDebounceFn } from "@vueuse/core"
+import { unref, nextTick, watch, ref, isRef } from "vue"
 import echarts from "@/plugins/echarts"
 import { useAppStoreWithOut } from "@/store/modules/app"
 
@@ -11,21 +11,28 @@ export const useECharts = (elRef: Ref<HTMLDivElement>) => {
   // 获取当前主题
   const isDark = ref(appStore.getIsDark ? "dark" : "light")
   // echarts实例ref对象
-  const echartsInstance = ref<echarts.ECharts>(null)
+  let echartsInstance: Nullable<echarts.ECharts> = null
   // 接受的options对象缓存
   const cacheOptions = ref({}) as Ref<EChartsOption>
+  // 移除resize监听方法
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  let removeResizeFn: Fn = () => {}
   // 图表根据父容器大小resize
-  const resize = async () => {
-    const echartsExpose = await getInstance()
-    console.log(echartsExpose.resize, "resize方法")
-    echartsExpose?.resize()
-  }
+  const resize = useDebounceFn(() => {
+    echartsInstance &&
+      echartsInstance.resize({
+        animation: {
+          duration: 200,
+          easing: "quadraticIn"
+        }
+      })
+  }, 200)
   // 监听主题变化
   watch(
     () => appStore.getIsDark,
     async (val: boolean) => {
       isDark.value = val ? "dark" : "light"
-      if (unref(echartsInstance)) {
+      if (echartsInstance) {
         disposeCharts()
         await initOrSetOptions(unref(isDark), unref(cacheOptions))
         await setOptions(unref(cacheOptions))
@@ -35,26 +42,38 @@ export const useECharts = (elRef: Ref<HTMLDivElement>) => {
       immediate: true
     }
   )
+  // 监听是否折叠菜单
+  watch(
+    () => appStore.getIsFold,
+    () => {
+      resize()
+    },
+    {
+      immediate: true
+    }
+  )
+
   // 初始化echart
   const initCharts = async (theme: string = "light") => {
     await nextTick()
-    console.log("hooks nextTick")
-    window.addEventListener("resize", resize)
     const el = unref(elRef)
     if (!el || !unref(el)) {
       return
     }
-    const { width, height } = useElementSize(el)
-    echartsInstance.value = echarts.init(unref(elRef), theme, { width: unref(width), height: unref(height) })
+    echartsInstance = echarts.init(el, theme)
+    window.addEventListener("resize", resize)
+    removeResizeFn = () => {
+      window.removeEventListener("resize", resize)
+    }
   }
   // 销毁当前的 echarts 实例
   const disposeCharts = () => {
-    unref(echartsInstance)?.dispose()
-    echartsInstance.value = null
+    echartsInstance?.dispose()
+    echartsInstance = null
   }
   // 检查缓存来初始化echart
   const initOrSetOptions = async (theme: string, options: EChartsOption) => {
-    if (!unref(echartsInstance)) {
+    if (!echartsInstance) {
       await initCharts(theme)
     } else {
       setOptions(options)
@@ -64,18 +83,25 @@ export const useECharts = (elRef: Ref<HTMLDivElement>) => {
   const setOptions = async (options: EChartsOption | Ref<EChartsOption>) => {
     let activeOptions = isRef(options) ? unref(options) : options
     cacheOptions.value = activeOptions
-    if (!unref(echartsInstance)) {
+    if (!echartsInstance) {
       await initCharts(unref(isDark))
     }
-    unref(echartsInstance).setOption(activeOptions)
+    echartsInstance.setOption(activeOptions)
   }
   // echarts 对象实例
-  const getInstance = async (): Promise<echarts.ECharts | null> => {
-    if (!unref(echartsInstance)) {
+  const getInstance = async (): Promise<Nullable<echarts.ECharts>> => {
+    if (!echartsInstance) {
       await initCharts(unref(isDark))
     }
-    return unref(echartsInstance)
+    return echartsInstance as Nullable<echarts.ECharts>
   }
+  // 组件卸载，图表相关一样卸载
+  tryOnUnmounted(() => {
+    if (!echartsInstance) return
+    removeResizeFn()
+    disposeCharts()
+    echartsInstance = null
+  })
 
   return {
     setOptions,

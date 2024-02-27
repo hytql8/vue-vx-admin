@@ -34,7 +34,6 @@ export const useECharts = (elRef: Ref<HTMLDivElement>) => {
       isDark.value = val ? "dark" : "light"
       if (echartsInstance) {
         disposeCharts()
-        await initOrSetOptions(unref(isDark), unref(cacheOptions))
         await setOptions(unref(cacheOptions))
       }
     },
@@ -58,6 +57,7 @@ export const useECharts = (elRef: Ref<HTMLDivElement>) => {
     await nextTick()
     const el = unref(elRef)
     if (!el || !unref(el)) {
+      console.warn("echarts is null")
       return
     }
     echartsInstance = echarts.init(el, theme)
@@ -70,14 +70,6 @@ export const useECharts = (elRef: Ref<HTMLDivElement>) => {
   const disposeCharts = () => {
     echartsInstance?.dispose()
     echartsInstance = null
-  }
-  // 检查缓存来初始化echart
-  const initOrSetOptions = async (theme: string, options: EChartsOption) => {
-    if (!echartsInstance) {
-      await initCharts(theme)
-    } else {
-      setOptions(options)
-    }
   }
   // 设置echarts options方法
   const setOptions = async (options: EChartsOption | Ref<EChartsOption>) => {

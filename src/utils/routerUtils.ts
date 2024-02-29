@@ -8,7 +8,7 @@ import type { RouteRecordRaw } from "vue-router"
 @param parentRoute 临时暂存的parent节点，用于赋值
 @param expectedLevel 需要降级为最多几级，比如level === 1 ，expectedLevel === 2时，此时最多有（expectedLevel - level + 1） = 2级路由 
 **/
-export const toLowerRoutes = (
+const toLowerRoutes = (
   routes: RouteRecordRaw[],
   level: number = 1,
   parentRoute: Nullable<RouteRecordRaw> = null,
@@ -57,11 +57,36 @@ export const toLowerRoutes = (
   })
 }
 
+// 处理静态路由，降级，keepalive最多只支持缓存二级, 此方法使用deepClone处理，返回一个新的路由，不改变原始router
+/**  
+@param routes 传入的原始路由
+@param level 原始level（不建议改变，如果要改，请注意expectedLevel需要＞level的值）
+@param parentRoute 临时暂存的parent节点，用于赋值
+@param expectedLevel 需要降级为最多几级，比如level === 1 ，expectedLevel === 2时，此时最多有（expectedLevel - level + 1） = 2级路由 
+**/
+
+const generateLowerRoutes = (
+  routes: RouteRecordRaw[],
+  level: number = 1,
+  parentRoute: Nullable<RouteRecordRaw> = null,
+  expectedLevel: number = 2
+): Nullable<RouteRecordRaw[]> => {
+  if (!routes?.length) {
+    return null
+  }
+  let cloneRoutes: RouteRecordRaw[] = cloneDeep(routes)
+  if (!cloneRoutes?.length) {
+    return null
+  }
+  toLowerRoutes(cloneRoutes, level, parentRoute, expectedLevel)
+  return cloneRoutes
+}
+
 // 生成菜单渲染的expectedLevel级的路由 ,当前加载的路由需要去掉根目录， login和错误页面路由
 /**  
 @param staticRouter 传入的原始路由
 **/
-export const createMenuRoutes = (staticRouter: RouteRecordRaw[]): RouteRecordRaw[] => {
+const createMenuRoutes = (staticRouter: RouteRecordRaw[]): RouteRecordRaw[] => {
   const localRoutes: RouteRecordRaw[] = cloneDeep(staticRouter)
   remove(localRoutes, route => route.path === "/" || route.name === "404" || route.name === "Login")
   toLowerRoutes(localRoutes)
@@ -72,7 +97,7 @@ export const createMenuRoutes = (staticRouter: RouteRecordRaw[]): RouteRecordRaw
 /**  
 @param staticRouter 传入的原始路由
 **/
-export const flattenRoutes = (routes: RouteRecordRaw[]): RouteRecordRaw[] => {
+const flattenRoutes = (routes: RouteRecordRaw[]): RouteRecordRaw[] => {
   let flattenedRoutes: RouteRecordRaw[] = []
 
   routes.forEach(route => {
@@ -93,7 +118,7 @@ export const flattenRoutes = (routes: RouteRecordRaw[]): RouteRecordRaw[] => {
 @param routes 原始路由
 @param parentPath 指定父级path 默认为空
  */
-export const findParentRoute = (routes: RouteRecordRaw[], parentPath = "") => {
+const findParentRoute = (routes: RouteRecordRaw[], parentPath = "") => {
   for (const route of routes) {
     if (route.path.substring(1, route.path.length) === parentPath) {
       return route
@@ -104,3 +129,5 @@ export const findParentRoute = (routes: RouteRecordRaw[], parentPath = "") => {
   }
   return null
 }
+
+export { toLowerRoutes, generateLowerRoutes, createMenuRoutes, flattenRoutes, findParentRoute }

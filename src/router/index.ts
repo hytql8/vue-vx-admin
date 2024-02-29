@@ -59,6 +59,58 @@ export const staticRouter: RouteRecordRaw[] = [
     ]
   },
   {
+    path: "/component",
+    name: "Component",
+    component: Layout,
+    meta: {
+      title: t("routes.component"),
+      icon: "mingcute:components-fill"
+    },
+    children: [
+      {
+        path: "table",
+        name: "Table",
+        component: () => import("@/views/Component/Table/DefaultTable.vue"),
+        meta: {
+          title: t("routes.table"),
+          icon: "mdi:table-edit"
+        }
+        // children: [
+        //   {
+        //     path: "default-table",
+        //     name: "DefaultTable",
+        //     component: () => import("@/views/Component/Table/DefaultTable.vue")
+        //   }
+        // ]
+      },
+      {
+        path: "form",
+        name: "Form",
+        component: () => import("@/views/Component/Form/DefaultForm.vue"),
+        meta: {
+          title: t("routes.form"),
+          icon: "clarity:form-line"
+        }
+        // children: [
+        //   {
+        //     path: "default-form",
+        //     name: "DefaultForm",
+        //     component: () => import("@/views/Component/Form/DefaultForm.vue")
+        //   }
+        // ]
+      },
+      {
+        path: "charts",
+        name: "Charts",
+        component: () => import("@/views/Component/Echarts/Echarts.vue"),
+        meta: {
+          title: t("routes.chart"),
+          icon: "solar:chart-2-bold-duotone"
+        }
+      }
+    ]
+  },
+  {
     path: "/system",
     name: "System",
     component: Layout,

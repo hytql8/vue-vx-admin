@@ -15,7 +15,11 @@ export default Object.assign(
       system: "系统管理",
       user: "用户管理",
       role: "角色管理",
-      menu: "菜单管理"
+      menu: "菜单管理",
+      component: "组件",
+      form: "表单",
+      table: "表格",
+      chart: "图表"
     },
     tagsOperations: {
       reload: "重新加载",

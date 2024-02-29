@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { computed, unref } from "vue"
+import { computed, unref, ref } from "vue"
 import { useAppStore } from "@/store/modules/app"
 import { staticRouter } from "@/router"
-import { createMenuRoutes } from "@/utils/routerUtils"
+import { generateLowerRoutes, createMenuRoutes } from "@/utils/routerUtils"
 import RenderVertical from "./components/RenderVertical.vue"
 import { RouteRecordRaw, useRouter } from "vue-router"
 
@@ -10,11 +10,12 @@ const { currentRoute } = useRouter()
 const appStore = useAppStore()
 
 const isFold = computed(() => appStore.getIsFold)
+const isGroup = computed(() => appStore.getIsGroup)
 
 const handleOpen = (key: string, keyPath: string[]) => {}
 const handleClose = (key: string, keyPath: string[]) => {}
 
-const routes = createMenuRoutes(staticRouter as RouteRecordRaw[])
+const routes = generateLowerRoutes(createMenuRoutes(staticRouter as RouteRecordRaw[]))
 // 获取当前选中的路由
 const activeMenu = computed(() => {
   const { name } = unref(currentRoute)
@@ -34,7 +35,7 @@ const activeMenu = computed(() => {
       @open="handleOpen"
       @close="handleClose"
     >
-      <RenderVertical :routes="routes" />
+      <RenderVertical :routes="routes" :is-group="isGroup" />
     </ElMenu>
   </ElScrollbar>
 </template>

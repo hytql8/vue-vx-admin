@@ -55,9 +55,11 @@ defineOptions({
 
 const props = defineProps<{
   routes: RouteRecordRaw[]
+  isGroup: boolean
 }>()
 
 const routes = computed(() => props.routes)
+const isGroup = computed(() => props.isGroup)
 
 const routingJump = (...args: string[]) => {
   tagsStore.addTags(findRoute(args))

@@ -15,7 +15,11 @@ export default Object.assign(
       system: "System Management",
       user: "User Management",
       role: "Role Management",
-      menu: "Menu Management"
+      menu: "Menu Management",
+      component: "Component Element",
+      form: "Form",
+      table: "Table",
+      chart: "Echarts"
     },
     tagsOperations: {
       reload: "Reload",

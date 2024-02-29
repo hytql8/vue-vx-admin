@@ -1,5 +1,4 @@
 import { Language } from "element-plus/es/locale"
-import { Ref } from "vue"
 
 declare global {
   // 全局定义vite环境变量type 对应.env.dev

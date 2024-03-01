@@ -1,78 +1,157 @@
-<template>
-  <template v-for="v in routes" :key="v.name">
-    <ElSubMenu v-if="v?.children?.length && !v.meta.hidden" :index="String(v.name)">
-      <template #title>
-        <VxIcon v-if="v.meta.icon" :icon="v.meta.icon" :size="16" />
-        <span class="span-ml">{{ t(v.meta.title) }}</span>
-      </template>
-      <template v-for="m in v.children" :key="m.name">
-        <ElSubMenu v-if="m?.children?.length && !m.meta.hidden" :index="String(m.name)">
-          <template #title>
-            <VxIcon v-if="m.meta.icon" :icon="m.meta.icon" :size="16" />
-            <span class="span-ml">{{ t(m.meta.title) }}</span>
-          </template>
-          <template v-for="n in m.children" :key="n.name">
-            <!-- 三级路由子项(仅允许最多存在三级路由,超出部分会降级) -->
-            <ElMenuItem v-if="!n.meta.hidden" :index="String(n.name)" @click="routingJump(v.path, m.path, n.path)">
-              <VxIcon v-if="n.meta.icon" :icon="n.meta.icon" :size="16" />
-              <span class="span-ml">{{ t(n.meta.title) }}</span>
-            </ElMenuItem>
-          </template>
-        </ElSubMenu>
-        <!-- 二级路由子项 -->
-        <ElMenuItem v-if="!m?.children?.length && !m.meta.hidden" :index="String(m.name)" @click="routingJump(v.path, m.path)">
-          <VxIcon v-if="m.meta.icon" :icon="m.meta.icon" :size="16" />
-          <span class="span-ml">{{ t(m.meta.title) }}</span>
-        </ElMenuItem>
-      </template>
-    </ElSubMenu>
-    <!-- 一级路由子项 -->
-    <ElMenuItem v-if="!v?.children?.length && !v.meta.hidden" :index="String(v.name)" @click="routingJump(v.path)">
-      <VxIcon v-if="v.meta.icon" :icon="v.meta.icon" :size="16" />
-      <span class="span-ml">{{ t(v.meta.title) }}</span>
-    </ElMenuItem>
-  </template>
-</template>
-<script setup lang="ts">
-import type { RouteRecordRaw } from "vue-router"
-import { computed } from "vue"
+<script lang="tsx">
+import type { RouteRecordRaw, RouteMeta } from "vue-router"
+import { computed, defineComponent, unref } from "vue"
+import type { PropType } from "vue"
 import { useI18n } from "vue-i18n"
 import { useRouter } from "vue-router"
 import { VxIcon } from "@/components/VxIcon"
 import { useTagsStore } from "@/store/modules/tags"
+import { pathResolve } from "@/utils/routerUtils"
+import { isUrl } from "@/utils/is"
+import { ElSubMenu, ElMenuItem, ElMenuItemGroup } from "element-plus"
 
-const { push, getRoutes } = useRouter()
+export default defineComponent({
+  name: "RenderVertical",
+  props: {
+    routes: {
+      type: Array as PropType<RouteRecordRaw[]>,
+      default: () => []
+    },
+    isGroup: Boolean
+  },
+  setup(props) {
+    const { push, getRoutes } = useRouter()
 
-const staticRouter = getRoutes()
+    const staticRouter = getRoutes()
 
-const tagsStore = useTagsStore()
+    const tagsStore = useTagsStore()
 
-const { t } = useI18n()
+    const { t } = useI18n()
 
-defineOptions({
-  name: "RenderVertical"
+    const routes = computed(() => props.routes)
+    const isGroup = computed(() => props.isGroup)
+
+    // 组装tagsView信息
+    const findRoute = (args: string[]): RouteRecordRaw => {
+      return staticRouter.filter((v: RouteRecordRaw) => v.path.includes(args[args.length - 1]))[0]
+    }
+
+    // 跳转
+    const routingJump = ({ index }) => {
+      // tags切换
+      tagsStore.addTags(findRoute(index.split("/")))
+      // 跳转
+      push({
+        path: index
+      })
+    }
+    // 渲染title
+    const renderMenuTitle = (v: RouteRecordRaw) => {
+      return (
+        <>
+          {v.meta.icon ? <VxIcon icon={v.meta.icon} size={16} /> : null}
+          <span class="span-ml">{t(v.meta.title)}</span>
+        </>
+      )
+    }
+
+    const renderMenu = (routers: RouteRecordRaw[], parentPath: string = "/") => {
+      // 如果有 渲染
+      return routers.map((v: RouteRecordRaw) => {
+        let meta = (v.meta ? v.meta : {}) as RouteMeta
+        let currentPath = isUrl(v.path) ? v.path : pathResolve(parentPath, v.path)
+        // hidden为真代表此项以及子项不渲染，不存在/为false都代表此项正常渲染
+        if (!meta?.hidden) {
+          // 渲染
+          if (v?.children?.length) {
+            renderMenu(v.children, v.path)
+            return (
+              <ElSubMenu index={currentPath}>
+                {{
+                  title: () => {
+                    return renderMenuTitle(v)
+                  },
+                  default: () => {
+                    return renderMenu(v.children, v.path)
+                  }
+                }}
+              </ElSubMenu>
+            )
+          } else {
+            return (
+              <ElMenuItem index={currentPath} onClick={routingJump}>
+                {{
+                  default: () => {
+                    return renderMenuTitle(v)
+                  }
+                }}
+              </ElMenuItem>
+            )
+          }
+        }
+      })
+    }
+
+    /**
+     * @param routers router对象
+     * @param parentPath 父级path
+     * @param level 需要第一层还是往下变为group menu 这里默认是level > 1 ? 即为 1 级（最大为一级）， 如果改为1，则从第二级有子项的开始改为group模式
+     */
+
+    const renderGroupMenu = (routers: RouteRecordRaw[], parentPath: string = "/", level: number = 2) => {
+      // 如果有 渲染
+      return routers.map((v: RouteRecordRaw) => {
+        let meta = (v.meta ? v.meta : {}) as RouteMeta
+        let currentPath = isUrl(v.path) ? v.path : pathResolve(parentPath, v.path)
+        if (!meta?.hidden) {
+          // 渲染
+          if (v?.children?.length) {
+            renderGroupMenu(v.children, v.path, level)
+            return level > 1 ? (
+              <ElMenuItemGroup index={currentPath}>
+                {{
+                  title: () => {
+                    return renderMenuTitle(v)
+                  },
+                  default: () => {
+                    return renderGroupMenu(v.children, v.path, level + 1)
+                  }
+                }}
+              </ElMenuItemGroup>
+            ) : (
+              <ElSubMenu index={currentPath}>
+                {{
+                  title: () => {
+                    return renderMenuTitle(v)
+                  },
+                  default: () => {
+                    return renderGroupMenu(v.children, v.path, level + 1)
+                  }
+                }}
+              </ElSubMenu>
+            )
+          } else {
+            return (
+              <ElMenuItem index={currentPath} onClick={routingJump}>
+                {{
+                  default: () => {
+                    return renderMenuTitle(v)
+                  }
+                }}
+              </ElMenuItem>
+            )
+          }
+        }
+      })
+    }
+    return () => {
+      if (!unref(routes).length) {
+        return null
+      }
+      return unref(isGroup) ? renderGroupMenu(unref(routes)) : renderMenu(unref(routes))
+    }
+  }
 })
-
-const props = defineProps<{
-  routes: RouteRecordRaw[]
-  isGroup: boolean
-}>()
-
-const routes = computed(() => props.routes)
-const isGroup = computed(() => props.isGroup)
-
-const routingJump = (...args: string[]) => {
-  tagsStore.addTags(findRoute(args))
-  const path = args.join("/")
-  push({
-    path
-  })
-}
-
-// 组装tagsView信息
-const findRoute = (args: string[]): RouteRecordRaw => {
-  return staticRouter.filter((v: RouteRecordRaw) => v.path.includes(args[args.length - 1]))[0]
-}
 </script>
 <style lang="scss" scoped>
 @import "./RenderVertical.scss";

@@ -1,5 +1,6 @@
 import { cloneDeep, remove } from "lodash-es"
 import type { RouteRecordRaw } from "vue-router"
+import { isUrl } from "./is"
 
 // 处理静态路由，降级，keepalive最多只支持缓存二级, 此方法直接使用forEach直接改变传入的routes
 /**  
@@ -130,4 +131,15 @@ const findParentRoute = (routes: RouteRecordRaw[], parentPath = "") => {
   return null
 }
 
-export { toLowerRoutes, generateLowerRoutes, createMenuRoutes, flattenRoutes, findParentRoute }
+// 根据传入父级path和当前的path找到当前应指向并跳转的路由
+/**
+@param parentPath 父级path
+@param path 当前path
+ */
+const pathResolve = (parentPath: string, path: string) => {
+  if (isUrl(path)) return path
+  const childPath = path.startsWith("/") || !path ? path : `/${path}`
+  return `${parentPath}${childPath}`.replace(/\/\//g, "/")
+}
+
+export { toLowerRoutes, generateLowerRoutes, createMenuRoutes, flattenRoutes, findParentRoute, pathResolve }

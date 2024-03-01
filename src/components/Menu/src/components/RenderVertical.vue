@@ -38,19 +38,21 @@ export default defineComponent({
 
     // 跳转
     const routingJump = ({ index }) => {
+      const activeRoute = findRoute(index.split("/"))
+      const path = activeRoute.path
       // tags切换
-      tagsStore.addTags(findRoute(index.split("/")))
+      tagsStore.addTags(activeRoute)
       // 跳转
       push({
-        path: index
+        path
       })
     }
     // 渲染title
     const renderMenuTitle = (v: RouteRecordRaw) => {
       return (
         <>
-          {v.meta.icon ? <VxIcon icon={v.meta.icon} size={16} /> : null}
-          <span class="span-ml">{t(v.meta.title)}</span>
+          {v.meta?.icon ? <VxIcon icon={v.meta.icon} size={16} /> : null}
+          <span class="span-ml">{v.meta?.title ? t(v.meta?.title) : "请设置标题"}</span>
         </>
       )
     }

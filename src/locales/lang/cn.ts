@@ -19,7 +19,9 @@ export default Object.assign(
       component: "组件",
       form: "表单",
       table: "表格",
-      chart: "图表"
+      chart: "图表",
+      defaultTable: "默认表格",
+      defaultForm: "默认表单"
     },
     tagsOperations: {
       reload: "重新加载",

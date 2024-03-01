@@ -79,7 +79,10 @@ export const staticRouter: RouteRecordRaw[] = [
         //   {
         //     path: "default-table",
         //     name: "DefaultTable",
-        //     component: () => import("@/views/Component/Table/DefaultTable.vue")
+        //     component: () => import("@/views/Component/Table/DefaultTable.vue"),
+        //     meta: {
+        //       title: t("routes.defaultTable")
+        //     }
         //   }
         // ]
       },
@@ -95,7 +98,10 @@ export const staticRouter: RouteRecordRaw[] = [
         //   {
         //     path: "default-form",
         //     name: "DefaultForm",
-        //     component: () => import("@/views/Component/Form/DefaultForm.vue")
+        //     component: () => import("@/views/Component/Form/DefaultForm.vue"),
+        //     meta: {
+        //       title: t("routes.defaultForm")
+        //     }
         //   }
         // ]
       },
@@ -122,7 +128,7 @@ export const staticRouter: RouteRecordRaw[] = [
       {
         path: "user",
         name: "User",
-        component: () => import("@/views/Dashboard/Analysis.vue"),
+        component: () => import("@/views/System/User.vue"),
         meta: {
           title: t("routes.user"),
           icon: "mdi:account"
@@ -131,7 +137,7 @@ export const staticRouter: RouteRecordRaw[] = [
       {
         path: "role",
         name: "Role",
-        component: () => import("@/views/Dashboard/Analysis.vue"),
+        component: () => import("@/views/System/Role.vue"),
         meta: {
           title: t("routes.role"),
           icon: "mdi:account-group"
@@ -140,7 +146,7 @@ export const staticRouter: RouteRecordRaw[] = [
       {
         path: "menu",
         name: "Menu",
-        component: () => import("@/views/Dashboard/Analysis.vue"),
+        component: () => import("@/views/System/Menu.vue"),
         meta: {
           title: t("routes.menu"),
           icon: "mdi:menu"

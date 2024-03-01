@@ -1,3 +1,4 @@
+@import "@/styles/var.scss";
 .vx-menu {
   border-right: 1px solid var(--left-menu-bg-color);
   :deep(.el-menu) {
@@ -53,6 +54,12 @@
   }
   :deep(.el-menu .is-active .el-sub-menu__title) {
     color: var(--left-menu-text-active-color) !important;
+  }
+  :deep(.el-menu-item-group__title) {
+    height: 50px;
+
+    @include flex(flex-start, center, nowrap);
+    @include cursor(default);
   }
 
   // 重置padding

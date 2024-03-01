@@ -3,6 +3,6 @@ import { VxContainer } from "@/components/VxContainer"
 </script>
 <template>
   <VxContainer>
-    <div>workplace</div>
+    <div>Menu</div>
   </VxContainer>
 </template>

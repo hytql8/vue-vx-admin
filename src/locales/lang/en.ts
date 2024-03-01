@@ -19,7 +19,9 @@ export default Object.assign(
       component: "Component Element",
       form: "Form",
       table: "Table",
-      chart: "Echarts"
+      chart: "Echarts",
+      defaultTable: "Default Table",
+      defaultForm: "Default Form"
     },
     tagsOperations: {
       reload: "Reload",

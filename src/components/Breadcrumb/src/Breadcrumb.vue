@@ -3,14 +3,19 @@ import { ref, unref, watch } from "vue"
 import { useRouter, RouteRecordRaw, RouteRecordName, useRoute } from "vue-router"
 import { staticRouter } from "@/router"
 import { useI18n } from "vue-i18n"
+import { useTagsStore } from "@/store/modules/tags"
+import { findRoutePath } from "@/utils/routerUtils"
 
 defineOptions({
   name: "Breadcrumb"
 })
 
-const { currentRoute } = useRouter()
+const tagsStore = useTagsStore()
+
+const { currentRoute, getRoutes } = useRouter()
 const { t } = useI18n()
 const route = useRoute()
+const staticRouters = getRoutes()
 
 const breadcrumbList = ref<RouteRecordRaw[]>([])
 // 寻找跟name有关系的路由
@@ -50,9 +55,17 @@ const breadPathResolve = (bread: RouteRecordRaw) => {
       : bread.children[0].path
     : bread.path
 }
+
+// 组装tagsView信息
+const findRoute = (args: string[]): RouteRecordRaw => {
+  return staticRouters.filter((v: RouteRecordRaw) => v.path.includes(args[args.length - 1]))[0]
+}
+
 watch(
   () => unref(currentRoute),
   val => {
+    const activeRoute = findRoute(val.path.split("/"))
+    tagsStore.addTags(activeRoute)
     createBreadList(val.name)
   },
   {

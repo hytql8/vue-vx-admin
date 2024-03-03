@@ -1,57 +1,59 @@
 <script lang="ts" setup>
 import { ref, unref, watch } from "vue"
-import { useRouter, RouteRecordRaw, RouteLocationNormalizedLoaded } from "vue-router"
+import { useRouter, RouteRecordRaw, RouteRecordName, useRoute } from "vue-router"
 import { staticRouter } from "@/router"
-import { findParentRoute } from "@/utils/routerUtils"
 import { useI18n } from "vue-i18n"
-import { BreadcrumbList } from "./type"
-import { cloneDeep } from "lodash-es"
 
 defineOptions({
   name: "Breadcrumb"
 })
 
-const { getRoutes, currentRoute } = useRouter()
+const { currentRoute } = useRouter()
 const { t } = useI18n()
-const routerList = getRoutes()
+const route = useRoute()
 
+const breadcrumbList = ref<RouteRecordRaw[]>([])
+// 寻找跟name有关系的路由
 /**
- * @param routerPath 当前点击父级的路由
- * @param level 获取倒数第几层的路由 默认2
+ *
+ * @param routes 整个路由对象
+ * @param name 当前需要查找的name对象
  */
-const findFirstRoute = (routerPath: string[], level = 2) => {
-  const res = findParentRoute(staticRouter, routerPath[routerPath.length - level])
-  if (res && res.children.length) {
-    routerPath[routerPath.length - 1] = res.children[0].path
-    return routerPath
+const findRelatedRouters = (routes: RouteRecordRaw[], name: RouteRecordName): RouteRecordRaw[] => {
+  const res = [] as RouteRecordRaw[]
+  for (const v of routes) {
+    res.push(v)
+    if (v.name === name) {
+      return res
+    } else if (v.children?.length) {
+      const res2 = findRelatedRouters(v.children, name)
+      if (res2) {
+        res.push(...res2)
+        return res
+      } else {
+        res.pop()
+      }
+    } else {
+      res.pop()
+    }
   }
-  return null
+}
+const createBreadList = (name: RouteRecordName = route.name) => {
+  const result = findRelatedRouters(staticRouter, name)
+  breadcrumbList.value = result
 }
 
-const breadcrumbList = ref<BreadcrumbList[]>([])
-
-const createBreadList = (curRoute: RouteLocationNormalizedLoaded) => {
-  const curRouteList = curRoute.path.split("/").filter((v: string) => v !== "")
-  const constantList = findFirstRoute(cloneDeep(curRouteList))
-  let toolBreadcrumbList: BreadcrumbList[] = []
-  for (let [i, v] of curRouteList.entries()) {
-    let obj = Object.assign({}, { currentTarget: "/" + constantList.join("/"), route: findRoute(v) })
-    toolBreadcrumbList[i] = obj
-  }
-
-  breadcrumbList.value = toolBreadcrumbList
-  return toolBreadcrumbList
+const breadPathResolve = (bread: RouteRecordRaw) => {
+  return bread.children?.length
+    ? bread.children[0]?.children?.length
+      ? bread.path + "/" + bread.children[0].path + "/" + bread.children[0].children[0].path
+      : bread.children[0].path
+    : bread.path
 }
-
-// 找到对应路由
-const findRoute = (path: string) => {
-  return routerList.filter((v: RouteRecordRaw) => v.path.endsWith(path))
-}
-
 watch(
   () => unref(currentRoute),
   val => {
-    createBreadList(val)
+    createBreadList(val.name)
   },
   {
     immediate: true
@@ -61,8 +63,14 @@ watch(
 <template>
   <ElBreadcrumb separator="/" class="vx-breadcrumb">
     <TransitionGroup enter-active-class="animate__animated animate__fadeInRight">
-      <ElBreadcrumbItem v-for="bread in breadcrumbList" :key="bread.route[0].name" :to="{ path: bread.currentTarget }">
-        {{ t(bread.route[0].meta.title) }}
+      <ElBreadcrumbItem
+        v-for="bread in breadcrumbList"
+        :key="bread.name"
+        :to="{
+          path: breadPathResolve(bread)
+        }"
+      >
+        {{ t(bread?.meta?.title) }}
       </ElBreadcrumbItem>
     </TransitionGroup>
   </ElBreadcrumb>

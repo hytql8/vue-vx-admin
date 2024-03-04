@@ -4,7 +4,6 @@ import { useRouter, RouteRecordRaw, RouteRecordName, useRoute } from "vue-router
 import { staticRouter } from "@/router"
 import { useI18n } from "vue-i18n"
 import { useTagsStore } from "@/store/modules/tags"
-import { findRoutePath } from "@/utils/routerUtils"
 
 defineOptions({
   name: "Breadcrumb"

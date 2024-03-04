@@ -41,6 +41,16 @@ export default Object.assign(
       default: "默认",
       small: "紧凑",
       large: "中等"
+    },
+    common: {
+      required: "该项为必填项",
+      lengthRange: "长度在 {min} 到 {max} 个字符",
+      notSpace: "不能包含空格",
+      notSpecialCharacters: "不能包含特殊字符",
+      inputText: "请输入",
+      selectText: "请选择",
+      startTimeText: "开始时间",
+      endTimeText: "结束时间"
     }
   },
   vxeCn

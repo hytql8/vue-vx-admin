@@ -23,7 +23,44 @@ export const getStaticSource = (sourceUrl: string): string | undefined => {
   return void 0
 }
 
+// Map 数据结构转obj
+export const transMapToObject = (map: Map<string, any>) => {
+  const target = {} as Recordable
+  map.forEach((value, key) => {
+    target[key] = value
+  })
+  return target
+}
+
 // 刷新页面
 export const reload = () => {
   window.location.reload()
+}
+// 驼峰转横杠
+export const humpToDash = (str: string): string => {
+  return str.replace(/([A-Z])/g, "-$1").toLowerCase()
+}
+// 首字母大写
+export function firstUpperCase(str: string) {
+  return str.toLowerCase().replace(/( |^)[a-z]/g, L => L.toUpperCase())
+}
+
+/**
+ * 查找数组对象的某个下标
+ * @param {Array} ary 查找的数组
+ * @param {Functon} fn 判断的方法
+ */
+export const findIndex = <T = Recordable>(ary: Array<T>, fn: Fn): number => {
+  if (ary.findIndex) {
+    return ary.findIndex(fn)
+  }
+  let index = -1
+  ary.some((item: T, i: number, ary: Array<T>) => {
+    const ret: T = fn(item, i, ary)
+    if (ret) {
+      index = i
+      return ret
+    }
+  })
+  return index
 }

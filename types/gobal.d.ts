@@ -11,11 +11,7 @@ declare global {
     VITE_COMPRESSION: ViteCompression
   }
 
-  type Recordable<T = any> = Record<string, T>
-
-  type ReadonlyRecordable<T = any> = {
-    readonly [key: string]: T
-  }
+  type Recordable<T = any, K = string> = Record<K extends null | undefined ? string : K, T>
 
   type Nullable<T> = T | null
 
@@ -59,9 +55,11 @@ declare global {
     current: boolean
   }
 
-  declare interface Fn<T = any, R = T> {
+  interface Fn<T = any, R = T> {
     (...arg: T[]): R
   }
+
+  type ElementPlusInfoType = "success" | "info" | "warning" | "danger"
 }
 
 export {}

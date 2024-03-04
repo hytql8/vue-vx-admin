@@ -74,17 +74,17 @@ export const staticRouter: RouteRecordRaw[] = [
         meta: {
           title: t("routes.table"),
           icon: "mdi:table-edit"
-        }
-        // children: [
-        //   {
-        //     path: "default-table",
-        //     name: "DefaultTable",
-        //     component: () => import("@/views/Component/Table/DefaultTable.vue"),
-        //     meta: {
-        //       title: t("routes.defaultTable")
-        //     }
-        //   }
-        // ]
+        },
+        children: [
+          {
+            path: "default-table",
+            name: "DefaultTable",
+            component: () => import("@/views/Component/Table/DefaultTable.vue"),
+            meta: {
+              title: t("routes.defaultTable")
+            }
+          }
+        ]
       },
       {
         path: "form",
@@ -93,17 +93,25 @@ export const staticRouter: RouteRecordRaw[] = [
         meta: {
           title: t("routes.form"),
           icon: "clarity:form-line"
-        }
-        // children: [
-        //   {
-        //     path: "default-form",
-        //     name: "DefaultForm",
-        //     component: () => import("@/views/Component/Form/DefaultForm.vue"),
-        //     meta: {
-        //       title: t("routes.defaultForm")
-        //     }
-        //   }
-        // ]
+        },
+        children: [
+          {
+            path: "default-form",
+            name: "DefaultForm",
+            component: () => import("@/views/Component/Form/DefaultForm.vue"),
+            meta: {
+              title: t("routes.defaultForm")
+            }
+          },
+          {
+            path: "use-form",
+            name: "UseForm",
+            component: () => import("@/views/Component/Form/DefaultForm.vue"),
+            meta: {
+              title: t("routes.useForm")
+            }
+          }
+        ]
       },
       {
         path: "charts",

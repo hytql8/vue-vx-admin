@@ -21,7 +21,8 @@ export default Object.assign(
       table: "Table",
       chart: "Echarts",
       defaultTable: "Default Table",
-      defaultForm: "Default Form"
+      defaultForm: "Default Form",
+      useForm: "Use Form"
     },
     tagsOperations: {
       reload: "Reload",

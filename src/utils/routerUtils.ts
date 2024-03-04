@@ -117,18 +117,18 @@ const flattenRoutes = (routes: RouteRecordRaw[]): RouteRecordRaw[] => {
 // 根据传入路由找到父级路由
 /**
 @param routes 原始路由
-@param parentPath 指定父级path 默认为空
+@param path 需要获取当前路由的path 默认为空
  */
-const findParentRoute = (routes: RouteRecordRaw[], parentPath = "") => {
+const findRoutePath = (routes: RouteRecordRaw[], path: string) => {
   for (const route of routes) {
-    if (route.path.substring(1, route.path.length) === parentPath) {
-      return route
+    let findPath = route.path.split("/")
+    if (findPath[findPath.length - 1] === path) {
+      return route.path
     }
     if (route.children?.length) {
-      findParentRoute(route.children, parentPath)
+      findRoutePath(route.children, path)
     }
   }
-  return null
 }
 
 // 根据传入父级path和当前的path找到当前应指向并跳转的路由
@@ -142,4 +142,4 @@ const pathResolve = (parentPath: string, path: string) => {
   return `${parentPath}${childPath}`.replace(/\/\//g, "/")
 }
 
-export { toLowerRoutes, generateLowerRoutes, createMenuRoutes, flattenRoutes, findParentRoute, pathResolve }
+export { toLowerRoutes, generateLowerRoutes, createMenuRoutes, flattenRoutes, findRoutePath, pathResolve }

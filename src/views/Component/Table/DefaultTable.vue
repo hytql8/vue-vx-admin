@@ -113,13 +113,13 @@ const clickSetProps = () => {
           total
         }"
       >
-        <template #search>
+        <!-- <template #search>
           <span>待添加搜索Form部分的插槽</span>
         </template>
         <template #prefix>
           <span>自定义部分插槽，不需要可忽略</span>
           <ElButton @click="clickSetProps">设置属性prefix</ElButton>
-        </template>
+        </template> -->
         <template #setting>
           <span>table setting部分插槽, 不需要可忽略</span>
         </template>

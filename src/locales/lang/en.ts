@@ -41,6 +41,16 @@ export default Object.assign(
       default: "Default",
       small: "Compact",
       large: "Medium"
+    },
+    common: {
+      required: "This is required",
+      lengthRange: "The length should be between {min} and {max}",
+      notSpace: "Spaces are not allowed",
+      notSpecialCharacters: "Special characters are not allowed",
+      inputText: "Please input",
+      selectText: "Please select",
+      startTimeText: "Start time",
+      endTimeText: "End time"
     }
   },
   vxeEn

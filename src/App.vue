@@ -9,12 +9,14 @@ import { setHtmlLang } from "@/hooks/useLocale"
 import type { Language } from "element-plus/es/locale"
 import { tagsViewInit } from "@/components/TagsView"
 import { useRouter } from "vue-router"
+import { useWindowSize } from "@vueuse/core"
 
 const { getStorage } = useStorage()
 const appStore = useAppStore()
 const localeStore = useLocaleStore()
 
 const { push } = useRouter()
+const { width, height } = useWindowSize()
 
 // el组件语言配置
 const elLocale = computed(() => toRaw(localeStore.currentLocale.elLang) as Language)
@@ -46,6 +48,10 @@ watch(
   },
   { immediate: true }
 )
+// 监听屏幕screen
+watch([width, height], (val: number[]) => {
+  appStore.setIsFold(val[0] < 1000)
+})
 </script>
 
 <template>

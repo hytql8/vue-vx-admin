@@ -80,7 +80,7 @@ const { tableRegister, tableState, tableMethods } = useTable({
   }
 })
 const { loading, dataList, total, currentPage, pageSize } = tableState
-const { getElTableExpose, setProps, refresh } = tableMethods
+const { getElTableExpose, refresh } = tableMethods
 
 const getElTableRef = async () => {
   const elTableRef = await getElTableExpose()
@@ -88,11 +88,6 @@ const getElTableRef = async () => {
 }
 
 getElTableRef()
-const clickSetProps = () => {
-  setProps({
-    stripe: true
-  })
-}
 </script>
 <template>
   <VxContainer>

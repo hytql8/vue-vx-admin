@@ -49,6 +49,9 @@ watch(
   { immediate: true }
 )
 // 监听屏幕screen
+
+appStore.setIsFold(unref(width) < 1000)
+appStore.setIsSeemMoblie(unref(width) < 750)
 watch(
   () => unref(width),
   (val: number) => {

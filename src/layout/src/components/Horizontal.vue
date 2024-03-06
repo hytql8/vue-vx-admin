@@ -33,7 +33,7 @@ const isHandleClick = ref(false)
 const toggleExpand = () => {
   if (unref(isSeemMoblie)) {
     isHandleClick.value = !unref(isHandleClick)
-    appStore.setIsFold(false)
+    appStore.setIsFold(!unref(isHandleClick))
   } else {
     appStore.setIsFold(!unref(isFold))
   }
@@ -43,14 +43,14 @@ const toggleExpand = () => {
 <template>
   <ElContainer class="vx-container">
     <ElHeader class="vx-header">
-      <Logo class="vx-header__logo" v-if="!isSeemMoblie || isHandleClick" />
+      <Logo class="vx-header__logo" v-show="!isSeemMoblie || isHandleClick" />
       <div class="vx-header__nav">
-        <div class="vx-header__menu-switch"><MenuSwitch @click="toggleExpand" /><Breadcrumb v-if="!isSeemMoblie" /></div>
-        <div class="vx-header__info"><ThemeSwitch /> <Fullscreen /> <LocaleSwitch /> <Avatar /></div>
+        <div class="vx-header__menu-switch"><MenuSwitch @click="toggleExpand" /><Breadcrumb v-show="!isSeemMoblie" /></div>
+        <div class="vx-header__info"><ThemeSwitch /> <Fullscreen v-show="!isSeemMoblie" /> <LocaleSwitch /> <Avatar /></div>
       </div>
     </ElHeader>
     <ElContainer class="vx-content">
-      <ElAside class="vx-aside" v-if="!isSeemMoblie || isHandleClick">
+      <ElAside class="vx-aside" v-show="!isSeemMoblie || isHandleClick">
         <Menu class="vx-aside__menu" />
       </ElAside>
       <ElMain class="vx-main">

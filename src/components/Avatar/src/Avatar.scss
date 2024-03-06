@@ -5,9 +5,22 @@
     height: var(--header-global-height);
     padding: 0 15px 0 5px;
     &__username {
+      width: unset;
       margin-right: 10px;
+      overflow: hidden;
       font-size: 13px;
       color: var(--theme-text-color);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    &__username--fold {
+      width: 20px;
+      margin-right: 10px;
+      overflow: hidden;
+      font-size: 13px;
+      color: var(--theme-text-color);
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     @include flex(center, center, nowrap);

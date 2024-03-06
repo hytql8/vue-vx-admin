@@ -17,7 +17,7 @@ declare global {
 
   type IsDark = "auto" | "dark"
 
-  type LayoutType = "vertical" | "horizontal"
+  type LayoutType = "vertical" | "horizontal" | "group"
 
   interface ThemeTypes {
     elPrimaryColor: string

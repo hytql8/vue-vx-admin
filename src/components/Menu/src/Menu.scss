@@ -66,6 +66,12 @@
   :deep(.el-sub-menu__title) {
     padding: 0 16px;
   }
+  &--horizontal {
+    width: 400px;
+    height: var(--header-global-height);
+
+    // background-color: var(--left-menu-bg-color);
+  }
 }
 .vx-scrollbar {
   height: calc(100vh - var(--header-global-height))!important;

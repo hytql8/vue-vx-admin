@@ -10,73 +10,32 @@
   .vx-header {
     width: 100%;
     height: var(--header-global-height);
-    &__nav {
-      position: relative;
-      flex: 1;
+    overflow: hidden;
+    background-color: var(--theme-div-color);
+    border-bottom: 1px solid var(--divider-color);
+    &__logo {
+      width: 210px;
       height: inherit;
-      background-color: var(--theme-div-color);
-
-      @include flex(space-between, center, nowrap);
-      @include transition(background-color);
-      &::after {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        content: "";
-        border-bottom: 1px solid var(--divider-color);
+    }
+    &__menu {
+      width: calc(100vw - 465px);
+      height: inherit;
+      overflow: hidden;
+      :deep(.el-menu .el-sub-menu) {
+        width: 180px;
+      }
+      :deep(.el-menu) {
+        max-width: calc(100vw - 465px);
       }
     }
-    &__menu-switch {
-      // padding: 0 5px;
+    &__domain {
+      width: 250px;
+      height: inherit;
 
-      @include cursor;
-      @include flex(start, center, nowrap);
+      @include flex(flex-end, center, nowrap);
     }
-    &__info {
-      @include flex(start, center, nowrap);
-    }
-
-    @include flex(start, center, nowrap);
+    
+   
+    @include flex(space-between, center, nowrap);
   }
-  .vx-aside {
-    overflow: hidden;
-    background-color: var(--left-menu-bg-color);
-    border-right: 1px solid var(--divider-color);
-
-    @include transition(all);
-    &__menu {
-      width: inherit;
-      height: 100%;
-      background-color: var(--left-menu-bg-color);
-    }
-  }
-  .vx-main {
-    &__container {
-      height: calc(100vh - var(--header-global-height) - var(--tags-view-global-height) - 1px);
-      padding: 10px;
-    }
-    &:deep(.vx-table) {
-      height: calc(100vh - var(--header-global-height) - var(--tags-view-global-height) - var(--pagination-global-height) - 1px);
-    }
-  }
-}
-
-// 进入后和离开前保持原位
-.container-enter-to,
-.container-leave-from {
-  opacity: 1;
-  transform: none;
-}
-
-// 设置进入和离开过程中的动画时长0.5s
-.container-enter-active,
-.container-leave-active {
-  transition: all 0.3s;
-}
-
-// 进入前和离开后为透明，并在右侧20px位置
-.container-enter-from,
-.container-leave-to {
-  opacity: 0;
-  transform: translateX(20px);
 }

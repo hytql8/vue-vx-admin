@@ -69,6 +69,10 @@ export const useAppStore = defineStore("app", {
     }
   },
   actions: {
+    setLayout(layout: LayoutType) {
+      this.layout = layout
+      setStorage("layout", this.layout)
+    },
     setIsDark(isDark: boolean) {
       this.isDark = isDark
       if (this.isDark) {

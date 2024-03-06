@@ -15,14 +15,17 @@ defineOptions({
 
 const { t } = useI18n()
 
-// const url = getStaticSource("@/assets/imgs/Avatar.png")
 const url = new URL("@/assets/imgs/Avatar.png", import.meta.url).href
 </script>
 <template>
   <div class="vx-avatar">
     <ElDropdown placement="bottom" trigger="click" class="el-dropdown-link">
       <div class="vx-dropdown">
-        <span :class="isFold && isSeemMoblie ? 'vx-dropdown__username' : 'vx-dropdown__username--fold'">系统管理员</span>
+        <!-- eslint-disable  -->
+        <span :class="isSeemMoblie ? (isFold ? 'vx-dropdown__username' : 'vx-dropdown__username--fold') : 'vx-dropdown__username'"
+          >系统管理员</span
+        >
+        <!-- eslint-enable  -->
         <ElAvatar :size="30" :src="url" />
       </div>
       <template #dropdown>

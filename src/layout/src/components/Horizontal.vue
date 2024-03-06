@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { computed, unref } from "vue"
+import { computed, unref, ref } from "vue"
 import { Menu } from "@/components/Menu"
 // import { VxContainer } from "@/components/VxContainer"
 import { Logo } from "@/components/Logo"
@@ -16,6 +16,8 @@ const appStore = useAppStore()
 
 const isFold = computed(() => appStore.getIsFold)
 
+const isSeemMoblie = computed(() => appStore.getIsSeemMoblie)
+
 const menuWidth = computed(() => (unref(isFold) ? "55px" : "200px"))
 
 const MenuSwitch = () => {
@@ -26,23 +28,29 @@ const MenuSwitch = () => {
   )
   return jsxDom
 }
+const isHandleClick = ref(false)
 
 const toggleExpand = () => {
-  appStore.setIsFold(!unref(isFold))
+  if (unref(isSeemMoblie)) {
+    isHandleClick.value = !unref(isHandleClick)
+    appStore.setIsFold(false)
+  } else {
+    appStore.setIsFold(!unref(isFold))
+  }
 }
 </script>
 
 <template>
   <ElContainer class="vx-container">
     <ElHeader class="vx-header">
-      <Logo class="vx-header__logo" />
+      <Logo class="vx-header__logo" v-if="!isSeemMoblie || isHandleClick" />
       <div class="vx-header__nav">
-        <div class="vx-header__menu-switch"><MenuSwitch @click="toggleExpand" /><Breadcrumb /></div>
+        <div class="vx-header__menu-switch"><MenuSwitch @click="toggleExpand" /><Breadcrumb v-if="!isSeemMoblie" /></div>
         <div class="vx-header__info"><ThemeSwitch /> <Fullscreen /> <LocaleSwitch /> <Avatar /></div>
       </div>
     </ElHeader>
     <ElContainer class="vx-content">
-      <ElAside class="vx-aside">
+      <ElAside class="vx-aside" v-if="!isSeemMoblie || isHandleClick">
         <Menu class="vx-aside__menu" />
       </ElAside>
       <ElMain class="vx-main">

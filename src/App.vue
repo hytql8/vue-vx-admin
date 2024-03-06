@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watch, onMounted, computed, toRaw } from "vue"
+import { watch, onMounted, computed, toRaw, unref } from "vue"
 import { useAppStore } from "@/store/modules/app"
 import { useLocaleStore } from "@/store/modules/locale"
 import { normalTheme, darkTheme } from "@/utils/theme"
@@ -16,7 +16,7 @@ const appStore = useAppStore()
 const localeStore = useLocaleStore()
 
 const { push } = useRouter()
-const { width, height } = useWindowSize()
+const { width } = useWindowSize()
 
 // el组件语言配置
 const elLocale = computed(() => toRaw(localeStore.currentLocale.elLang) as Language)
@@ -49,9 +49,13 @@ watch(
   { immediate: true }
 )
 // 监听屏幕screen
-watch([width, height], (val: number[]) => {
-  appStore.setIsFold(val[0] < 1000)
-})
+watch(
+  () => unref(width),
+  (val: number) => {
+    appStore.setIsFold(val < 1000)
+    appStore.setIsSeemMoblie(val < 750)
+  }
+)
 </script>
 
 <template>

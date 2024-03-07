@@ -2,6 +2,8 @@ import { cloneDeep, remove } from "lodash-es"
 import type { RouteRecordRaw } from "vue-router"
 import { isUrl } from "./is"
 
+const Layout = () => import("@/layout/src/index.vue")
+
 // 处理静态路由，降级，keepalive最多只支持缓存二级, 此方法直接使用forEach直接改变传入的routes
 /**  
 @param routes 传入的原始路由
@@ -142,4 +144,26 @@ const pathResolve = (parentPath: string, path: string) => {
   return `${parentPath}${childPath}`.replace(/\/\//g, "/")
 }
 
-export { toLowerRoutes, generateLowerRoutes, createMenuRoutes, flattenRoutes, findRoutePath, pathResolve }
+/**
+ * @description 处理异步/动态路由
+ * @param routers 异步/动态路由
+ */
+const generateDynamicRouters = (routers: RouteRecordRaw[]) => {
+  let returnRouters = [] as RouteRecordRaw[]
+  let backupRouters = cloneDeep(routers)
+  returnRouters = traverseRouting(backupRouters)
+  return returnRouters
+}
+
+const traverseRouting = (routers: RouteRecordRaw[]): RouteRecordRaw[] => {
+  for (let v of routers) {
+    let component = v.component as any
+    component = component === "layout" ? Layout : null
+    if (v.children && v?.children?.length) {
+      traverseRouting(v.children)
+    }
+  }
+  return routers
+}
+
+export { toLowerRoutes, generateLowerRoutes, createMenuRoutes, flattenRoutes, findRoutePath, pathResolve, generateDynamicRouters }

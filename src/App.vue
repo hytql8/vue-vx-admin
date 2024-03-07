@@ -15,7 +15,7 @@ const { getStorage } = useStorage()
 const appStore = useAppStore()
 const localeStore = useLocaleStore()
 
-const { push } = useRouter()
+const router = useRouter()
 const { width } = useWindowSize()
 
 // el组件语言配置
@@ -33,7 +33,7 @@ onMounted(() => {
   setHtmlLang(localeStore.getCurrentLocale)
   setCssVar("--el-color-primary", appStore.getTheme.elPrimaryColor)
   // tags初始化加载的默认跳转
-  if (path) push(path)
+  if (path) router.push(path)
 })
 watch(
   () => appStore.getIsDark,
@@ -59,6 +59,8 @@ watch(
     appStore.setIsSeemMoblie(val < 750)
   }
 )
+
+console.log(router.currentRoute.value.meta)
 </script>
 
 <template>

@@ -2,7 +2,6 @@ import { defineStore } from "pinia"
 import { useStorage } from "@/hooks/useStorage"
 import { store } from "../index"
 import { toCssVariable, setCssVar } from "@/utils"
-// import { normalTheme, darkTheme } from "@/utils/theme"
 
 const { setStorage, getStorage } = useStorage()
 
@@ -12,6 +11,7 @@ type appState = {
   isFold: boolean
   isGroup: boolean
   isSeemMoblie: boolean
+  routerMode: RouterMode
   columnSize: string[]
   theme: ThemeTypes
 }
@@ -27,9 +27,13 @@ export const useAppStore = defineStore("app", {
       isFold: getStorage("isFold") || false,
       // table密度
       columnSize: ["default", "large", "small"],
+      // 菜单是否group模式
       isGroup: getStorage("isGroup") || false,
+      // 当前页面可能是移动端
       isSeemMoblie: false,
-      // 默认主题 需要变化的项目这里需要定义默认值，建议与var.less中保持一致
+      // 路由模式
+      routerMode: "async",
+      // 默认主题 需要变化的项目这里需要定义默认值，建议与var.scss中保持一致
       theme: getStorage("theme") || {
         elPrimaryColor: "#3a6ee8",
         themeTextColor: "#252525",
@@ -60,6 +64,9 @@ export const useAppStore = defineStore("app", {
     },
     getIsSeemMoblie(): boolean {
       return this.isSeemMoblie
+    },
+    getRouterMode(): RouterMode {
+      return this.routerMode
     },
     getColumnSize(): string[] {
       return this.columnSize
@@ -95,6 +102,9 @@ export const useAppStore = defineStore("app", {
     setIsGroup(isGroup: boolean) {
       this.isGroup = isGroup
       setStorage("isGroup", this.isGroup)
+    },
+    setRouterMode(routerMode: RouterMode) {
+      this.routerMode = routerMode
     },
     setTheme(theme: ThemeTypes) {
       if (this.isDark) {

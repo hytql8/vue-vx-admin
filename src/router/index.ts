@@ -1,5 +1,6 @@
 import { App } from "vue"
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
+import { createRouter, createWebHistory } from "vue-router"
+import type { RouteRecordRaw } from "vue-router"
 import { t } from "@/hooks/useLocale"
 import { useNProgress } from "@/hooks/useProgress"
 

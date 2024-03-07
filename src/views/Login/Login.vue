@@ -1,33 +1,49 @@
 <script lang="ts" setup>
-import { ref, onMounted } from "vue"
+import { ref, onMounted, computed, unref } from "vue"
 import axios from "axios"
 import { useDebounceFn } from "@vueuse/core"
-import { useRouter } from "vue-router"
+import { RouteRecordRaw, useRouter } from "vue-router"
 import { ElMessage } from "element-plus"
+import { getUseTableList } from "@/api/user"
+import { useAppStore } from "@/store/modules/app"
+import { useRoutersStore } from "@/store/modules/router"
+import { staticRouter } from "@/router"
 
 const { push } = useRouter()
+const appSotre = useAppStore()
+const routersStore = useRoutersStore()
+
+const routerMode = computed(() => appSotre.getRouterMode)
 
 const isAnimate = ref(false)
 
-const Login = useDebounceFn(() => {
-  axios({
-    method: "post",
-    url: "/user/login",
-    data: {
-      username: "admin",
-      password: "admin"
-    }
-  }).then(res => {
-    if (res.data.data.code === 200) {
-      console.log(res)
-
-      push({
-        name: "Welcome"
-      })
-    } else {
-      ElMessage.error("账号或者密码输入错误")
-    }
+const Login = useDebounceFn(async () => {
+  const loginRes = await getUseTableList({
+    username: "admin",
+    password: "admin"
   })
+  routersStore.setRouters(
+    unref(routerMode) === "static" ? staticRouter : (loginRes.data.data.routers as RouteRecordRaw[]),
+    unref(routerMode)
+  )
+  // axios({
+  //   method: "post",
+  //   url: "/user/login",
+  //   data: {
+  //     username: "admin",
+  //     password: "admin"
+  //   }
+  // }).then(res => {
+  //   if (res.data.data.code === 200) {
+  //     console.log(res, "loginRes====")
+
+  //     push({
+  //       name: "Welcome"
+  //     })
+  //   } else {
+  //     ElMessage.error("账号或者密码输入错误")
+  //   }
+  // })
 }, 300)
 
 onMounted(() => {

@@ -18,7 +18,7 @@ const List: any = [
     username: "test",
     password: "test",
     roleId: 1,
-    role: ["user", "test"],
+    roles: ["user", "test"],
     auths: ["read"]
   }
 ]
@@ -36,7 +36,7 @@ const arr: any = [
       {
         path: "welcome",
         name: "Welcome",
-        component: "@/views/Dashboard/Welcome.vue",
+        component: "/views/Dashboard/Welcome",
         meta: {
           title: "routes.welcome",
           icon: "fe:smile"
@@ -45,7 +45,7 @@ const arr: any = [
       {
         path: "workplace",
         name: "Workplace",
-        component: "@/views/Dashboard/Workplace.vue",
+        component: "/views/Dashboard/Workplace",
         meta: {
           title: "routes.workplace",
           icon: "bx:bxs-briefcase-alt-2"
@@ -54,7 +54,7 @@ const arr: any = [
       {
         path: "analysis",
         name: "Analysis",
-        component: "@/views/Dashboard/Analysis.vue",
+        component: "/views/Dashboard/Analysis",
         meta: {
           title: "routes.analysis",
           icon: "ri:line-chart-line"
@@ -74,7 +74,7 @@ const arr: any = [
       {
         path: "table",
         name: "Table",
-        component: "@/views/Component/Table/DefaultTable.vue",
+        component: "/views/Component/Table/DefaultTable",
         meta: {
           title: "routes.table",
           icon: "mdi:table-edit"
@@ -83,7 +83,7 @@ const arr: any = [
           {
             path: "default-table",
             name: "DefaultTable",
-            component: "@/views/Component/Table/DefaultTable.vue",
+            component: "/views/Component/Table/DefaultTable",
             meta: {
               title: "routes.defaultTable"
             }
@@ -93,7 +93,7 @@ const arr: any = [
       {
         path: "form",
         name: "Form",
-        component: "@/views/Component/Form/DefaultForm.vue",
+        component: "/views/Component/Form/DefaultForm",
         meta: {
           title: "routes.form",
           icon: "clarity:form-line"
@@ -102,7 +102,7 @@ const arr: any = [
           {
             path: "default-form",
             name: "DefaultForm",
-            component: "@/views/Component/Form/DefaultForm.vue",
+            component: "/views/Component/Form/DefaultForm",
             meta: {
               title: "routes.defaultForm"
             }
@@ -110,7 +110,7 @@ const arr: any = [
           {
             path: "use-form",
             name: "UseForm",
-            component: "@/views/Component/Form/DefaultForm.vue",
+            component: "/views/Component/Form/DefaultForm",
             meta: {
               title: "routes.useForm"
             }
@@ -120,7 +120,7 @@ const arr: any = [
       {
         path: "charts",
         name: "Charts",
-        component: "@/views/Component/Echarts/Echarts.vue",
+        component: "/views/Component/Echarts/Echarts",
         meta: {
           title: "routes.chart",
           icon: "solar:chart-2-bold-duotone"
@@ -141,7 +141,7 @@ const arr: any = [
       {
         path: "user",
         name: "User",
-        component: "@/views/System/User.vue",
+        component: "/views/System/User",
         meta: {
           title: "routes.user",
           icon: "mdi:account"
@@ -150,7 +150,7 @@ const arr: any = [
       {
         path: "role",
         name: "Role",
-        component: "@/views/System/Role.vue",
+        component: "/views/System/Role",
         meta: {
           title: "routes.role",
           icon: "mdi:account-group"
@@ -159,7 +159,7 @@ const arr: any = [
       {
         path: "menu",
         name: "Menu",
-        component: "@/views/System/Menu.vue",
+        component: "/views/System/Menu",
         meta: {
           title: "routes.menu",
           icon: "mdi:menu"

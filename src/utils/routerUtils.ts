@@ -1,8 +1,11 @@
 import { cloneDeep, remove } from "lodash-es"
 import type { RouteRecordRaw } from "vue-router"
 import { isUrl } from "./is"
+import { t } from "@/hooks/useLocale"
+import { staticRouter } from "@/router"
 
 const Layout = () => import("@/layout/src/index.vue")
+const modules = import.meta.glob("../views/**/*.{vue,tsx}")
 
 // 处理静态路由，降级，keepalive最多只支持缓存二级, 此方法直接使用forEach直接改变传入的routes
 /**  
@@ -145,25 +148,90 @@ const pathResolve = (parentPath: string, path: string) => {
 }
 
 /**
- * @description 处理异步/动态路由
+ * @description 处理静态/异步/动态路由
  * @param routers 异步/动态路由
+ * @param mode 路由模式
+ * @param user user信息
  */
-const generateDynamicRouters = (routers: RouteRecordRaw[]) => {
+const generateDynamicRouters = (routers: RouteRecordRaw[], mode: RouterMode, user: any) => {
   let returnRouters = [] as RouteRecordRaw[]
-  let backupRouters = cloneDeep(routers)
-  returnRouters = traverseRouting(backupRouters)
-  return returnRouters
-}
+  let backupRouters = cloneDeep(routers) as RouteRecordRaw[]
 
+  // 静态路由，直接拿router/index.ts 的staticRouter
+  if (mode === "static") {
+    return staticRouter
+  }
+  // 异步/动态路由
+  else {
+    returnRouters = mode === "async" ? traverseRoleRouting(backupRouters, user.roles) : traverseRouting(backupRouters)
+    returnRouters.unshift(
+      {
+        path: "/",
+        redirect: "/dashboard/welcome",
+        name: "Root"
+      },
+      {
+        path: "/login",
+        name: "Login",
+        component: () => import("@/views/Login/Login.vue"),
+        meta: {
+          title: t("routes.login")
+        }
+      }
+    )
+    returnRouters.push({
+      name: "404",
+      path: "/:catchAll(.*)",
+      component: () => import("@/views/Error/404.vue"),
+      meta: {
+        title: t("routes.notfound"),
+        icon: "mdi:arrow-up-bold"
+      }
+    })
+    return returnRouters
+  }
+}
+// 前端不筛选权限
 const traverseRouting = (routers: RouteRecordRaw[]): RouteRecordRaw[] => {
   for (let v of routers) {
     let component = v.component as any
-    component = component === "layout" ? Layout : null
-    if (v.children && v?.children?.length) {
+    if (!modules && !component.includes("layout")) {
+      console.error(`未找到${component}.vue文件或${component}.tsx文件，请创建`)
+    }
+    const module = modules[`${component.replace("/", "../")}.vue`] || modules[`${component.replace("/", "../")}.tsx`]
+    v.component = component === "layout" ? Layout : module
+    if (v.children && v.children.length) {
       traverseRouting(v.children)
     }
   }
   return routers
+}
+// 前端筛选权限
+const traverseRoleRouting = (routers: RouteRecordRaw[], roles: string[]): RouteRecordRaw[] => {
+  const toolArray = [] as RouteRecordRaw[]
+  for (let v of routers) {
+    let component = v.component as any
+    if (!modules && !component.includes("layout")) {
+      console.error(`未找到${component}.vue文件或${component}.tsx文件，请创建`)
+    }
+    // 如果有权限说明要筛选，没有的就跳过
+    if (v.meta?.role?.length) {
+      const hasRequiredPermissions = v.meta?.role.every(permission => roles.includes(permission))
+      if (hasRequiredPermissions) {
+        toolArray.push(v)
+      }
+    }
+    const module = modules[`${component.replace("/", "../")}.vue`] || modules[`${component.replace("/", "../")}.tsx`]
+    v.component = component === "layout" ? Layout : module
+    if (v.children && v.children.length) {
+      traverseRouting(v.children)
+    }
+    // 其他情况正常返回
+    if (!v.meta?.role && !v.meta?.role?.length) {
+      toolArray.push(v)
+    }
+  }
+  return toolArray
 }
 
 export { toLowerRoutes, generateLowerRoutes, createMenuRoutes, flattenRoutes, findRoutePath, pathResolve, generateDynamicRouters }

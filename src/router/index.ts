@@ -1,11 +1,21 @@
-import { App } from "vue"
+import { App, computed, ref, unref, watch } from "vue"
 import { createRouter, createWebHistory } from "vue-router"
 import type { RouteRecordRaw } from "vue-router"
 import { t } from "@/hooks/useLocale"
 import { useNProgress } from "@/hooks/useProgress"
+import { useRoutersStoreWithOut } from "@/store/modules/router"
+import { useAppStoreWithOut } from "@/store/modules/app"
+import { flattenRoutes } from "@/utils/routerUtils"
+
+const routersStore = useRoutersStoreWithOut()
+const appStore = useAppStoreWithOut()
 
 const { start, done } = useNProgress()
 const Layout = () => import("@/layout/src/index.vue")
+
+const routes = computed(() => routersStore.getRouters)
+
+const mode = computed(() => appStore.getRouterMode)
 
 export const staticRouter: RouteRecordRaw[] = [
   {
@@ -175,10 +185,41 @@ export const staticRouter: RouteRecordRaw[] = [
   // 其他路由配置
 ]
 
-export const router = createRouter({
+const router = createRouter({
   history: createWebHistory(),
   routes: staticRouter
 })
+
+watch(
+  () => routersStore.getUser,
+  (val: any) => {
+    console.log(val, "val")
+    setRouter()
+  }
+)
+
+const write = ["/login"]
+// 重新设置router
+export const setRouter = (): void => {
+  const flattenRoutesArray = flattenRoutes(unref(routes))
+  const routerGetRoutes = router.getRoutes()
+  // 添加新的路由配置
+  flattenRoutesArray.forEach(route => {
+    const existingRoute = routerGetRoutes.find(r => r.name === route.name)
+    if (!existingRoute) {
+      router.addRoute(route)
+    }
+  })
+
+  // 删除多余的路由配置
+  routerGetRoutes.forEach(route => {
+    const existsInNewRoutes = flattenRoutesArray.some(r => r.name === route.name)
+    if (!existsInNewRoutes) {
+      router.removeRoute(route.name)
+    }
+  })
+  console.log(routerGetRoutes, "routerGetRoutes")
+}
 
 router.beforeEach(async to => {
   start()
@@ -202,3 +243,5 @@ router.afterEach(() => {
 export const setupRouter = (app: App<Element>) => {
   app.use(router)
 }
+
+export { router }

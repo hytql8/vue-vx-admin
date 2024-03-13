@@ -59,8 +59,6 @@ watch(
     appStore.setIsSeemMoblie(val < 750)
   }
 )
-
-console.log(router.currentRoute.value.meta)
 </script>
 
 <template>

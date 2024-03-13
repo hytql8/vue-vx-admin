@@ -25,6 +25,7 @@ export default Object.assign(
       useForm: "Use Form"
     },
     tagsOperations: {
+      noTitle: "No Title",
       reload: "Reload",
       closeTag: "Close Tab",
       closeLeftTag: "Close The Left Tab",

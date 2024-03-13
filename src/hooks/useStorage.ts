@@ -34,7 +34,6 @@ export const useStorage = (type: "sessionStorage" | "localStorage" = "sessionSto
     excludesKeys.forEach(key => {
       window[type].removeItem(key)
     })
-    // window[type].clear()
   }
 
   return {

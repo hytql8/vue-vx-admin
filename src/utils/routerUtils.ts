@@ -177,6 +177,14 @@ const generateDynamicRouters = (routers: RouteRecordRaw[], mode: RouterMode, use
         meta: {
           title: t("routes.login")
         }
+      },
+      {
+        path: "/redirect/:path(.*)*/:type(.*)*",
+        name: "Redirect",
+        component: () => import("@/views/Redirect/Redirect.vue"),
+        meta: {
+          hidden: true
+        }
       }
     )
     returnRouters.push({

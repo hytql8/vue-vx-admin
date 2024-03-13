@@ -94,7 +94,7 @@ const generateLowerRoutes = (
 **/
 const createMenuRoutes = (staticRouter: RouteRecordRaw[]): RouteRecordRaw[] => {
   const localRoutes: RouteRecordRaw[] = cloneDeep(staticRouter)
-  remove(localRoutes, route => route.path === "/" || route.name === "404" || route.name === "Login")
+  remove(localRoutes, route => route.path === "/" || route.name === "404" || route.name === "Login" || route.name === "Redirect")
   toLowerRoutes(localRoutes)
   return localRoutes
 }

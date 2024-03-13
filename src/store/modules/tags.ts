@@ -3,6 +3,7 @@ import { useStorage } from "@/hooks/useStorage"
 import { RouteRecordRaw } from "vue-router"
 import { toRaw } from "vue"
 import { store } from "../index"
+import { t } from "@/hooks/useLocale"
 
 const { getStorage, setStorage } = useStorage()
 
@@ -45,7 +46,7 @@ export const useTagsStore = defineStore("tags", {
           icon: route.meta.icon,
           isFixed: true,
           path: route.path,
-          title: route.meta.title ?? "no title"
+          title: route.meta.title ?? t("tagsOperations.noTitle")
         })
       )
       setStorage("tagsList", this.tagsList)
@@ -54,13 +55,13 @@ export const useTagsStore = defineStore("tags", {
     updateTagsByRoute(route: RouteRecordRaw) {
       this.tagsList.forEach((v: TagsList) => Object.assign(v, { current: false, isFixed: false }))
       for (let v of this.tagsList) {
-        if (v.path === route.path) {
+        if (v.path === route.path && v.path !== "/login" && v.name !== "Redirect") {
           v = Object.assign(v, {
             current: true,
             icon: route.meta.icon,
             isFixed: true,
             path: route.path,
-            title: route.meta.title ?? "no title"
+            title: route.meta.title ?? t("tagsOperations.noTitle")
           })
           break
         }

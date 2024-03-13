@@ -2,7 +2,7 @@
 import { ref, onMounted, computed, unref } from "vue"
 import { useDebounceFn } from "@vueuse/core"
 import { RouteRecordRaw, useRouter } from "vue-router"
-import { ElMessage } from "element-plus"
+// import { ElMessage } from "element-plus"
 import { getUseTableList } from "@/api/user"
 import { useAppStore } from "@/store/modules/app"
 import { useRoutersStore } from "@/store/modules/router"
@@ -29,14 +29,15 @@ const Login = useDebounceFn(async () => {
   // 存储user信息
   routersStore.setUser(user)
   // 写入router
-  routersStore.setRouters(
-    unref(routerMode) === "static" ? staticRouter : (loginRes.data.data.routers as RouteRecordRaw[]),
-    unref(routerMode)
-  )
+  routersStore.setRouters(unref(routerMode) === "static" ? staticRouter : (loginRes.data.data.routers as RouteRecordRaw[]))
   if (loginRes.data.code === 200) {
-    // push({
-    //   name: "Welcome"
-    // })
+    push({
+      name: "Redirect",
+      params: {
+        path: "dashboard/welcome",
+        type: "async"
+      }
+    })
   }
 }, 300)
 

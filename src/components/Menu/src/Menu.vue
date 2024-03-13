@@ -1,17 +1,20 @@
 <script lang="ts" setup>
 import { computed, unref, ref, watch } from "vue"
 import { useAppStore } from "@/store/modules/app"
-import { staticRouter } from "@/router"
 import { generateLowerRoutes, createMenuRoutes } from "@/utils/routerUtils"
 import RenderVertical from "./components/RenderVertical.vue"
-import { RouteRecordRaw, useRouter } from "vue-router"
+import { useRouter } from "vue-router"
+import { useRoutersStore } from "@/store/modules/router"
 
 const { currentRoute } = useRouter()
 const appStore = useAppStore()
+const routersStore = useRoutersStore()
 
 const isFold = computed(() => appStore.getIsFold)
 const isGroup = computed(() => appStore.getIsGroup)
 const layout = ref(appStore.getLayout)
+// routersStore.getRouters 此方法过滤时已筛选过权限，此时直接获取就行
+const menuRoutes = routersStore.getRouters
 
 watch(
   () => appStore.getLayout,
@@ -30,7 +33,7 @@ watch(
   }
 )
 
-const routes = generateLowerRoutes(createMenuRoutes(staticRouter as RouteRecordRaw[]))
+const routes = generateLowerRoutes(createMenuRoutes(menuRoutes))
 // 获取当前选中的路由
 const activeMenu = computed(() => {
   const { path } = unref(currentRoute)

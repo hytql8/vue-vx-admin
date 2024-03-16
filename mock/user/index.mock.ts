@@ -1,25 +1,171 @@
-// import config from "@/config/axios/config"
 import { MockMethod } from "vite-plugin-mock"
 
-// const { code } = config
 const timeout = 1000
 
-const List = [
+const List: any = [
   {
     userId: 0,
     username: "admin",
     password: "admin",
     roleId: 0,
+    // 角色
     roles: ["admin"],
-    auths: ["*.*.*"]
+    // 权限
+    auths: ["create", "read", "update", "delete"]
   },
   {
     userId: 1,
     username: "test",
     password: "test",
     roleId: 1,
-    role: ["test", "admin"],
-    permissions: ["example:dialog:create", "example:dialog:delete"]
+    roles: ["user", "test"],
+    auths: ["read"]
+  }
+]
+
+const arr: any = [
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    component: "layout",
+    meta: {
+      title: "routes.dashboard",
+      icon: "ri:dashboard-line"
+    },
+    children: [
+      {
+        path: "welcome",
+        name: "Welcome",
+        component: "/views/Dashboard/Welcome",
+        meta: {
+          title: "routes.welcome",
+          icon: "fe:smile"
+        }
+      },
+      {
+        path: "workplace",
+        name: "Workplace",
+        component: "/views/Dashboard/Workplace",
+        meta: {
+          title: "routes.workplace",
+          icon: "bx:bxs-briefcase-alt-2"
+        }
+      },
+      {
+        path: "analysis",
+        name: "Analysis",
+        component: "/views/Dashboard/Analysis",
+        meta: {
+          title: "routes.analysis",
+          icon: "ri:line-chart-line"
+        }
+      }
+    ]
+  },
+  {
+    path: "/component",
+    name: "Component",
+    component: "layout",
+    meta: {
+      title: "routes.component",
+      icon: "mingcute:components-fill"
+    },
+    children: [
+      {
+        path: "table",
+        name: "Table",
+        component: "/views/Component/Table/DefaultTable",
+        meta: {
+          title: "routes.table",
+          icon: "mdi:table-edit"
+        },
+        children: [
+          {
+            path: "default-table",
+            name: "DefaultTable",
+            component: "/views/Component/Table/DefaultTable",
+            meta: {
+              title: "routes.defaultTable"
+            }
+          }
+        ]
+      },
+      {
+        path: "form",
+        name: "Form",
+        component: "/views/Component/Form/DefaultForm",
+        meta: {
+          title: "routes.form",
+          icon: "clarity:form-line"
+        },
+        children: [
+          {
+            path: "default-form",
+            name: "DefaultForm",
+            component: "/views/Component/Form/DefaultForm",
+            meta: {
+              title: "routes.defaultForm"
+            }
+          },
+          {
+            path: "use-form",
+            name: "UseForm",
+            component: "/views/Component/Form/DefaultForm",
+            meta: {
+              title: "routes.useForm"
+            }
+          }
+        ]
+      },
+      {
+        path: "charts",
+        name: "Charts",
+        component: "/views/Component/Echarts/Echarts",
+        meta: {
+          title: "routes.chart",
+          icon: "solar:chart-2-bold-duotone"
+        }
+      }
+    ]
+  },
+  {
+    path: "/system",
+    name: "System",
+    component: "layout",
+    meta: {
+      title: "routes.system",
+      icon: "ri:settings-3-line",
+      role: ["admin"]
+    },
+    children: [
+      {
+        path: "user",
+        name: "User",
+        component: "/views/System/User",
+        meta: {
+          title: "routes.user",
+          icon: "mdi:account"
+        }
+      },
+      {
+        path: "role",
+        name: "Role",
+        component: "/views/System/Role",
+        meta: {
+          title: "routes.role",
+          icon: "mdi:account-group"
+        }
+      },
+      {
+        path: "menu",
+        name: "Menu",
+        component: "/views/System/Menu",
+        meta: {
+          title: "routes.menu",
+          icon: "mdi:menu"
+        }
+      }
+    ]
   }
 ]
 
@@ -59,6 +205,7 @@ export default [
       for (const user of List) {
         if (user.username === data.username && user.password === data.password) {
           hasUser = true
+          user.routers = arr
           return {
             data: {
               code: 200,

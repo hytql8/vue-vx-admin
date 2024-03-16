@@ -1,14 +1,16 @@
 <script lang="tsx" setup>
-import { ref, unref, watch } from "vue"
+import { ref, unref, watch, computed } from "vue"
 import { Horizontal, Vertical } from "./components"
 import { useAppStore } from "@/store/modules/app"
 import { setCssVar } from "@/utils"
+import { VxIcon } from "@/components/VxIcon"
+import { ThemeSwitch } from "@/components/ThemeSwitch"
 
-const app = useAppStore()
+const appStore = useAppStore()
 setCssVar("--theme-bg-color", "#f5f7f9")
 
 watch(
-  () => app.getIsDark,
+  () => appStore.getIsDark,
   val => {
     if (val) {
       setCssVar("--theme-bg-color", "#1b1b1f")
@@ -22,24 +24,111 @@ defineOptions({
   name: "Layout"
 })
 
-const layout = ref("horizontal") // vertical
-const renderMenus = () => {
+const getLayout = computed(() => {
+  appStore.setIsGroup(appStore.getLayout === "group")
+  return appStore.getLayout
+}) // vertical / group
+const RenderMenus = () => {
   const jsxDom =
-    unref(layout) === "horizontal" ? (
-      <div class="layout-horizontal">
-        <Horizontal />
+    unref(getLayout) === "vertical" || unref(getLayout) === "group" ? (
+      <div class="layout-vertical">
+        <Vertical />
       </div>
     ) : (
       <div>
-        <Vertical />
+        <Horizontal />
       </div>
     )
 
   return jsxDom
 }
+
+const Setting = () => {
+  return (
+    <div class="vx-setting">
+      <VxIcon icon="line-md:cog-loop" size={18} color="#fff" hover-color="#fff" />
+    </div>
+  )
+}
+
+const settingVisible = ref(false)
+
+const openSetting = () => {
+  settingVisible.value = !unref(settingVisible)
+}
+
+const togglePosition = (layout: LayoutType) => {
+  console.log(layout, "layout")
+  appStore.setLayout(layout)
+  appStore.setIsFold(false)
+}
+
+const color = ref("#3a6ee8")
+
+const colorsList = ["#409eff", "#009688", "#536dfe", "#ff5c93", "#ee4f12", "#0096c7", "#9c27b0", "#ff9800"]
 </script>
 <template>
-  <div class="layout"><renderMenus /></div>
+  <div class="layout">
+    <RenderMenus /><Setting @click="openSetting" class="layout-setting" />
+    <ElDrawer size="350px" v-model="settingVisible" title="项目配置" :with-header="true">
+      <ElDivider content-position="center">系统主题</ElDivider>
+      <div class="layout-inset__switch"><ThemeSwitch /></div>
+      <ElDivider content-position="center">页面布局</ElDivider>
+      <div class="layout-inset__position">
+        <div :class="getLayout === 'vertical' ? 'normal-mode mode-active' : 'normal-mode'" @click="togglePosition('vertical')">
+          <div class="normal-left">
+            <div class="normal-left-t"></div>
+            <div class="normal-left-b"></div>
+          </div>
+          <div class="normal-right">
+            <div class="normal-right-t"></div>
+            <div class="normal-right-b"></div>
+          </div>
+        </div>
+        <div :class="getLayout === 'group' ? 'group-mode mode-active' : 'group-mode'" @click="togglePosition('group')">
+          <div class="group-left">
+            <div class="group-left-t"></div>
+            <div class="group-left-b">
+              <div class="group-left-b-i"></div>
+              <div class="group-left-b-y"></div>
+            </div>
+          </div>
+          <div class="group-right">
+            <div class="group-right-t"></div>
+            <div class="group-right-b"></div>
+          </div>
+        </div>
+        <div :class="getLayout === 'horizontal' ? 'top-mode mode-active' : 'top-mode'" @click="togglePosition('horizontal')">
+          <div class="top-left">
+            <div class="top-left-t"></div>
+            <div class="top-left-b"></div>
+          </div>
+          <div class="top-right">
+            <div class="top-right-t"></div>
+            <div class="top-right-b"></div>
+          </div>
+        </div>
+      </div>
+      <ElDivider content-position="center">配置主题色</ElDivider>
+      <div class="layout-inset__theme">
+        <div v-for="v in colorsList" :key="v" class="color-box" :style="`background: ${v};`"></div>
+        <ElColorPicker v-model="color" />
+      </div>
+      <ElDivider content-position="center">页面配置</ElDivider>
+      <div class="layout-inset__config">
+        <div class="config-inset"><span>面包屑</span><ElSwitch /></div>
+      </div>
+      <div class="layout-inset__config">
+        <div class="config-inset"><span>折叠菜单</span><ElSwitch /></div>
+      </div>
+      <div class="layout-inset__config">
+        <div class="config-inset"><span>全屏</span><ElSwitch /></div>
+      </div>
+      <div class="layout-inset__config">
+        <div class="config-inset"><span>语言切换</span><ElSwitch /></div>
+      </div>
+    </ElDrawer>
+  </div>
 </template>
 
 <style lang="scss" scoped>

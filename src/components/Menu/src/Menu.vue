@@ -1,18 +1,39 @@
 <script lang="ts" setup>
-import { computed, unref } from "vue"
+import { computed, unref, ref, watch } from "vue"
 import { useAppStore } from "@/store/modules/app"
-import { staticRouter } from "@/router"
 import { generateLowerRoutes, createMenuRoutes } from "@/utils/routerUtils"
 import RenderVertical from "./components/RenderVertical.vue"
-import { RouteRecordRaw, useRouter } from "vue-router"
+import { useRouter } from "vue-router"
+import { useRoutersStore } from "@/store/modules/router"
 
 const { currentRoute } = useRouter()
 const appStore = useAppStore()
+const routersStore = useRoutersStore()
 
 const isFold = computed(() => appStore.getIsFold)
 const isGroup = computed(() => appStore.getIsGroup)
+const layout = ref(appStore.getLayout)
+// routersStore.getRouters 此方法过滤时已筛选过权限，此时直接获取就行
+const menuRoutes = routersStore.getRouters
 
-const routes = generateLowerRoutes(createMenuRoutes(staticRouter as RouteRecordRaw[]))
+watch(
+  () => appStore.getLayout,
+  (val: LayoutType) => {
+    layout.value = val
+  }
+)
+
+watch(
+  () => appStore.getIsSeemMoblie,
+  (val: boolean) => {
+    if (val) {
+      layout.value = "vertical"
+      appStore.setLayout("vertical")
+    }
+  }
+)
+
+const routes = generateLowerRoutes(createMenuRoutes(menuRoutes))
 // 获取当前选中的路由
 const activeMenu = computed(() => {
   const { path } = unref(currentRoute)
@@ -21,9 +42,15 @@ const activeMenu = computed(() => {
 </script>
 
 <template>
-  <ElScrollbar class="vx-scrollbar">
+  <template v-if="layout === 'horizontal'">
+    <ElMenu ellipsis class="vx-menu--horizontal" mode="horizontal" :default-active="activeMenu">
+      <RenderVertical :routes="routes" />
+    </ElMenu>
+  </template>
+  <ElScrollbar v-else class="vx-scrollbar">
     <ElMenu
       class="vx-menu"
+      mode="vertical"
       active-text-color="var(--left-menu-text-active-color)"
       background-color="var(--left-menu-bg-color)"
       :default-active="activeMenu"

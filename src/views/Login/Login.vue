@@ -1,33 +1,44 @@
 <script lang="ts" setup>
-import { ref, onMounted } from "vue"
-import axios from "axios"
+import { ref, onMounted, computed, unref } from "vue"
 import { useDebounceFn } from "@vueuse/core"
-import { useRouter } from "vue-router"
-import { ElMessage } from "element-plus"
+import { RouteRecordRaw, useRouter } from "vue-router"
+// import { ElMessage } from "element-plus"
+import { getUseTableList } from "@/api/user"
+import { useAppStore } from "@/store/modules/app"
+import { useRoutersStore } from "@/store/modules/router"
+import { staticRouter } from "@/router"
+import { omit } from "lodash-es"
 
 const { push } = useRouter()
+const appSotre = useAppStore()
+const routersStore = useRoutersStore()
+
+const routerMode = computed(() => appSotre.getRouterMode)
 
 const isAnimate = ref(false)
 
-const Login = useDebounceFn(() => {
-  axios({
-    method: "post",
-    url: "/user/login",
-    data: {
-      username: "admin",
-      password: "admin"
-    }
-  }).then(res => {
-    if (res.data.data.code === 200) {
-      console.log(res)
+const username = ref("")
+const password = ref("")
 
-      push({
-        name: "Welcome"
-      })
-    } else {
-      ElMessage.error("账号或者密码输入错误")
-    }
+const Login = useDebounceFn(async () => {
+  const loginRes = await getUseTableList({
+    username: unref(username) || "test",
+    password: unref(password) || "test"
   })
+  let user = omit(loginRes.data.data, "routers")
+  // 存储user信息
+  routersStore.setUser(user)
+  // 写入router
+  routersStore.setRouters(unref(routerMode) === "static" ? staticRouter : (loginRes.data.data.routers as RouteRecordRaw[]))
+  if (loginRes.data.code === 200) {
+    push({
+      name: "Redirect",
+      params: {
+        path: "dashboard/welcome",
+        type: "async"
+      }
+    })
+  }
 }, 300)
 
 onMounted(() => {
@@ -36,7 +47,7 @@ onMounted(() => {
 </script>
 <template>
   <div class="vx-login">
-    <div class="vx-login__left">
+    <div class="vx-login__left" v-if="false">
       <Transition
         enter-active-class="animate__animated animate__bounceInLeft"
         leave-active-class="animate__animated animate__bounceInLeft"
@@ -46,8 +57,8 @@ onMounted(() => {
     </div>
     <div class="vx-login__right">
       <div class="vx-login__right__login-box">
-        <ElInput aria-placeholder="132" value="admin" />
-        <ElInput aria-placeholder="132" value="admin" />
+        <ElInput aria-placeholder="132" v-model="username" />
+        <ElInput aria-placeholder="132" v-model="password" />
         <ElButton @click="Login">登录</ElButton>
       </div>
     </div>

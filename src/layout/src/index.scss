@@ -1,7 +1,194 @@
+@import "@/styles/var.scss";
 .layout {
   color: var(--theme-text-color);
   background-color: var(--theme-bg-color);
-  &-horizontal {
+  &-vertical {
     height: inherit;
   }
+  &-setting {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    z-index: 999;
+    transform: translateY(-50%);
+  }
+  &-inset {
+    &__switch {
+      width: 100%;
+
+      @include flex(center,center, nowrap);
+    }
+    &__position {
+      .normal-mode {
+        width: 45px;
+        height: 35px;
+        overflow: hidden;
+        border-radius: 3px;
+        box-shadow: var(--el-box-shadow-light);
+        .normal-left {
+          width: 30%;
+          height: 100%;
+          .normal-left-t {
+            width: 100%;
+            height: 20%;
+            background-color: #0f2438;
+          }
+          .normal-left-b {
+            width: 100%;
+            height: 80%;
+            background-color: #0f2438;
+          }
+        }
+        .normal-right {
+          width: 70%;
+          height: 100%;
+          .normal-right-t {
+            width: 100%;
+            height: 20%;
+            background-color: #ffffff;
+          }
+          .normal-right-b {
+            width: 100%;
+            height: 80%;
+            background-color: #e0e3e6;
+          }
+        }
+
+        @include cursor;
+        @include flex(flex-start,center, nowrap);
+      }
+      .group-mode {
+        width: 45px;
+        height: 35px;
+        margin-left: 20px;
+        overflow: hidden;
+        border-radius: 3px;
+        box-shadow: var(--el-box-shadow-light);
+        .group-left {
+          width: 30%;
+          height: 100%;
+          .group-left-t {
+            width: 100%;
+            height: 20%;
+            background-color: #001529;
+          }
+          .group-left-b {
+            flex-direction: column;
+            width: 100%;
+            height: 80%;
+            background-color: #001529;
+
+            @include flex(flex-start,center, nowrap);
+            &-i {
+              width: 100%;
+              height: 30%;
+              background-color: #27343f;
+            }
+            &-y {
+              width: 100%;
+              height: 40%;
+              background-color: #2b3641;
+              transform: translateY(5px);
+            }
+          }
+        }
+        .group-right {
+          width: 70%;
+          height: 100%;
+          .group-right-t {
+            width: 100%;
+            height: 20%;
+            background-color: #ffffff;
+          }
+          .group-right-b {
+            width: 100%;
+            height: 80%;
+            background-color: #e0e3e6;
+          }
+        }
+
+        @include cursor;
+        @include flex(flex-start,center, nowrap);
+      }
+      .top-mode {
+        width: 45px;
+        height: 35px;
+        margin-left: 20px;
+        overflow: hidden;
+        border-radius: 3px;
+        box-shadow: var(--el-box-shadow-light);
+        .top-left {
+          width: 30%;
+          height: 100%;
+          .top-left-t {
+            width: 100%;
+            height: 20%;
+            background-color: #0f2438;
+          }
+          .top-left-b {
+            width: 100%;
+            height: 80%;
+            background-color: #e0e3e6;
+          }
+        }
+        .top-right {
+          width: 70%;
+          height: 100%;
+          .top-right-t {
+            width: 100%;
+            height: 20%;
+            background-color: #0f2438;
+          }
+          .top-right-b {
+            width: 100%;
+            height: 80%;
+            background-color: #e0e3e6;
+          }
+        }
+
+        @include cursor;
+        @include flex(flex-start,center, nowrap);
+      }
+      .mode-active {
+        border: 2px solid var(--theme-color);
+      }
+
+      @include flex(center,center, nowrap);
+    }
+    &__theme {
+      @include flex(flex-start,center, nowrap);
+
+      width: 100%;
+      .color-box {
+        width: 20px;
+        height: 20px;
+        margin-right: 15px;
+        border-radius: 2px;
+
+        @include cursor;
+      }
+      .mode-active {
+        border: 2px solid var(--theme-color);
+      }
+    }
+    &__config {
+      width: 100%;
+      .config-inset {
+        width: inherit;
+        font-size: 14px;
+
+        @include flex(space-between,center, nowrap);
+      }
+    }
+  }
+}
+.vx-setting {
+  width: 32px;
+  height: 32px;
+  background-color: var(--theme-color);
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+
+  @include flex(center,center, nowrap);
+  @include cursor;
 }

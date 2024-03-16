@@ -25,6 +25,7 @@ export default Object.assign(
       useForm: "useForm表单"
     },
     tagsOperations: {
+      noTitle: "无标题",
       reload: "重新加载",
       closeTag: "关闭标签页",
       closeLeftTag: "关闭左侧标签页",

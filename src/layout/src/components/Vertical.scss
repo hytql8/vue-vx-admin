@@ -1,0 +1,62 @@
+@import "@/styles/var.scss";
+.vx-container {
+  height: 100%;
+  :deep(.el-header) {
+    padding: 0 !important;
+  }
+  :deep(.el-main) {
+    padding: unset;
+  }
+  .vx-header {
+    width: 100%;
+    height: var(--header-global-height);
+    &__nav {
+      position: relative;
+      flex: 1;
+      height: inherit;
+      background-color: var(--theme-div-color);
+
+      @include flex(space-between, center, nowrap);
+      @include transition(background-color);
+      &::after {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        content: "";
+        border-bottom: 1px solid var(--divider-color);
+      }
+    }
+    &__menu-switch {
+      // padding: 0 5px;
+
+      @include cursor;
+      @include flex(start, center, nowrap);
+    }
+    &__info {
+      @include flex(start, center, nowrap);
+    }
+
+    @include flex(start, center, nowrap);
+  }
+  .vx-aside {
+    overflow: hidden;
+    background-color: var(--left-menu-bg-color);
+    border-right: 1px solid var(--divider-color);
+
+    @include transition(all);
+    &__menu {
+      width: inherit;
+      height: 100%;
+      background-color: var(--left-menu-bg-color);
+    }
+  }
+  .vx-main {
+    &__container {
+      height: calc(100vh - var(--header-global-height) - var(--tags-view-global-height) - 1px);
+      padding: 10px;
+    }
+    &:deep(.vx-table) {
+      height: calc(100vh - var(--header-global-height) - var(--tags-view-global-height) - var(--pagination-global-height) - 1px);
+    }
+  }
+}

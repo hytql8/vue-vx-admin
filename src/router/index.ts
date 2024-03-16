@@ -1,9 +1,8 @@
 import { App } from "vue"
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
+import { createRouter, createWebHistory } from "vue-router"
+import type { RouteRecordRaw } from "vue-router"
 import { t } from "@/hooks/useLocale"
-import { useNProgress } from "@/hooks/useProgress"
 
-const { start, done } = useNProgress()
 const Layout = () => import("@/layout/src/index.vue")
 
 export const staticRouter: RouteRecordRaw[] = [
@@ -18,6 +17,14 @@ export const staticRouter: RouteRecordRaw[] = [
     component: () => import("@/views/Login/Login.vue"),
     meta: {
       title: t("routes.login")
+    }
+  },
+  {
+    path: "/redirect/:path(.*)*/:type(.*)*",
+    name: "Redirect",
+    component: () => import("@/views/Redirect/Redirect.vue"),
+    meta: {
+      hidden: true
     }
   },
   {
@@ -177,24 +184,6 @@ export const staticRouter: RouteRecordRaw[] = [
 export const router = createRouter({
   history: createWebHistory(),
   routes: staticRouter
-})
-
-router.beforeEach(async to => {
-  start()
-  let auth = true
-  if (
-    // 检查用户是否已登录
-    !auth &&
-    // ❗️ 避免无限重定向
-    to.name !== "Login"
-  ) {
-    // 将用户重定向到登录页面
-    return { name: "Login" }
-  }
-})
-
-router.afterEach(() => {
-  done()
 })
 
 // 在路由加载完毕后，导出之前将router注册方法导出

@@ -4,9 +4,9 @@ import { router, setupRouter } from "@/router"
 import { setupStore } from "@/store"
 import { setupI18n } from "@/plugins/vueI18n"
 import { setupVxeTable } from "./plugins/vxeTable"
+import { setupAuthDirective } from "./directives/auth"
 
-// 引入样式
-// import "vxe-table/styles/cssvar.scss"
+import "@/router/asyncRouterHelper"
 
 import "animate.css"
 import "./styles/reset.scss"
@@ -20,6 +20,7 @@ const setupApp = async () => {
   await router.isReady()
   setupStore(app)
   setupVxeTable(app)
+  setupAuthDirective(app)
   app.mount("#app")
 }
 setupApp()

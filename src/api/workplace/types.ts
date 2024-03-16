@@ -8,6 +8,7 @@ type getUseTableListReturns = {
     items: any[]
     total: number
   }
+  [key: string]: any
 }
 
 export type { getUseTableListParams, getUseTableListReturns }

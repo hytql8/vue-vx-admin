@@ -2,8 +2,10 @@ import { useStorage } from "@/hooks/useStorage"
 import { isArray, isString } from "@/utils/is"
 
 const { getStorage } = useStorage("localStorage")
-
-const { auths } = getStorage("user")
+// 设置默认权限，默认仅有读的权限，实际应该更改
+const { auths } = getStorage("user") ?? {
+  auths: ["read"]
+}
 console.log(auths, "当前用户的权限")
 export const hasAuth = (auth: string[] | string) => {
   console.log(auth, "当前按钮需要的权限")

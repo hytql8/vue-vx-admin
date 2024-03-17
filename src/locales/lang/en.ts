@@ -52,6 +52,11 @@ export default Object.assign(
       selectText: "Please select",
       startTimeText: "Start time",
       endTimeText: "End time"
+    },
+    login: {
+      login: "Login",
+      username: "Username",
+      password: "Password"
     }
   },
   vxeEn

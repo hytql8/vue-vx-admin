@@ -57,6 +57,9 @@ watch(
   (val: number) => {
     appStore.setIsFold(val < 1000)
     appStore.setIsSeemMoblie(val < 750)
+    if (val < 750) {
+      appStore.setLayout("vertical")
+    }
   }
 )
 </script>

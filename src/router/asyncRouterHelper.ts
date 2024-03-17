@@ -27,15 +27,15 @@ export const createRouter = (asyncRouters: RouteRecordRaw[] = cashRoutes) => {
   })
 }
 
-// 如果未登录过默认不执行,实际可换成token
-const isAuth = getStorage("user") ? true : false
-if (isAuth) {
+// 如果未登录过默认不执行,实际可换成token (本地无user缓存和pinia中无路由表视为未登录)
+const isAuth = computed(() => (getStorage("user") || routersStore.getRouters.length ? true : false))
+if (unref(isAuth)) {
   createRouter(cashRoutes)
 }
 
 router.beforeEach((to, from, next) => {
   start()
-  if (to.path !== "/login" && !isAuth) {
+  if (to.path !== "/login" && !unref(isAuth)) {
     next("/login") // 如果未验证，跳转到登录页
   } else {
     next() // 继续路由导航

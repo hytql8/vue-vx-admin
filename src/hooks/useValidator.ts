@@ -11,7 +11,7 @@ export const useValidator = () => {
   const required = (message?: string): FormItemRule => {
     return {
       required: true,
-      message: message || t("common.required")
+      message: message || "该项为必填项"
     }
   }
 
@@ -86,7 +86,7 @@ export const useValidator = () => {
     return {
       validator: (_, val, callback) => {
         if (!val) {
-          callback(new Error(message || t("common.required")))
+          callback(new Error(message || "该项为必填项"))
         } else {
           callback()
         }

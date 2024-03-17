@@ -1,20 +1,61 @@
 @import "@/styles/var.scss";
 .vx-login {
-    background-color: #ffffff;
-    &__left {
-        width: 50%;
+  height: 100vh;
+  background-color: var(--theme-div-color);
+
+  @include transition(all);
+  &__avatar {
+    @include flex(flex-end, center, nowrap);
+  }
+  &__main {
+    width: 100%;
+    .loginBox {
+      @include transition(all);
+      &__title {
+        // margin-bottom: 5px;
         & > img {
-            margin-top: 200px;
+          width: 45px;
+          height: 45px;
+        }
+        & > span {
+          position: relative;
+          z-index: 0;
+          margin-left: 16px;
+          font-size: 33px;
+          font-weight: 600;
+          &::before {
+            position: absolute;
+            z-index: -1;
+            font-size: 33px;
+            font-weight: 600;
+            color: #cccccc;
+            content: "VxAdmin";
+            filter: blur(3px);
+            transform: skew(50deg) scaleY(0.5) translate(-13px, 11px);
+          }
         }
 
-        @include flex(end,center,nowrap)
-    }
-    &__right {
-        width: 50%;
-        &__login-box {
-            width: 40%;
-        }
+        @include flex(center, center, nowrap);
+      }
+      &__desp {
+        margin-block: 12px 20px;
+        font-size: 14px;
+        color: var(--theme-text-color);
+
+        @include transition(all);
+      }
+      &__container {
+        max-width: 375px;
+      }
+      &__tabs {
+        width: inherit;
+      }
+
+      flex-direction: column;
+
+      @include flex(flex-end, center, nowrap);
     }
 
-    @include flex(start,center,nowrap)
+    @include flex(center, flex-start, nowrap);
+  }
 }

@@ -52,6 +52,11 @@ export default Object.assign(
       selectText: "请选择",
       startTimeText: "开始时间",
       endTimeText: "结束时间"
+    },
+    login: {
+      login: "登录",
+      username: "用户名",
+      password: "密码"
     }
   },
   vxeCn

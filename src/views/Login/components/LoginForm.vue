@@ -19,7 +19,7 @@ const { formRegister, formMethods } = useForm()
 const { getFormData, getElFormExpose } = formMethods
 const { required } = useValidator()
 const { t } = useI18n()
-const { push, isReady } = useRouter()
+const { push } = useRouter()
 const routersStore = useRoutersStore()
 
 const routerMode = computed(() => appSotre.getRouterMode)
@@ -98,7 +98,7 @@ const Login = useDebounceFn(async ({ username, password }) => {
     push({
       name: "Redirect",
       params: {
-        path: "dashboard/welcome",
+        path: "dashboard/workplace",
         type: "async"
       }
     })

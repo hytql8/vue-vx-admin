@@ -8,7 +8,7 @@ const Layout = () => import("@/layout/src/index.vue")
 export const staticRouter: RouteRecordRaw[] = [
   {
     path: "/",
-    redirect: "/dashboard/welcome",
+    redirect: "/dashboard/workplace",
     name: "Root"
   },
   {
@@ -36,15 +36,6 @@ export const staticRouter: RouteRecordRaw[] = [
       icon: "ri:dashboard-line"
     },
     children: [
-      {
-        path: "welcome",
-        name: "Welcome",
-        component: () => import("@/views/Dashboard/Welcome.vue"),
-        meta: {
-          title: t("routes.welcome"),
-          icon: "fe:smile"
-        }
-      },
       {
         path: "workplace",
         name: "Workplace",

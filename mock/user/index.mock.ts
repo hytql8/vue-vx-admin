@@ -34,15 +34,6 @@ const arr: any = [
     },
     children: [
       {
-        path: "welcome",
-        name: "Welcome",
-        component: "/views/Dashboard/Welcome",
-        meta: {
-          title: "routes.welcome",
-          icon: "fe:smile"
-        }
-      },
-      {
         path: "workplace",
         name: "Workplace",
         component: "/views/Dashboard/Workplace",

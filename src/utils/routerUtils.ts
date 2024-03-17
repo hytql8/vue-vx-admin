@@ -167,7 +167,7 @@ const generateDynamicRouters = (routers: RouteRecordRaw[], mode: RouterMode, use
     returnRouters.unshift(
       {
         path: "/",
-        redirect: "/dashboard/welcome",
+        redirect: "/dashboard/workplace",
         name: "Root"
       },
       {

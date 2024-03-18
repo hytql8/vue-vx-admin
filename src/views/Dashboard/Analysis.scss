@@ -1,0 +1,83 @@
+@import "@/styles/var.scss";
+.analysis {
+  width: 100%;
+
+  @include flex(space-between, flex-start, nowrap);
+  .analysis-left {
+    width: 70%;
+    .card-area {
+      @include flex(space-between, center, nowrap);
+    }
+    .small-charts-area {
+      &-lf {
+        width: 65.5%;
+        height: 540px;
+        &__header {
+          font-weight: bold;
+
+          @include flex(space-between, flex-start, nowrap);
+        }
+      }
+      &-rt {
+        width: 33%;
+        height: 540px;
+        &__header {
+          font-weight: bold;
+
+          @include flex(space-between, flex-start, nowrap);
+        }
+      }
+
+      @include flex(space-between, center, nowrap);
+    }
+  }
+  .analysis-right {
+    width: 29%;
+
+    // @include flex(space-between, center, wrap);
+  }
+  &-el-card {
+    width: 24%;
+    margin-bottom: 20px;
+  }
+  &-card {
+    @include flex(flex-start, center, nowrap);
+    &-lf {
+      @include flex(center, center, nowrap);
+    }
+    &-rt {
+      flex-direction: column;
+      margin-left: 20px;
+      & > .t1 {
+        font-size: 30px;
+        font-weight: bold;
+      }
+      & > .t2 {
+        font-size: 13px;
+        font-weight: bold;
+        color: #afa8bb;
+      }
+
+      @include flex(flex-start, flex-start, nowrap);
+    }
+  }
+  &-server-status {
+    &__header {
+      & > .t1 {
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      @include flex(space-between, center, nowrap);
+    }
+    &__container {
+      & > .analysis-server-status__progress {
+        width: 100%;
+        margin: 10px 0 15px;
+      }
+    }
+    &__footer {
+      @include flex(space-between, center, nowrap);
+    }
+  }
+}

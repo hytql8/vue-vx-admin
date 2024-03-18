@@ -57,13 +57,13 @@ const toggleExpand = () => {
       </ElAside>
       <ElMain class="vx-main">
         <TagsView />
-        <div class="vx-main__container">
+        <ElScrollbar class="vx-main__container">
           <RouterView v-slot="{ Component }">
             <Transition name="container" mode="out-in">
               <component :is="Component" />
             </Transition>
           </RouterView>
-        </div>
+        </ElScrollbar>
       </ElMain>
     </ElContainer>
   </ElContainer>

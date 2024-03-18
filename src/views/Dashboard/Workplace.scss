@@ -1,0 +1,126 @@
+@import "@/styles/var.scss";
+.workplace-header {
+  width: 100%;
+
+  @include flex(space-between, center, nowrap);
+}
+.header-left {
+  &__avatar {
+    width: fit-content;
+    min-width: 50px;
+  }
+  &__tips {
+    width: fit-content;
+    margin-left: 15px;
+    & > .tips-greeting {
+      font-size: 18px;
+
+      @include flex(flex-start, center, nowrap);
+    }
+    & > .tips-weather {
+      font-size: 12px;
+
+      @include flex(flex-start, center, nowrap);
+    }
+  }
+
+  @include flex(flex-start, center, nowrap);
+}
+.header-right {
+  & > .static {
+    margin-right: 20px;
+  }
+
+  @include flex(flex-end, center, nowrap);
+}
+.static-title {
+  & > span {
+    margin-left: 5px;
+  }
+
+  @include flex(flex-start, center, nowrap);
+}
+.workplace-module {
+  align-content: flex-start;
+  .module-box {
+    flex-direction: column;
+    & > span {
+      margin-top: 10px;
+
+      @include cursor(default);
+    }
+
+    @include flex(center, center, nowrap);
+  }
+
+  @include flex(space-between, center, wrap);
+}
+.module-card {
+  width: calc((100% - 120px) / 5);
+  min-width: 150px;
+  margin-top: 20px;
+}
+.workplace-active {
+  margin-top: 20px;
+
+  @include flex(space-between, center, nowrap);
+  .active-card {
+    width: 49%;
+    .member-list {
+      height: 50px;
+      border-bottom: 1px solid var(--divider-color);
+      &__left {
+        @include flex(flex-start, center, nowrap);
+      }
+
+      @include flex(space-between, center, nowrap);
+    }
+  }
+}
+.user-message {
+  flex-direction: column;
+  margin-left: 16px;
+  .username {
+    font-size: 15px;
+    color: var(--theme-text-color);
+
+    @include cursor(default);
+  }
+  &__detail {
+    .scr {
+      font-size: 12px;
+    }
+    .time {
+      margin-left: 20px;
+      font-size: 12px;
+    }
+
+    @include flex(flex-start, center, nowrap);
+  }
+
+  @include flex(flex-start, flex-start, nowrap);
+}
+
+@media (width <= 768px) {
+  .workplace-header {
+    flex-direction: column;
+    width: 100%;
+
+    @include flex(flex-start, center, nowrap);
+  }
+}
+
+@media (width <= 835px) {
+  .module-card {
+    width: 48%;
+  }
+  .workplace-active {
+    align-content: flex-start;
+
+    @include flex(space-between, center, wrap);
+    .active-card {
+      width: 100%;
+      margin-top: 20px;
+    }
+  }
+}

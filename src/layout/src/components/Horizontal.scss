@@ -34,8 +34,13 @@
 
       @include flex(flex-end, center, nowrap);
     }
-    
-   
+
     @include flex(space-between, center, nowrap);
+  }
+}
+.vx-main {
+  &__container {
+    height: calc(100vh - var(--header-global-height) - var(--tags-view-global-height) - 1px);
+    padding: 10px;
   }
 }

@@ -236,7 +236,7 @@ const member: {
             </div>
             <div class="member-list__right">
               <!--@ts-ignore-->
-              <ElTag :type="`${v.status === 0 ? 'info' : v.status === 1 ? 'primary' : 'danger'}`">
+              <ElTag :type="`${v.status === 0 ? 'info' : v.status === 1 ? 'success' : 'danger'}`">
                 {{ v.status === 0 ? "离线" : v.status === 1 ? "在线" : "已停用" }}
               </ElTag>
             </div>

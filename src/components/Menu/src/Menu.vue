@@ -14,8 +14,8 @@ const isFold = computed(() => appStore.getIsFold)
 const isGroup = computed(() => appStore.getIsGroup)
 const layout = ref(appStore.getLayout)
 // routersStore.getRouters 此方法过滤时已筛选过权限，此时直接获取就行
-const menuRoutes = routersStore.getRouters
-
+const menuRoutes = routersStore.getMenu
+console.log(menuRoutes, "menu拿到之前的")
 watch(
   () => appStore.getLayout,
   (val: LayoutType) => {
@@ -34,6 +34,7 @@ watch(
 )
 
 const routes = generateLowerRoutes(createMenuRoutes(menuRoutes))
+console.log(routes, "菜单拿到的routes")
 // 获取当前选中的路由
 const activeMenu = computed(() => {
   const { path } = unref(currentRoute)

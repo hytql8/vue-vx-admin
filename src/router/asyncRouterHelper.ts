@@ -6,6 +6,7 @@ import { useAppStoreWithOut } from "@/store/modules/app"
 import { generateDynamicRouters } from "@/utils/routerUtils"
 import { useNProgress } from "@/hooks/useProgress"
 import { useStorage } from "@/hooks/useStorage"
+import { menuWhiteList } from "@/constants"
 
 const { start, done } = useNProgress()
 const routersStore = useRoutersStoreWithOut()
@@ -18,7 +19,14 @@ const cashRoutes = routersStore.getRouters.length ? routersStore.getRouters : st
 // 创建路由
 export const createRouter = (asyncRouters: RouteRecordRaw[] = cashRoutes) => {
   let asyncFinalRouter = [] as RouteRecordRaw[]
+  let newAsyncFinalRouter = [] as RouteRecordRaw[]
   asyncFinalRouter = generateDynamicRouters(asyncRouters, unref(mode), routersStore.user)
+
+  newAsyncFinalRouter = asyncFinalRouter.filter((route: RouteRecordRaw) => {
+    return !menuWhiteList.includes(route.name as string)
+  })
+  console.log(newAsyncFinalRouter, "newAsyncFinalRouter")
+  routersStore.setMenu(newAsyncFinalRouter)
   router.getRoutes().map((v: RouteRecordRaw) => {
     router.removeRoute(v.name)
   })

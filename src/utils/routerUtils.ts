@@ -3,6 +3,7 @@ import type { RouteRecordRaw } from "vue-router"
 import { isUrl } from "./is"
 import { t } from "@/hooks/useLocale"
 import { staticRouter } from "@/router"
+import { menuWhiteList } from "@/constants"
 
 const Layout = () => import("@/layout/src/index.vue")
 const modules = import.meta.glob("../views/**/*.{vue,tsx}")
@@ -94,7 +95,7 @@ const generateLowerRoutes = (
 **/
 const createMenuRoutes = (staticRouter: RouteRecordRaw[]): RouteRecordRaw[] => {
   const localRoutes: RouteRecordRaw[] = cloneDeep(staticRouter)
-  remove(localRoutes, route => route.path === "/" || route.name === "404" || route.name === "Login" || route.name === "Redirect")
+  remove(localRoutes, (route: RouteRecordRaw) => menuWhiteList.includes(route.name as string))
   toLowerRoutes(localRoutes)
   return localRoutes
 }

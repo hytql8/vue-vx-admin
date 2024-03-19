@@ -4,7 +4,7 @@ import { VxContainer } from "@/components/VxContainer"
 import { Table } from "@/components/Table"
 import { useTable } from "@/hooks/useTable"
 import { ElButton, ElTag } from "element-plus"
-import { getUseTableList } from "@/api/workplace"
+import { getUseTableList } from "@/api/table"
 
 const columns = [
   {
@@ -33,7 +33,6 @@ const columns = [
     field: "role",
     label: "角色",
     prop: "role",
-    width: 120,
     children: [
       {
         field: "sex",
@@ -52,12 +51,13 @@ const columns = [
     field: "action",
     label: "操作",
     prop: "action",
+    width: 150,
     slots: {
       default: () => {
-        return <ElButton type="primary">我是column的插槽</ElButton>
+        return <ElButton type="primary">tsx 按钮</ElButton>
       },
       header: () => {
-        return <ElTag effect="dark">操作 我是header的插槽</ElTag>
+        return <ElTag effect="dark">tsx 头部</ElTag>
       }
     }
   }
@@ -109,14 +109,14 @@ getElTableRef()
         }"
       >
         <!-- <template #search>
-          <span>待添加搜索Form部分的插槽</span>
+          <span>搜索Form部分的插槽</span>
         </template>
         <template #prefix>
-          <span>自定义部分插槽，不需要可忽略</span>
+          <span>自定义部分插槽</span>
           <ElButton @click="clickSetProps">设置属性prefix</ElButton>
         </template> -->
         <template #setting>
-          <span>table setting部分插槽, 不需要可忽略</span>
+          <!-- <span>table setting部分插槽</span> -->
         </template>
       </Table>
     </div>
@@ -127,3 +127,4 @@ getElTableRef()
   height: 100%;
 }
 </style>
+@/api/table

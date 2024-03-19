@@ -13,15 +13,22 @@
         width: 65.5%;
         height: 540px;
         &__header {
+          height: 40px;
           font-weight: bold;
 
           @include flex(space-between, flex-start, nowrap);
+        }
+        &__charts {
+          width: 100%;
+          height: 450px;
+          background-color: #cccccc;
         }
       }
       &-rt {
         width: 33%;
         height: 540px;
         &__header {
+          height: 40px;
           font-weight: bold;
 
           @include flex(space-between, flex-start, nowrap);
@@ -30,11 +37,25 @@
 
       @include flex(space-between, center, nowrap);
     }
+    .large-charts-area {
+      width: 100%;
+      height: 540px;
+      margin-top: 20px;
+      &__header {
+        height: 40px;
+        font-weight: bold;
+
+        @include flex(space-between, flex-start, nowrap);
+      }
+      &__charts {
+        width: 100%;
+        height: 450px;
+        background-color: #cccccc;
+      }
+    }
   }
   .analysis-right {
     width: 29%;
-
-    // @include flex(space-between, center, wrap);
   }
   &-el-card {
     width: 24%;
@@ -64,7 +85,7 @@
   &-server-status {
     &__header {
       & > .t1 {
-        font-size: 20px;
+        font-size: 16px;
         font-weight: bold;
       }
 
@@ -78,6 +99,107 @@
     }
     &__footer {
       @include flex(space-between, center, nowrap);
+    }
+  }
+  &-market-previews {
+    margin-top: 20px;
+    &__header {
+      & > .t1 {
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      @include flex(space-between, center, nowrap);
+    }
+    &__container {
+      padding: 8px 0;
+
+      @include flex(space-between, center, nowrap);
+      .container-lf {
+        .lf-icon {
+          width: 30px;
+          height: 30px;
+          margin-right: 10px;
+          background-color: #3CC2E0;
+        }
+        .lf-text {
+          .t1 {
+            font-size: 12px;
+          }
+          .t2 {
+            font-size: 10px;
+          }
+        }
+
+        width: 80%;
+
+        @include flex(flex-start, center, nowrap);
+      }
+      .container-rt {
+        flex-direction: column;
+        width: 20%;
+        .t1 {
+          font-size: 12px;
+          font-weight: bold;
+        }
+        .t2 {
+          font-size: 10px;
+
+        }
+
+        @include flex(flex-end, flex-end, nowrap);
+
+      }
+    }
+    &-out-box {
+      height: 304px;
+    }
+  }
+  &-project {
+    margin-top: 20px;
+    &__header {
+      height: 35px;
+      & > .t1 {
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      @include flex(space-between, center, nowrap);
+    }
+    &__container {
+      flex-direction: column;
+      height: 455px;
+
+      @include flex(flex-start, flex-start, nowrap);
+      .project-list {
+        width: 100%;
+        height: 300px;
+        &-for {
+          padding: 5px 0;
+        }
+        .progress-tips {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          .t1 {
+            font-size: 12px;
+            font-weight: bold;
+          }
+          .t2 {
+            font-size: 10px;
+          }
+        }
+        .project-tag {
+          &>.title {
+            width: 100%;
+          }
+          &> .tags {
+            width: 100%;
+          }
+        }
+      }
+
+      @include flex(flex-start, flex-start, nowrap);
     }
   }
 }

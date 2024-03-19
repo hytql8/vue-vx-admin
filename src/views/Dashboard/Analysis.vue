@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, onMounted, unref } from "vue"
+import { ref, onMounted } from "vue"
 import { VxIcon } from "@/components/VxIcon"
 import { getAnalysisData } from "@/api/analysis"
 import { ElMessage } from "element-plus"
@@ -8,6 +8,7 @@ import { EChartsOption } from "echarts"
 // echarts初始化
 const projectStatistic = ref<Nullable<HTMLDivElement>>()
 const email = ref<Nullable<HTMLDivElement>>()
+const statistic = ref<Nullable<HTMLDivElement>>()
 
 // useEcharts初始化
 const pageData = ref<any>({})
@@ -32,18 +33,20 @@ onMounted(async () => {
     xAxis: {
       data: data.projectStatistic.xAxis
     },
-    yAxis: {},
+    tooltip: {
+      // 配置提示框
+      trigger: "axis" // 设置触发类型为坐标轴触发
+    },
+    yAxis: {
+      name: "times"
+    },
+    legend: {
+      data: ["Js", "Ts"],
+      icon: "rect"
+    },
     series: [
-      {
-        data: data.projectStatistic.yAxis1,
-        type: "line",
-        stack: "x"
-      },
-      {
-        data: data.projectStatistic.yAxis2,
-        type: "line",
-        stack: "x"
-      }
+      { name: "Ts", data: data.projectStatistic.yAxis1, type: "line" },
+      { name: "Js", data: data.projectStatistic.yAxis2, type: "line" }
     ]
   }
   const { setOptions } = useECharts(projectStatistic)
@@ -52,17 +55,53 @@ onMounted(async () => {
 onMounted(async () => {
   const data = await getData()
   if (!data) return
+  const leg: string[] = data.email.map((v: any) => v.name)
   const options = {
+    grid: {
+      top: 0 // 将图表置顶
+    },
+    legend: {
+      orient: "vertical",
+      left: "left",
+      data: leg
+    },
     series: [
       {
         type: "pie",
         data: data.email,
         roseType: "area",
-        radius: ["40%", "70%"]
+        radius: ["25%", "45%"]
       }
     ]
   }
   const { setOptions } = useECharts(email)
+  setOptions(options as EChartsOption)
+})
+onMounted(async () => {
+  const data = await getData()
+  if (!data) return
+  const options = {
+    xAxis: {
+      type: "category",
+      data: data.statistic.xAxis
+    },
+    yAxis: {
+      name: "popular"
+    },
+    legend: {
+      data: ["Ts", "Js"],
+      icon: "rect"
+    },
+    tooltip: {
+      // 配置提示框
+      trigger: "axis" // 设置触发类型为坐标轴触发
+    },
+    series: [
+      { name: "Ts", data: data.statistic.yAxis1, type: "line" },
+      { name: "Js", data: data.statistic.yAxis2, type: "line" }
+    ]
+  }
+  const { setOptions } = useECharts(statistic)
   setOptions(options as EChartsOption)
 })
 
@@ -165,7 +204,7 @@ const loading = ref(false)
                     hover-color="var(--theme-text-color)"
                   />
                 </div>
-                <div class="large-charts-area__charts"></div>
+                <div class="large-charts-area__charts" ref="statistic"></div>
               </ElCard>
             </div>
           </div>
@@ -176,16 +215,12 @@ const loading = ref(false)
                 <VxIcon :size="20" icon="lucide:ellipsis" color="var(--theme-text-color)" hover-color="var(--theme-text-color)" />
               </div>
               <div class="analysis-server-status__container">
-                <div class="analysis-server-status__progress"><ElProgress :percentage="50" /></div>
-                <div class="analysis-server-status__progress"><ElProgress :percentage="50" /></div>
-                <div class="analysis-server-status__progress"><ElProgress :percentage="50" /></div>
-                <div class="analysis-server-status__progress"><ElProgress :percentage="50" /></div>
-                <div class="analysis-server-status__progress"><ElProgress :percentage="50" /></div>
+                <div class="analysis-server-status__progress" v-for="v in pageData.serverStatus?.progress" :key="v.id">
+                  <ElProgress :percentage="v.percentage" :color="v.color" />
+                </div>
               </div>
               <div class="analysis-server-status__footer">
-                <ElStatistic title="Daily active users" :value="268500" />
-                <ElStatistic title="Daily active users" :value="268500" />
-                <ElStatistic title="Daily active users" :value="268500" />
+                <ElStatistic :title="v.title" v-for="v in pageData.serverStatus?.statistics" :key="v.title" :value="v.value" />
               </div>
             </ElCard>
             <ElCard class="analysis-market-previews" shadow="never">
@@ -194,17 +229,17 @@ const loading = ref(false)
                 <VxIcon :size="20" icon="lucide:ellipsis" color="var(--theme-text-color)" hover-color="var(--theme-text-color)" />
               </div>
               <ElScrollbar class="analysis-market-previews-out-box">
-                <div class="analysis-market-previews__container" v-for="v in 10">
+                <div class="analysis-market-previews__container" v-for="v in pageData.marketPreviews" :key="v.title">
                   <div class="container-lf">
-                    <div class="lf-icon"></div>
+                    <div class="lf-icon" :style="`background-color: ${v.color}`"></div>
                     <div class="lf-text">
-                      <div class="t1">LTC/USD</div>
-                      <div class="t2">March</div>
+                      <div class="t1">{{ v.title }}</div>
+                      <div class="t2">{{ v.time }}</div>
                     </div>
                   </div>
                   <div class="container-rt">
-                    <div class="t1">120.45</div>
-                    <div class="t2">1.24%</div>
+                    <div class="t1">{{ v.num }}</div>
+                    <div class="t2">{{ v.increase }}%</div>
                   </div>
                 </div>
               </ElScrollbar>
@@ -216,20 +251,20 @@ const loading = ref(false)
               </div>
               <div class="analysis-project__container">
                 <ElScrollbar class="project-list">
-                  <div class="project-list-for" v-for="v in 10">
-                    <ElProgress :percentage="50" />
+                  <div class="project-list-for" v-for="v in pageData.project?.progress" :key="v.title">
+                    <ElProgress :percentage="v.percentage" :color="v.color" />
                     <div class="progress-tips">
-                      <div class="t1">Web Design</div>
-                      <div class="t2">61 times</div>
+                      <div class="t1">{{ v.title }}</div>
+                      <div class="t2">{{ v.times }} times</div>
                     </div>
                   </div>
                 </ElScrollbar>
                 <div class="project-tag">
                   <div class="title">Tag</div>
                   <div class="tags">
-                    <ElTag style="margin-right: 16px">#JavaScript</ElTag>
-                    <ElTag style="margin-right: 16px">#Java</ElTag>
-                    <ElTag style="margin-right: 16px">#TypeScript</ElTag>
+                    <ElTag :type="v.type" v-for="v in pageData.project?.tags" :key="v.value" style="margin: 8px 16px 0 0">{{
+                      v.value
+                    }}</ElTag>
                   </div>
                 </div>
               </div>

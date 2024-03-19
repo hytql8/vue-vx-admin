@@ -1,5 +1,5 @@
 <script lang="tsx">
-import { ElPopover, ElDropdown, ElDropdownItem, ElDropdownMenu } from "element-plus"
+import { ElDropdown, ElDropdownItem, ElDropdownMenu } from "element-plus"
 import type { ComponentSize } from "element-plus"
 import { computed, defineComponent, unref, ref, VNode } from "vue"
 import type { PropType } from "vue"
@@ -63,7 +63,7 @@ export default defineComponent({
               }
             }}
           </ElDropdown>
-          <ElPopover placement="bottom" title="Title" width={200} trigger="click">
+          {/* <ElPopover placement="bottom" title="Title" width={200} trigger="click">
             {{
               default: () => {
                 return (
@@ -85,7 +85,7 @@ export default defineComponent({
                 )
               }
             }}
-          </ElPopover>
+          </ElPopover> */}
 
           <VxIcon
             class="vx-icon"

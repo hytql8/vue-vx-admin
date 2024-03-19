@@ -1,6 +1,6 @@
 import { MockMethod } from "vite-plugin-mock"
 
-const timeout = 1000
+const timeout = 300
 
 const List: any = {
   jingangDistrict: [
@@ -60,26 +60,31 @@ const List: any = {
   serverStatus: {
     progress: [
       {
+        id: 2,
         color: "#fe606b",
         title: "Mon",
         percentage: 63
       },
       {
+        id: 3,
         color: "#4cbb9a",
         title: "Tue",
         percentage: 37
       },
       {
+        id: 4,
         color: "#4cbb9a",
-        title: "Mon",
+        title: "Wed",
         percentage: 55
       },
       {
+        id: 5,
         color: "#ecc567",
         title: "Thu",
         percentage: 99
       },
       {
+        id: 6,
         color: "#fd606b",
         title: "Fri",
         percentage: 80
@@ -88,15 +93,15 @@ const List: any = {
     statistics: [
       {
         title: "Active Users",
-        value: "15"
+        value: 15
       },
       {
         title: "Active Group",
-        value: "23"
+        value: 23
       },
       {
         title: "Active Member",
-        value: "50"
+        value: 50
       }
     ]
   },
@@ -111,35 +116,40 @@ const List: any = {
       {
         color: "#7d6aea",
         title: "Mon",
-        percentage: 33
+        percentage: 33,
+        times: 17
       },
       {
         color: "#ee6e4e",
         title: "Tue",
-        percentage: 65
+        percentage: 65,
+        times: 32
       },
       {
         color: "#3dc1df",
-        title: "Mon",
-        percentage: 55
+        title: "Wed",
+        percentage: 55,
+        times: 67
       },
       {
         color: "#ecc567",
         title: "Thu",
-        percentage: 99
+        percentage: 99,
+        times: 55
       },
       {
         color: "#fd606b",
         title: "Fri",
-        percentage: 37
+        percentage: 37,
+        times: 89
       }
     ],
     tags: [
-      { type: "primary", value: "#JavaScript" },
+      { type: "", value: "#JavaScript" },
       { type: "success", value: "#Vue" },
-      { type: "primary", value: "#React" },
-      { type: "primary", value: "#TypeScript" },
-      { type: "primary", value: "#Vueuse" }
+      { type: "", value: "#React" },
+      { type: "", value: "#TypeScript" },
+      { type: "", value: "#Vueuse" }
     ]
   }
 }

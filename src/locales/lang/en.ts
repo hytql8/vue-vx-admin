@@ -21,8 +21,10 @@ export default Object.assign(
       table: "Table",
       chart: "Echarts",
       defaultTable: "Default Table",
+      useTable: "UseTable",
+      VxeTable: "VxeTable",
       defaultForm: "Default Form",
-      useForm: "Use Form"
+      useForm: "UseForm"
     },
     tagsOperations: {
       noTitle: "No Title",

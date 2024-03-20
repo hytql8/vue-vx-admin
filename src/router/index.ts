@@ -81,6 +81,22 @@ export const staticRouter: RouteRecordRaw[] = [
             meta: {
               title: t("routes.defaultTable")
             }
+          },
+          {
+            path: "use-table",
+            name: "UseTable",
+            component: () => import("@/views/Component/Table/UseTable.vue"),
+            meta: {
+              title: t("routes.useTable")
+            }
+          },
+          {
+            path: "vxe-table",
+            name: "VxeTable",
+            component: () => import("@/views/Component/Table/VxeTable.vue"),
+            meta: {
+              title: t("routes.VxeTable")
+            }
           }
         ]
       },
@@ -104,7 +120,7 @@ export const staticRouter: RouteRecordRaw[] = [
           {
             path: "use-form",
             name: "UseForm",
-            component: () => import("@/views/Component/Form/DefaultForm.vue"),
+            component: () => import("@/views/Component/Form/UseForm.vue"),
             meta: {
               title: t("routes.useForm")
             }

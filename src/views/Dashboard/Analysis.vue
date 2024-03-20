@@ -12,6 +12,7 @@ const statistic = ref<Nullable<HTMLDivElement>>()
 
 // useEcharts初始化
 const pageData = ref<any>({})
+const loading = ref(true)
 // 请求数据
 const getData = async () => {
   const { data } = await getAnalysisData()
@@ -105,50 +106,123 @@ onMounted(async () => {
   setOptions(options as EChartsOption)
 })
 
-const loading = ref(false)
+let t = setTimeout(() => {
+  loading.value = false
+  clearTimeout(t)
+}, 1000)
 </script>
 <template>
   <div>
-    <ElSkeleton style="width: 240px" :loading="loading" animated :throttle="500">
+    <ElSkeleton style="width: 100%" :loading="loading" animated :throttle="500">
       <template #template>
         <div class="analysis">
-          <ElCard>
-            <div>
-              <ElSkeletonItem variant="image" style="width: 50px; height: 50px" />
+          <div class="analysis-left">
+            <div class="card-area">
+              <ElCard class="analysis-el-card" shadow="hover">
+                <ElSkeletonItem class="analysis-card" style="height: 40px" />
+              </ElCard>
+              <ElCard class="analysis-el-card" shadow="hover">
+                <ElSkeletonItem class="analysis-card" style="height: 40px" />
+              </ElCard>
+              <ElCard class="analysis-el-card" shadow="hover">
+                <ElSkeletonItem class="analysis-card" style="height: 40px" />
+              </ElCard>
+              <ElCard class="analysis-el-card" shadow="hover">
+                <ElSkeletonItem class="analysis-card" style="height: 40px" />
+              </ElCard>
             </div>
-            <div>
-              <ElSkeletonItem variant="text" style="margin-right: 16px" />
-              <ElSkeletonItem variant="text" style="width: 30%" />
+            <div class="small-charts-area">
+              <ElCard class="small-charts-area-lf" shadow="never"
+                ><div class="small-charts-area-lf__header">
+                  <ElSkeletonItem class="t1" />
+                  <ElSkeletonItem :size="20" />
+                </div>
+                <ElSkeletonItem class="small-charts-area-lf__charts" />
+              </ElCard>
+              <ElCard class="small-charts-area-rt" shadow="never"
+                ><div class="small-charts-area-rt__header">
+                  <p class="t1">Email</p>
+                  <VxIcon
+                    :size="20"
+                    icon="lucide:ellipsis"
+                    color="var(--theme-text-color)"
+                    hover-color="var(--theme-text-color)"
+                  />
+                </div>
+                <ElSkeletonItem class="small-charts-area-lf__charts"
+              /></ElCard>
             </div>
-          </ElCard>
-
-          <ElCard>
-            <div>
-              <ElSkeletonItem variant="image" style="width: 50px; height: 50px" />
+            <div class="large-charts-area">
+              <ElCard shadow="never">
+                <div class="large-charts-area__header">
+                  <ElSkeletonItem class="t1" />
+                  <VxIcon
+                    :size="20"
+                    icon="lucide:ellipsis"
+                    color="var(--theme-text-color)"
+                    hover-color="var(--theme-text-color)"
+                  />
+                </div>
+                <ElSkeletonItem class="large-charts-area__charts" ref="statistic" />
+              </ElCard>
             </div>
-            <div>
-              <ElSkeletonItem variant="text" style="margin-right: 16px" />
-              <ElSkeletonItem variant="text" style="width: 30%" />
-            </div>
-          </ElCard>
-          <ElCard>
-            <div>
-              <ElSkeletonItem variant="image" style="width: 50px; height: 50px" />
-            </div>
-            <div>
-              <ElSkeletonItem variant="text" style="margin-right: 16px" />
-              <ElSkeletonItem variant="text" style="width: 30%" />
-            </div>
-          </ElCard>
-          <ElCard>
-            <div>
-              <ElSkeletonItem variant="image" style="width: 50px; height: 50px" />
-            </div>
-            <div>
-              <ElSkeletonItem variant="text" style="margin-right: 16px" />
-              <ElSkeletonItem variant="text" style="width: 30%" />
-            </div>
-          </ElCard>
+          </div>
+          <div class="analysis-right">
+            <ElCard class="analysis-server-status" shadow="never">
+              <div class="analysis-server-status__header">
+                <ElSkeletonItem class="t1" />
+                <VxIcon :size="20" icon="lucide:ellipsis" color="var(--theme-text-color)" hover-color="var(--theme-text-color)" />
+              </div>
+              <div class="analysis-server-status__container">
+                <div class="analysis-server-status__progress" v-for="v in pageData.serverStatus?.progress" :key="v.id">
+                  <ElProgress :percentage="v.percentage" :color="v.color" />
+                </div>
+              </div>
+              <ElSkeletonItem class="analysis-server-status__footer" />
+            </ElCard>
+            <ElCard class="analysis-market-previews" shadow="never">
+              <div class="analysis-market-previews__header">
+                <ElSkeletonItem class="t1" />
+                <VxIcon :size="20" icon="lucide:ellipsis" color="var(--theme-text-color)" hover-color="var(--theme-text-color)" />
+              </div>
+              <ElScrollbar class="analysis-market-previews-out-box">
+                <div class="analysis-market-previews__container" v-for="v in pageData.marketPreviews" :key="v.title">
+                  <div class="container-lf">
+                    <div class="lf-icon" :style="`background-color: ${v.color}`"></div>
+                    <div class="lf-text">
+                      <div class="t1">{{ v.title }}</div>
+                      <div class="t2">{{ v.time }}</div>
+                    </div>
+                  </div>
+                  <div class="container-rt">
+                    <div class="t1">{{ v.num }}</div>
+                    <div class="t2">{{ v.increase }}%</div>
+                  </div>
+                </div>
+              </ElScrollbar>
+            </ElCard>
+            <ElCard class="analysis-project" shadow="never">
+              <div class="analysis-project__header">
+                <ElSkeletonItem class="t1" />
+                <VxIcon :size="20" icon="lucide:ellipsis" color="var(--theme-text-color)" hover-color="var(--theme-text-color)" />
+              </div>
+              <div class="analysis-project__container">
+                <ElScrollbar class="project-list">
+                  <div class="project-list-for" v-for="v in pageData.project?.progress" :key="v.title">
+                    <ElProgress :percentage="v.percentage" :color="v.color" />
+                    <div class="progress-tips">
+                      <ElSkeletonItem class="t1" />
+                      <ElSkeletonItem class="t2" />
+                    </div>
+                  </div>
+                </ElScrollbar>
+                <div class="project-tag">
+                  <ElSkeletonItem class="title" />
+                  <ElSkeletonItem class="tags" />
+                </div>
+              </div>
+            </ElCard>
+          </div>
         </div>
       </template>
       <template #default>

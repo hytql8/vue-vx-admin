@@ -21,6 +21,8 @@ export default Object.assign(
       table: "表格",
       chart: "图表",
       defaultTable: "默认表格",
+      useTable: "UseTable",
+      VxeTable: "VxeTable",
       defaultForm: "默认表单",
       useForm: "useForm表单"
     },

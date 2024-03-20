@@ -65,7 +65,7 @@ const arr: any = [
       {
         path: "table",
         name: "Table",
-        component: "/views/Component/Table/DefaultTable",
+        component: "layout",
         meta: {
           title: "routes.table",
           icon: "mdi:table-edit"
@@ -77,6 +77,22 @@ const arr: any = [
             component: "/views/Component/Table/DefaultTable",
             meta: {
               title: "routes.defaultTable"
+            }
+          },
+          {
+            path: "use-table",
+            name: "UseTable",
+            component: "/views/Component/Table/UseTable",
+            meta: {
+              title: "routes.useTable"
+            }
+          },
+          {
+            path: "vxe-table",
+            name: "VxeTable",
+            component: "/views/Component/Table/VxeTable",
+            meta: {
+              title: "routes.VxeTable"
             }
           }
         ]
@@ -101,7 +117,7 @@ const arr: any = [
           {
             path: "use-form",
             name: "UseForm",
-            component: "/views/Component/Form/DefaultForm",
+            component: "/views/Component/Form/UseForm",
             meta: {
               title: "routes.useForm"
             }

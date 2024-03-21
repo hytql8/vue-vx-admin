@@ -6,6 +6,9 @@ import { staticRouter } from "@/router"
 import { menuWhiteList } from "@/constants"
 
 const Layout = () => import("@/layout/src/index.vue")
+const secLayout = () => {
+  return Promise.resolve("secLayout")
+}
 const modules = import.meta.glob("../views/**/*.{vue,tsx}")
 
 // 处理静态路由，降级，keepalive最多只支持缓存二级, 此方法直接使用forEach直接改变传入的routes
@@ -208,7 +211,7 @@ const traverseRouting = (routers: RouteRecordRaw[]): RouteRecordRaw[] => {
       console.error(`未找到${component}.vue文件或${component}.tsx文件，请创建`)
     }
     const module = modules[`${component.replace("/", "../")}.vue`] || modules[`${component.replace("/", "../")}.tsx`]
-    v.component = component === "layout" ? Layout : module
+    v.component = component === "layout" ? Layout : component === "secLayout" ? secLayout : module
     if (v.children && v.children.length) {
       traverseRouting(v.children)
     }
@@ -231,7 +234,7 @@ const traverseRoleRouting = (routers: RouteRecordRaw[], roles: string[]): RouteR
       }
     }
     const module = modules[`${component.replace("/", "../")}.vue`] || modules[`${component.replace("/", "../")}.tsx`]
-    v.component = component === "layout" ? Layout : module
+    v.component = component === "layout" ? Layout : component === "secLayout" ? secLayout : module
     if (v.children && v.children.length) {
       traverseRouting(v.children)
     }
@@ -243,4 +246,14 @@ const traverseRoleRouting = (routers: RouteRecordRaw[], roles: string[]): RouteR
   return toolArray
 }
 
-export { toLowerRoutes, generateLowerRoutes, createMenuRoutes, flattenRoutes, findRoutePath, pathResolve, generateDynamicRouters }
+export {
+  toLowerRoutes,
+  generateLowerRoutes,
+  createMenuRoutes,
+  flattenRoutes,
+  findRoutePath,
+  pathResolve,
+  generateDynamicRouters,
+  Layout,
+  secLayout
+}

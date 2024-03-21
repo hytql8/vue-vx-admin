@@ -65,7 +65,7 @@ const arr: any = [
       {
         path: "table",
         name: "Table",
-        component: "layout",
+        component: "parentLayout",
         meta: {
           title: "routes.table",
           icon: "mdi:table-edit"
@@ -100,7 +100,7 @@ const arr: any = [
       {
         path: "form",
         name: "Form",
-        component: "/views/Component/Form/DefaultForm",
+        component: "parentLayout",
         meta: {
           title: "routes.form",
           icon: "clarity:form-line"

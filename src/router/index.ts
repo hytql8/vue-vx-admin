@@ -2,8 +2,7 @@ import { App } from "vue"
 import { createRouter, createWebHistory } from "vue-router"
 import type { RouteRecordRaw } from "vue-router"
 import { t } from "@/hooks/useLocale"
-
-const Layout = () => import("@/layout/src/index.vue")
+import { Layout, secLayout } from "@/utils/routerUtils"
 
 export const staticRouter: RouteRecordRaw[] = [
   {
@@ -68,7 +67,7 @@ export const staticRouter: RouteRecordRaw[] = [
       {
         path: "table",
         name: "Table",
-        component: () => import("@/views/Component/Table/DefaultTable.vue"),
+        component: secLayout,
         meta: {
           title: t("routes.table"),
           icon: "mdi:table-edit"
@@ -103,7 +102,7 @@ export const staticRouter: RouteRecordRaw[] = [
       {
         path: "form",
         name: "Form",
-        component: () => import("@/views/Component/Form/DefaultForm.vue"),
+        component: secLayout,
         meta: {
           title: t("routes.form"),
           icon: "clarity:form-line"

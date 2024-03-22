@@ -1,14 +1,12 @@
 import { cloneDeep, remove } from "lodash-es"
-import type { RouteRecordRaw } from "vue-router"
+import type { RouteRecordRaw, RouteComponent } from "vue-router"
 import { isUrl } from "./is"
 import { t } from "@/hooks/useLocale"
 import { staticRouter } from "@/router"
 import { menuWhiteList } from "@/constants"
 
 const Layout = () => import("@/layout/src/index.vue")
-const secLayout = () => {
-  return Promise.resolve("secLayout")
-}
+const secLayout = () => ""
 const modules = import.meta.glob("../views/**/*.{vue,tsx}")
 
 // 处理静态路由，降级，keepalive最多只支持缓存二级, 此方法直接使用forEach直接改变传入的routes
@@ -206,15 +204,19 @@ const generateDynamicRouters = (routers: RouteRecordRaw[], mode: RouterMode, use
 // 前端不筛选权限
 const traverseRouting = (routers: RouteRecordRaw[]): RouteRecordRaw[] => {
   for (let v of routers) {
+    // if (v.component) {
     let component = v.component as any
-    if (!modules && !component.includes("layout")) {
+    const module = modules[`${component.replace("/", "../")}.vue`] || modules[`${component.replace("/", "../")}.tsx`]
+
+    if (!module && !component.toLowerCase().includes("layout")) {
       console.error(`未找到${component}.vue文件或${component}.tsx文件，请创建`)
     }
-    const module = modules[`${component.replace("/", "../")}.vue`] || modules[`${component.replace("/", "../")}.tsx`]
-    v.component = component === "layout" ? Layout : component === "secLayout" ? secLayout : module
+    v.component =
+      component === "layout" ? Layout : component === "secLayout" ? (secLayout() as unknown as RouteComponent) : module
     if (v.children && v.children.length) {
       traverseRouting(v.children)
     }
+    // }
   }
   return routers
 }
@@ -222,8 +224,11 @@ const traverseRouting = (routers: RouteRecordRaw[]): RouteRecordRaw[] => {
 const traverseRoleRouting = (routers: RouteRecordRaw[], roles: string[]): RouteRecordRaw[] => {
   const toolArray = [] as RouteRecordRaw[]
   for (let v of routers) {
+    // if (v.component) {
     let component = v.component as any
-    if (!modules && !component.includes("layout")) {
+    const module = modules[`${component.replace("/", "../")}.vue`] || modules[`${component.replace("/", "../")}.tsx`]
+
+    if (!module && !component.toLowerCase().includes("layout")) {
       console.error(`未找到${component}.vue文件或${component}.tsx文件，请创建`)
     }
     // 如果有权限说明要筛选，没有的就跳过
@@ -233,8 +238,8 @@ const traverseRoleRouting = (routers: RouteRecordRaw[], roles: string[]): RouteR
         toolArray.push(v)
       }
     }
-    const module = modules[`${component.replace("/", "../")}.vue`] || modules[`${component.replace("/", "../")}.tsx`]
-    v.component = component === "layout" ? Layout : component === "secLayout" ? secLayout : module
+    v.component =
+      component === "layout" ? Layout : component === "secLayout" ? (secLayout() as unknown as RouteComponent) : module
     if (v.children && v.children.length) {
       traverseRouting(v.children)
     }
@@ -242,6 +247,7 @@ const traverseRoleRouting = (routers: RouteRecordRaw[], roles: string[]): RouteR
     if (!v.meta?.role && !v.meta?.role?.length) {
       toolArray.push(v)
     }
+    // }
   }
   return toolArray
 }

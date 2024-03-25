@@ -137,7 +137,7 @@ export const initModel = (schema: FormSchema[], formModel: Recordable) => {
     } else if (v.component !== "Divider") {
       const hasField = get(model, v.field)
       // 如果先前已经有值存在，则不进行重新赋值，而是采用现有的值
-      set(model, v.field, hasField !== void 0 ? get(model, v.field) : v.value !== void 0 ? v.value : undefined)
+      set(model, v.field, hasField !== void 0 ? get(model, v.field) : v.value !== void 0 ? v.value : void 0)
     }
   })
   return model

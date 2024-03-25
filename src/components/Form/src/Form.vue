@@ -102,7 +102,7 @@ export default defineComponent({
     },
     size: {
       type: String as PropType<ComponentSize>,
-      default: undefined
+      default: void 0
     },
     disabled: {
       type: Boolean,
@@ -114,7 +114,7 @@ export default defineComponent({
     },
     scrollToErrorOffset: {
       type: [Boolean, Object] as PropType<boolean | string>,
-      default: undefined
+      default: void 0
     },
     onValidate: {
       type: Function as PropType<(prop: FormItemProp, isValid: boolean, message: string) => void>,

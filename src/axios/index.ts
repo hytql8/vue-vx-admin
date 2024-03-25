@@ -125,7 +125,7 @@ class Http implements HttpTypes {
     return new Promise((resolve, reject) => {
       Http.axiosInstance
         .request(config)
-        .then((response: undefined) => {
+        .then((response: any) => {
           resolve(response)
         })
         .catch(error => {

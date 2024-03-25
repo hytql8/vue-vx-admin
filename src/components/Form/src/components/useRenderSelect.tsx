@@ -46,7 +46,7 @@ export const useRenderSelect = () => {
         value={option[valueAlias || "value"]}
       >
         {{
-          default: () => (optionDefaultSlot ? optionDefaultSlot(option) : undefined)
+          default: () => (optionDefaultSlot ? optionDefaultSlot(option) : void 0)
         }}
       </ElOption>
     )

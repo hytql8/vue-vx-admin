@@ -55,8 +55,9 @@
       height: calc(100vh - var(--header-global-height) - var(--tags-view-global-height) - 1px);
       padding: 10px;
     }
-    &:deep(.vx-table) {
-      height: calc(100vh - var(--header-global-height) - var(--tags-view-global-height) - var(--pagination-global-height) - 1px);
-    }
+
+    // &:deep(.vx-table) {
+    //   height: calc(100vh - var(--header-global-height) - var(--tags-view-global-height) - var(--pagination-global-height) - 1px);
+    // }
   }
 }

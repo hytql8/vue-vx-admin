@@ -247,7 +247,7 @@ export default defineComponent({
 
     // 获取参数
     // 非proxy对象的props和attr(props中不包含的事件和属性)合集
-    const staticProps = { ...props, ...attrs }
+    // const staticProps = { ...props, ...attrs }
     // proxy对象的props和attr(props中不包含的事件和属性)合集
     const activeProps = reactive({ ...toRefs(props), ...attrs })
     // 需要动态渲染的表格column
@@ -283,7 +283,7 @@ export default defineComponent({
     }
 
     const setColumn = (columnProps: TableSetProps[], columnsChildren?: TableColumnParameterTypes[]) => {
-      const { columns } = staticProps
+      const { columns } = unref(activeProps)
       for (const v of columnsChildren || columns) {
         for (const item of columnProps) {
           if (v.field === item.field) {
@@ -296,7 +296,7 @@ export default defineComponent({
     }
 
     const addColumn = (column: TableColumnParameterTypes, index?: number) => {
-      const { columns } = staticProps
+      const { columns } = unref(activeProps)
       if (index !== void 0) {
         columns.splice(index, 0, column)
       } else {
@@ -305,7 +305,7 @@ export default defineComponent({
     }
 
     const delColumn = (field: string) => {
-      const { columns } = staticProps
+      const { columns } = unref(activeProps)
       const index = columns.findIndex(item => item.field === field)
       if (index > -1) {
         columns.splice(index, 1)
@@ -346,7 +346,7 @@ export default defineComponent({
     })
     // 多级表头table column渲染
     const renderMultiTableColumn = (columnsChildren?: TableColumnParameterTypes[]) => {
-      const { align, headerAlign, showOverflowTooltip } = staticProps
+      const { align, headerAlign, showOverflowTooltip } = activeProps
       return columnsChildren.map(v => {
         if (v.hidden) return null
         let params = {
@@ -476,7 +476,7 @@ export default defineComponent({
             <ElTable ref={elTableRef} {...unref(activeProps)} data={props.data} style={style}>
               {{ default: () => renderTableColumn(), ...tableSlots }}
             </ElTable>
-            {staticProps.pagination ? (
+            {activeProps.pagination ? (
               <div class="vx-table__pagination">
                 <ElPagination
                   v-model:pageSize={pageSize.value}

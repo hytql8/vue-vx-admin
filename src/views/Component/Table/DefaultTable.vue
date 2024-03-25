@@ -91,7 +91,7 @@ getElTableRef()
 </script>
 <template>
   <VxContainer>
-    <div class="vx-workplace">
+    <div class="vx-default-table">
       <Table
         fill-up
         :loading="loading"
@@ -123,7 +123,9 @@ getElTableRef()
   </VxContainer>
 </template>
 <style scoped>
-.vx-workplace {
-  height: 100%;
+.vx-default-table {
+  &:deep(.vx-table) {
+    height: calc(100vh - var(--header-global-height) - var(--tags-view-global-height) - var(--pagination-global-height) - 1px);
+  }
 }
 </style>

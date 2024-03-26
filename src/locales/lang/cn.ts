@@ -58,7 +58,11 @@ export default Object.assign(
     login: {
       login: "登录",
       username: "用户名",
-      password: "密码"
+      password: "密码",
+      outDesp: "确定要退出登录吗？",
+      confirm: "确认",
+      cancel: "取消",
+      outSuccess: "已成功注销"
     },
     formDemo: {
       input: "输入框",

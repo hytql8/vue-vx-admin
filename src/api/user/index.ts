@@ -1,9 +1,12 @@
 import { http } from "@/axios"
 import type { UserLoginParams, UserReturns } from "./types"
 
-// login
-const getUseTableList = async (data: UserLoginParams): Promise<UserReturns> => {
+// 登录
+const login = async (data: UserLoginParams): Promise<UserReturns> => {
   return http.post("/user/login", { data })
 }
-
-export { getUseTableList }
+// 退出登录
+const outLogin = async (): Promise<any> => {
+  return http.get("/user/loginOut")
+}
+export { login, outLogin }

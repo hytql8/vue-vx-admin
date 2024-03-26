@@ -20,7 +20,7 @@ export const useAppStore = defineStore("app", {
   state: (): appState => {
     return {
       // 是否暗黑模式，true代表是
-      isDark: getStorage("isDark") || true,
+      isDark: getStorage("isDark") || false,
       // 当前系统的layout布局 默认为 vertical
       layout: getStorage("layout") || "vertical",
       // 左侧菜单是否折叠

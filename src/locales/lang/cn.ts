@@ -62,7 +62,8 @@ export default Object.assign(
       outDesp: "确定要退出登录吗？",
       confirm: "确认",
       cancel: "取消",
-      outSuccess: "已成功注销"
+      outSuccess: "已成功注销",
+      warn: "提示"
     },
     formDemo: {
       input: "输入框",

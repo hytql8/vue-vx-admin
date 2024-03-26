@@ -6,7 +6,7 @@ import { useForm } from "@/hooks/useForm"
 import { useValidator } from "@/hooks/useValidator"
 import { useI18n } from "vue-i18n"
 import { ElButton, ElMessage } from "element-plus"
-import { getUseTableList } from "@/api/user"
+import { login } from "@/api/user"
 import { useDebounceFn } from "@vueuse/core"
 import { omit } from "lodash-es"
 import { staticRouter } from "@/router"
@@ -85,7 +85,7 @@ const signIn = async () => {
 }
 
 const Login = useDebounceFn(async ({ username, password }) => {
-  const loginRes = await getUseTableList({
+  const loginRes = await login({
     username,
     password
   })

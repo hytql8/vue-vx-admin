@@ -58,7 +58,11 @@ export default Object.assign(
     login: {
       login: "Login",
       username: "Username",
-      password: "Password"
+      password: "Password",
+      outDesp: "Are you sure you want to log out?",
+      confirm: "Confirm",
+      cancel: "Cancel",
+      outSuccess: "Successfully logged out"
     },
     formDemo: {
       input: "Input",

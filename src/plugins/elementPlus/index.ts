@@ -1,4 +1,4 @@
-// element plus全部引入（暂时不用）
+// element plus全局引入部分组件，比如loading，scrollbar，解决cdn pro环境下全局样式失效问题,如果不需要cdn加速，直接注释掉main.ts中setupElementPlus方法的调用即可，非cdn的按需引入已配置
 import { App, Component } from "vue"
 import {
   ElTag,
@@ -59,7 +59,14 @@ import {
   ElTreeV2,
   ElPopconfirm,
   ElCheckbox,
-  ElCheckboxGroup
+  ElCheckboxGroup,
+  ElConfigProvider, //全局配置
+  ElLoading, // v-loading 指令
+  ElInfiniteScroll, // v-infinite-scroll 指令
+  ElPopoverDirective, // v-popover 指令
+  ElMessage, // $message 全局属性对象globalProperties
+  ElMessageBox, // $msgbox、$alert、$confirm、$prompt 全局属性对象globalProperties
+  ElNotification // $notify 全局属性对象globalProperties
 } from "element-plus"
 
 const components = [
@@ -124,9 +131,15 @@ const components = [
   ElStep
 ]
 
+const plugins = [ElConfigProvider, ElLoading, ElInfiniteScroll, ElPopoverDirective, ElMessage, ElMessageBox, ElNotification]
+
 export function setupElementPlus(app: App) {
   // 注册组件
   components.forEach((component: Component) => {
     app.component(component.name, component)
+  })
+  // 全局注册
+  plugins.forEach(plugin => {
+    app.use(plugin)
   })
 }

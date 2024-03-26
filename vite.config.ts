@@ -60,7 +60,6 @@ export default ({ mode }: ConfigEnv): UserConfig => {
     // 服务
     server: {
       port: VITE_PORT,
-      https: false,
       proxy: {},
       hmr: {
         overlay: false
@@ -69,8 +68,20 @@ export default ({ mode }: ConfigEnv): UserConfig => {
     },
     // 预构建 include构建 exclude排除
     optimizeDeps: {
-      include: [],
-      exclude: []
+      include: [
+        "vue",
+        "pinia",
+        "vue-i18n",
+        "vue-router",
+        "@vueuse/core",
+        "element-plus/es/locale/lang/zh-cn",
+        "element-plus/es/locale/lang/en",
+        "axios",
+        "echarts",
+        "vxe-table",
+        "lodash-es"
+      ],
+      exclude: ["@iconify-icons/ep", "@iconify-icons/ri", "@iconify/vue"]
     }
   }
 }

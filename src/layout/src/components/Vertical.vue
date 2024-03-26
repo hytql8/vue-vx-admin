@@ -9,7 +9,7 @@ import { Fullscreen } from "@/components/Fullscreen"
 import { Breadcrumb } from "@/components/Breadcrumb"
 import { useAppStore } from "@/store/modules/app"
 import { VxIcon } from "@/components/VxIcon"
-import { ElContainer } from "element-plus"
+import { ElContainer, ElHeader, ElScrollbar, ElMain, ElAside } from "element-plus"
 
 const appStore = useAppStore()
 

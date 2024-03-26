@@ -1,4 +1,4 @@
-// element plus全局引入部分组件，比如loading，scrollbar，解决cdn pro环境下全局样式失效问题,如果不需要cdn加速，直接注释掉main.ts中setupElementPlus方法的调用即可，非cdn的按需引入已配置
+// element plus全局引入部分组件，比如loading，scrollbar，解决cdn pro环境下全局样式失效问题,如果不需要cdn加速，非cdn的按需引入已配置
 import { App, Component } from "vue"
 import {
   ElTag,

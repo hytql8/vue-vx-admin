@@ -62,7 +62,8 @@ export default Object.assign(
       outDesp: "Are you sure you want to log out?",
       confirm: "Confirm",
       cancel: "Cancel",
-      outSuccess: "Successfully logged out"
+      outSuccess: "Successfully logged out",
+      warn: "warning"
     },
     formDemo: {
       input: "Input",

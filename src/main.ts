@@ -14,7 +14,7 @@ import "./styles/index.scss"
 
 const setupApp = async () => {
   const app = createApp(App)
-  if (process.env.NODE_ENV === "production") {
+  if (process.env.NODE_ENV === "production" && import.meta.env?.VITE_CDN) {
     const { setupElementPlus } = await import("./plugins/elementPlus")
     setupElementPlus(app)
   }

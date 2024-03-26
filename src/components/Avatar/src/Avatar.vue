@@ -11,6 +11,7 @@ import { outLogin } from "@/api/user"
 import { ElMessageBox, ElMessage } from "element-plus"
 import { useStorage } from "@/hooks/useStorage"
 import { reload } from "@/utils"
+import { useRouter } from "vue-router"
 
 const appStore = useAppStore()
 const localeStore = useLocaleStore()
@@ -27,11 +28,12 @@ defineOptions({
 })
 
 const { t } = useI18n()
+const { push } = useRouter()
 
 const url = new URL("@/assets/imgs/Avatar.png", import.meta.url).href
 // 退出登录
 const loginOut = () => {
-  ElMessageBox.confirm(t("login.outDesp"), "Warning", {
+  ElMessageBox.confirm(t("login.outDesp"), t("login.warn"), {
     confirmButtonText: t("login.confirm"),
     cancelButtonText: t("login.cancel"),
     type: "warning"
@@ -52,7 +54,9 @@ const loginOut = () => {
         type: "success",
         message: t("login.outSuccess")
       })
-      reload()
+      push({
+        name: "Login"
+      })
     }
   })
 }

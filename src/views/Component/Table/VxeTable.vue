@@ -349,16 +349,18 @@ onMounted(() => {
 </script>
 
 <template>
-  <ElAlert title="VXE Table" type="success">
-    复杂的表格应用场景，我都会更推荐vxe-table,vxe-table应对大数据量时效率更高且表格编辑功能更加强大，参考文档<ElLink
-      href="https://vxetable.cn/#/table/start/install"
-      type="primary"
-      >https://vxetable.cn/#/table/start/install</ElLink
-    >,xe-utils参考文档<ElLink href="https://x-extends.github.io/xe-utils/#/?to=isNaN" type="primary"
-      >https://x-extends.github.io/xe-utils/#/?to=isNaN</ElLink
-    >,框架已做好国际化和主题的配置
-  </ElAlert>
   <div>
-    <vxe-grid ref="xGrid" v-bind="gridOptions" v-on="gridEvent"></vxe-grid>
+    <ElAlert title="VXE Table" type="success">
+      复杂的表格应用场景，我都会更推荐vxe-table,vxe-table应对大数据量时效率更高且表格编辑功能更加强大，参考文档<ElLink
+        href="https://vxetable.cn/#/table/start/install"
+        type="primary"
+        >https://vxetable.cn/#/table/start/install</ElLink
+      >,xe-utils参考文档<ElLink href="https://x-extends.github.io/xe-utils/#/?to=isNaN" type="primary"
+        >https://x-extends.github.io/xe-utils/#/?to=isNaN</ElLink
+      >,框架已做好国际化和主题的配置
+    </ElAlert>
+    <div>
+      <vxe-grid ref="xGrid" v-bind="gridOptions" v-on="gridEvent"></vxe-grid>
+    </div>
   </div>
 </template>

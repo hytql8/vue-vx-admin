@@ -7,7 +7,7 @@ import { Avatar } from "@/components/Avatar"
 import { LocaleSwitch } from "@/components/LocaleSwitch"
 import { Fullscreen } from "@/components/Fullscreen"
 import { useAppStore } from "@/store/modules/app"
-import { ElContainer } from "element-plus"
+import { ElContainer, ElHeader, ElScrollbar, ElMain } from "element-plus"
 
 const appStore = useAppStore()
 

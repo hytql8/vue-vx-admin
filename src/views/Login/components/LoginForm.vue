@@ -47,6 +47,9 @@ const schema = reactive<FormSchema[]>([
     label: t("login.password"),
     value: "admin",
     component: "Input",
+    componentProps: {
+      type: "password"
+    },
     colProps: {
       span: 24
     }

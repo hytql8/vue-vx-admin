@@ -70,7 +70,7 @@ const colorsList = ["#409eff", "#009688", "#536dfe", "#ff5c93", "#ee4f12", "#009
 const toggleThemeColor = (color: string) => {
   setCssVar("--theme-color", color)
   setCssVar("--el-color-primary", color)
-  appStore.setTheme(Object.assign(appStore.getTheme, { elPrimaryColor: color, themeColor: color }))
+  appStore.setTheme(Object.assign(appStore.getTheme, { elColorPrimary: color, themeColor: color }))
 }
 
 watch(

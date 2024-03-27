@@ -1,6 +1,7 @@
 // element plus全局引入部分组件，比如loading，scrollbar，解决cdn pro环境下全局样式失效问题,如果不需要cdn加速，非cdn的按需引入已配置
 import { App, Component } from "vue"
 import {
+  ElText,
   ElTag,
   ElAffix,
   ElSkeleton,
@@ -75,6 +76,7 @@ import {
 } from "element-plus"
 
 const components = [
+  ElText,
   ElTag,
   ElAffix,
   ElSkeleton,

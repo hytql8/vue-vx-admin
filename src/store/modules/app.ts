@@ -47,7 +47,7 @@ export const useAppStore = defineStore("app", {
       routerMode: "async",
       // 默认主题 需要变化的项目这里需要定义默认值，建议与var.scss中保持一致
       theme: getStorage("theme") || {
-        elPrimaryColor: "#3a6ee8",
+        elColorPrimary: "#3a6ee8",
         themeColor: "#3a6ee8",
         themeTextColor: "#252525",
         themeBgColor: "#f5f7f9",

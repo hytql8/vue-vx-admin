@@ -25,7 +25,6 @@ export const createRouter = (asyncRouters: RouteRecordRaw[] = cashRoutes) => {
   newAsyncFinalRouter = asyncFinalRouter.filter((route: RouteRecordRaw) => {
     return !menuWhiteList.includes(route.name as string)
   })
-  console.log(newAsyncFinalRouter, "newAsyncFinalRouter")
   routersStore.setMenu(newAsyncFinalRouter)
   router.getRoutes().map((v: RouteRecordRaw) => {
     router.removeRoute(v.name)

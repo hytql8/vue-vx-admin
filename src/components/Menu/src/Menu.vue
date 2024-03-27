@@ -33,7 +33,6 @@ watch(
 )
 
 const routes = generateLowerRoutes(createMenuRoutes(menuRoutes))
-console.log(routes, "菜单拿到的routes")
 // 获取当前选中的路由
 const activeMenu = computed(() => {
   const { path } = unref(currentRoute)

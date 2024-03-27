@@ -10,6 +10,7 @@ import type { Language } from "element-plus/es/locale"
 import { tagsViewInit } from "@/components/TagsView"
 import { useRouter } from "vue-router"
 import { useWindowSize } from "@vueuse/core"
+import { pick } from "lodash-es"
 
 const { getStorage } = useStorage()
 const appStore = useAppStore()
@@ -31,7 +32,7 @@ const path = tagsViewInit()
 onMounted(() => {
   appStore.setCssVarTheme()
   setHtmlLang(localeStore.getCurrentLocale)
-  setCssVar("--el-color-primary", appStore.getTheme.elPrimaryColor)
+  setCssVar("--el-color-primary", appStore.getTheme.elColorPrimary)
   // tags初始化加载的默认跳转
   if (path) router.push(path)
 })
@@ -39,11 +40,14 @@ watch(
   () => appStore.getIsDark,
   val => {
     if (val) {
-      appStore.setTheme(darkTheme)
+      const themeFont = pick(appStore.getTheme, "elColorPrimary", "themeColor")
+      appStore.setTheme(Object.assign(darkTheme, themeFont))
+      // appStore.setTheme(darkTheme)
       appStore.setCssVarTheme()
     } else {
-      // appStore.setTheme(Object.assign(normalTheme, appStore.getTheme))
-      appStore.setTheme(normalTheme)
+      const themeFont = pick(appStore.getTheme, "elColorPrimary", "themeColor")
+      appStore.setTheme(Object.assign(normalTheme, themeFont))
+      // appStore.setTheme(normalTheme)
       appStore.setCssVarTheme()
     }
   },

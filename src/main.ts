@@ -14,14 +14,14 @@ import "./styles/index.scss"
 
 const setupApp = async () => {
   const app = createApp(App)
-  if (process.env.NODE_ENV === "production" && import.meta.env?.VITE_CDN) {
-    const { setupElementPlus } = await import("./plugins/elementPlus")
-    setupElementPlus(app)
-  }
   setupI18n(app)
   setupRouter(app)
   // 在页面显示之前先等待router加载完毕
   await router.isReady()
+  if (process.env.NODE_ENV === "production" && import.meta.env?.VITE_CDN) {
+    const { setupElementPlus } = await import("./plugins/elementPlus")
+    setupElementPlus(app)
+  }
   setupStore(app)
   setupVxeTable(app)
   setupAuthDirective(app)

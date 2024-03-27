@@ -24,7 +24,9 @@ export default Object.assign(
       useTable: "UseTable",
       VxeTable: "VxeTable",
       defaultForm: "默认表单",
-      useForm: "useForm表单"
+      useForm: "useForm表单",
+      authority: "权限",
+      btnPerm: "按钮权限"
     },
     tagsOperations: {
       noTitle: "无标题",

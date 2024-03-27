@@ -24,7 +24,9 @@ export default Object.assign(
       useTable: "UseTable",
       VxeTable: "VxeTable",
       defaultForm: "Default Form",
-      useForm: "UseForm"
+      useForm: "UseForm",
+      authority: "Authority",
+      btnPerm: "Button Permissions"
     },
     tagsOperations: {
       noTitle: "No Title",

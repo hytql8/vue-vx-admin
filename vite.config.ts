@@ -74,6 +74,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         "vue-i18n",
         "vue-router",
         "@vueuse/core",
+        "element-plus",
         "element-plus/es/locale/lang/zh-cn",
         "element-plus/es/locale/lang/en",
         "axios",

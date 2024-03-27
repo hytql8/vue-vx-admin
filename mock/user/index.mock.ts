@@ -136,6 +136,25 @@ const arr: any = [
     ]
   },
   {
+    path: "/authority",
+    name: "Authority",
+    component: "layout",
+    meta: {
+      title: "routes.authority",
+      icon: "material-symbols-light:lock-person"
+    },
+    children: [
+      {
+        path: "buttonPermissions",
+        name: "ButtonPermissions",
+        component: "/views/Authority/ButtonPermissions",
+        meta: {
+          title: "routes.btnPerm"
+        }
+      }
+    ]
+  },
+  {
     path: "/system",
     name: "System",
     component: "layout",

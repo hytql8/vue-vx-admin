@@ -138,6 +138,25 @@ export const staticRouter: RouteRecordRaw[] = [
     ]
   },
   {
+    path: "/authority",
+    name: "Authority",
+    component: Layout,
+    meta: {
+      title: t("routes.authority"),
+      icon: "material-symbols-light:lock-person"
+    },
+    children: [
+      {
+        path: "buttonPermissions",
+        name: "ButtonPermissions",
+        component: () => import("@/views/Authority/ButtonPermissions.vue"),
+        meta: {
+          title: t("routes.btnPerm")
+        }
+      }
+    ]
+  },
+  {
     path: "/system",
     name: "System",
     component: Layout,

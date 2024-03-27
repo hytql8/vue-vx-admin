@@ -6,7 +6,6 @@ const { getStorage } = useStorage("localStorage")
 const { auths } = getStorage("user") ?? {
   auths: ["read"]
 }
-console.log(auths, "当前用户的权限")
 export const hasAuth = (auth: string[] | string) => {
   console.log(auth, "当前按钮需要的权限")
   if (isArray(auth)) {

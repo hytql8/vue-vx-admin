@@ -7,7 +7,6 @@ const { auths } = getStorage("user") ?? {
   auths: ["read"]
 }
 export const hasAuth = (auth: string[] | string) => {
-  console.log(auth, "当前按钮需要的权限")
   if (isArray(auth)) {
     for (let v of auth) {
       return auths ? auths.includes(v) : false

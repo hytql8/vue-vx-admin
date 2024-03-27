@@ -21,7 +21,7 @@ declare global {
 
   interface ThemeTypes {
     themeColor: string
-    elPrimaryColor: string
+    elColorPrimary: string
     themeTextColor: string
     themeBgColor: string
     themeDivColor: string

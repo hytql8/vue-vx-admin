@@ -1,11 +1,14 @@
 <script lang="ts" setup>
 import { VxContainer } from "@/components/VxContainer"
-import { useStorage } from "@/hooks/useStorage"
+import { useRoutersStore } from "@/store/modules/router"
+import { computed } from "vue"
 
-const { getStorage } = useStorage("localStorage")
+const routersStore = useRoutersStore()
 
-const { roles, auths } = getStorage("user")
-
+const user = computed(() => {
+  console.log(routersStore.getUser)
+  return routersStore.getUser
+})
 const styles = {
   text: {
     marginLeft: "20px"
@@ -22,11 +25,11 @@ const styles = {
 <template>
   <VxContainer>
     <div :style="styles">
-      <ElText tag="b">当前用户的路由菜单权限：{{ roles }} </ElText
+      <ElText tag="b">当前用户的路由菜单权限：{{ user.roles }} </ElText
       ><ElText type="danger" :style="styles.text"
         >菜单上有role字段的即需要通过此权限过滤菜单,比如系统菜单是需要admin权限的，不匹配则看不到该菜单</ElText
       ><br />
-      <ElText tag="b">当前用户的按钮级别权限：{{ auths }} </ElText
+      <ElText tag="b">当前用户的按钮级别权限：{{ user.auths }} </ElText
       ><ElText type="danger" :style="styles.text"
         >页面上可使用v-auth指令来设置按钮级别权限，跟菜单权限一样，拥有权限即可看到该元素，反之看不见</ElText
       >

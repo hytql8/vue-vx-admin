@@ -42,6 +42,7 @@ watch(
       appStore.setTheme(darkTheme)
       appStore.setCssVarTheme()
     } else {
+      // appStore.setTheme(Object.assign(normalTheme, appStore.getTheme))
       appStore.setTheme(normalTheme)
       appStore.setCssVarTheme()
     }

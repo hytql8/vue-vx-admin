@@ -20,6 +20,7 @@ declare global {
   type LayoutType = "vertical" | "horizontal" | "group"
 
   interface ThemeTypes {
+    themeColor: string
     elPrimaryColor: string
     themeTextColor: string
     themeBgColor: string

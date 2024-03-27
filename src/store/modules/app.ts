@@ -11,6 +11,10 @@ type appState = {
   isFold: boolean
   isGroup: boolean
   isSeemMoblie: boolean
+  isBreadcrumb: boolean
+  isShowFolding: boolean
+  isMourning: boolean
+  isColorWeakness: boolean
   routerMode: RouterMode
   columnSize: string[]
   theme: ThemeTypes
@@ -31,11 +35,20 @@ export const useAppStore = defineStore("app", {
       isGroup: getStorage("isGroup") || false,
       // 当前页面可能是移动端
       isSeemMoblie: false,
+      // 是否显示面包屑
+      isBreadcrumb: getStorage("isBreadcrumb") || true,
+      // 是否显示折叠菜单图标
+      isShowFolding: getStorage("isShowFolding") || true,
+      // 是否哀悼模式
+      isMourning: getStorage("isMourning") || false,
+      // 是否色弱模式
+      isColorWeakness: getStorage("isColorWeakness") || false,
       // 路由模式
       routerMode: "async",
       // 默认主题 需要变化的项目这里需要定义默认值，建议与var.scss中保持一致
       theme: getStorage("theme") || {
         elPrimaryColor: "#3a6ee8",
+        themeColor: "#3a6ee8",
         themeTextColor: "#252525",
         themeBgColor: "#f5f7f9",
         themeDivColor: "#fff",
@@ -64,6 +77,18 @@ export const useAppStore = defineStore("app", {
     },
     getIsSeemMoblie(): boolean {
       return this.isSeemMoblie
+    },
+    getIsBreadcrumb(): boolean {
+      return this.isBreadcrumb
+    },
+    getIsShowFolding(): boolean {
+      return this.isShowFolding
+    },
+    getIsMourning(): boolean {
+      return this.isMourning
+    },
+    getIsColorWeakness(): boolean {
+      return this.isColorWeakness
     },
     getRouterMode(): RouterMode {
       return this.routerMode
@@ -102,6 +127,22 @@ export const useAppStore = defineStore("app", {
     setIsGroup(isGroup: boolean) {
       this.isGroup = isGroup
       setStorage("isGroup", this.isGroup)
+    },
+    setIsBreadcrumb(isBreadcrumb: boolean) {
+      this.isBreadcrumb = isBreadcrumb
+      setStorage("isBreadcrumb", this.isBreadcrumb)
+    },
+    setIsShowFolding(isShowFolding: boolean) {
+      this.isShowFolding = isShowFolding
+      setStorage("isShowFolding", this.isShowFolding)
+    },
+    setIsMourning(isMourning: boolean) {
+      this.isMourning = isMourning
+      setStorage("isMourning", this.isMourning)
+    },
+    setIsColorWeakness(isColorWeakness: boolean) {
+      this.isColorWeakness = isColorWeakness
+      setStorage("isColorWeakness", this.isColorWeakness)
     },
     setRouterMode(routerMode: RouterMode) {
       this.routerMode = routerMode

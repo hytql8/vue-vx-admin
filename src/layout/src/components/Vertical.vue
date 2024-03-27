@@ -15,6 +15,8 @@ const appStore = useAppStore()
 
 const isFold = computed(() => appStore.getIsFold)
 const layout = computed(() => appStore.getLayout)
+const isShowFolding = computed(() => appStore.getIsShowFolding)
+const isBreadcrumb = computed(() => appStore.getIsBreadcrumb)
 
 const isSeemMoblie = computed(() => appStore.getIsSeemMoblie)
 
@@ -46,7 +48,9 @@ const toggleExpand = () => {
       <Logo class="vx-header__logo" v-show="!isSeemMoblie || isHandleClick" />
       <div class="vx-header__nav">
         <div class="vx-header__menu-switch">
-          <MenuSwitch @click="toggleExpand" v-show="layout === 'vertical'" /><Breadcrumb v-show="!isSeemMoblie" />
+          <MenuSwitch @click="toggleExpand" v-show="layout === 'vertical' && isShowFolding" /><Breadcrumb
+            v-show="!isSeemMoblie && isBreadcrumb"
+          />
         </div>
         <div class="vx-header__info"><ThemeSwitch /> <Fullscreen v-show="!isSeemMoblie" /> <LocaleSwitch /> <Avatar /></div>
       </div>

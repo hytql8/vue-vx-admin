@@ -66,6 +66,44 @@ const togglePosition = (layout: LayoutType) => {
 const color = ref("#3a6ee8")
 
 const colorsList = ["#409eff", "#009688", "#536dfe", "#ff5c93", "#ee4f12", "#0096c7", "#9c27b0", "#ff9800"]
+
+const toggleThemeColor = (color: string) => {
+  setCssVar("--theme-color", color)
+  setCssVar("--el-color-primary", color)
+  appStore.setTheme(Object.assign(appStore.getTheme, { elPrimaryColor: color, themeColor: color }))
+}
+
+watch(
+  () => unref(color),
+  (val: string) => {
+    toggleThemeColor(val)
+  }
+)
+
+// 面包屑
+const bindBread = ref(appStore.getIsBreadcrumb)
+watch(
+  () => unref(bindBread),
+  (val: boolean) => appStore.setIsBreadcrumb(val)
+)
+// 折叠菜单开关
+const bindFold = ref(appStore.getIsShowFolding)
+watch(
+  () => unref(bindFold),
+  (val: boolean) => appStore.setIsShowFolding(val)
+)
+// 哀悼模式
+const bindMourn = ref(appStore.getIsMourning)
+watch(
+  () => unref(bindMourn),
+  (val: boolean) => appStore.setIsMourning(val)
+)
+// 面包屑
+const bindColorWeakness = ref(appStore.getIsColorWeakness)
+watch(
+  () => unref(bindColorWeakness),
+  (val: boolean) => appStore.setIsColorWeakness(val)
+)
 </script>
 <template>
   <div class="layout">
@@ -111,21 +149,21 @@ const colorsList = ["#409eff", "#009688", "#536dfe", "#ff5c93", "#ee4f12", "#009
       </div>
       <ElDivider content-position="center">配置主题色</ElDivider>
       <div class="layout-inset__theme">
-        <div v-for="v in colorsList" :key="v" class="color-box" :style="`background: ${v};`"></div>
+        <div v-for="v in colorsList" :key="v" class="color-box" :style="`background: ${v};`" @click="toggleThemeColor(v)"></div>
         <ElColorPicker v-model="color" />
       </div>
       <ElDivider content-position="center">页面配置</ElDivider>
       <div class="layout-inset__config">
-        <div class="config-inset"><span>面包屑</span><ElSwitch /></div>
+        <div class="config-inset"><span>面包屑</span><ElSwitch v-model="bindBread" /></div>
       </div>
       <div class="layout-inset__config">
-        <div class="config-inset"><span>折叠菜单</span><ElSwitch /></div>
+        <div class="config-inset"><span>折叠菜单</span><ElSwitch v-model="bindFold" /></div>
       </div>
       <div class="layout-inset__config">
-        <div class="config-inset"><span>全屏</span><ElSwitch /></div>
+        <div class="config-inset"><span>哀悼模式</span><ElSwitch v-model="bindMourn" /></div>
       </div>
       <div class="layout-inset__config">
-        <div class="config-inset"><span>语言切换</span><ElSwitch /></div>
+        <div class="config-inset"><span>色弱模式</span><ElSwitch v-model="bindColorWeakness" /></div>
       </div>
     </ElDrawer>
   </div>

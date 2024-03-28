@@ -73,12 +73,10 @@ const toggleThemeColor = (color: string) => {
   appStore.setTheme(Object.assign(appStore.getTheme, { elColorPrimary: color, themeColor: color }))
 }
 
-watch(
-  () => unref(color),
-  (val: string) => {
-    toggleThemeColor(val)
-  }
-)
+// 颜色选择
+const colorPicker = (color: string) => {
+  toggleThemeColor(color)
+}
 
 // 面包屑
 const bindBread = ref(appStore.getIsBreadcrumb)
@@ -94,15 +92,35 @@ watch(
 )
 // 哀悼模式
 const bindMourn = ref(appStore.getIsMourning)
+// 样式
+const mournStyle = ref("")
 watch(
   () => unref(bindMourn),
-  (val: boolean) => appStore.setIsMourning(val)
+  (val: boolean) => {
+    if (val) {
+      mournStyle.value = "grayscale(100%)"
+    } else {
+      mournStyle.value = ""
+    }
+    appStore.setIsMourning(val)
+  },
+  {
+    immediate: true
+  }
 )
-// 面包屑
+
+// 色弱模式
 const bindColorWeakness = ref(appStore.getIsColorWeakness)
 watch(
   () => unref(bindColorWeakness),
-  (val: boolean) => appStore.setIsColorWeakness(val)
+  (val: boolean) => {
+    if (val) {
+      mournStyle.value = "invert(80%)"
+    } else {
+      mournStyle.value = ""
+    }
+    appStore.setIsColorWeakness(val)
+  }
 )
 </script>
 <template>
@@ -150,7 +168,7 @@ watch(
       <ElDivider content-position="center">配置主题色</ElDivider>
       <div class="layout-inset__theme">
         <div v-for="v in colorsList" :key="v" class="color-box" :style="`background: ${v};`" @click="toggleThemeColor(v)"></div>
-        <ElColorPicker v-model="color" />
+        <ElColorPicker v-model="color" @change="colorPicker" show-alpha />
       </div>
       <ElDivider content-position="center">页面配置</ElDivider>
       <div class="layout-inset__config">
@@ -171,4 +189,8 @@ watch(
 
 <style lang="scss" scoped>
 @use "./index.scss";
+.layout {
+  filter: v-bind(mournStyle);
+  transition: all 0.3s;
+}
 </style>

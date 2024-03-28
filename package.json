@@ -25,6 +25,7 @@
     "nprogress": "^0.2.0",
     "pinia": "^2.1.7",
     "pinia-plugin-persist": "^1.0.0",
+    "unplugin-auto-import": "^0.17.5",
     "vite-plugin-cdn-import": "^0.3.5",
     "vite-plugin-style-import": "^2.0.0",
     "vue": "^3.4.14",

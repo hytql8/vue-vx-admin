@@ -1,24 +1,28 @@
 import Axios, { type AxiosInstance, type AxiosRequestConfig } from "axios"
 import type { HttpError, RequestMethods, HttpRequestConfig, HttpTypes } from "./types"
-// import { stringify } from "qs"
-// import NProgress from "../progress"
-// import { getToken } from "./helper"
-// import { useUserStoreHook } from "@/store/modules/user"
+import { baseURL } from "@/constants"
 
 // 相关配置请参考：www.axios-js.com/zh-cn/docs/#axios-request-config-1
-const defaultConfig: AxiosRequestConfig = {
-  // 请求超时时间
-  timeout: 10000,
-  headers: {
-    Accept: "application/json, text/plain, */*",
-    "Content-Type": "application/json",
-    "X-Requested-With": "XMLHttpRequest"
-  }
-  // 数组格式参数序列化（https://github.com/axios/axios/issues/5142）
-  // paramsSerializer: {
-  //   serialize: stringify as unknown as CustomParamsSerializer
-  // }
-}
+const defaultConfig: AxiosRequestConfig = baseURL
+  ? {
+      baseURL,
+      timeout: 10000,
+      headers: {
+        baseURL,
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+        "X-Requested-With": "XMLHttpRequest"
+      }
+    }
+  : {
+      timeout: 10000,
+      headers: {
+        baseURL,
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+        "X-Requested-With": "XMLHttpRequest"
+      }
+    }
 
 class Http implements HttpTypes {
   constructor() {

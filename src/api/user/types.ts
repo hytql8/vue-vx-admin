@@ -29,8 +29,17 @@ type UserReturns = {
     // 权限
     auths?: string[]
     routers?: RouterMenusReturns[]
+    sex?: number
+    age?: number
+    nickname?: string
     [key: string]: any
   }
 }
 
-export type { UserLoginParams, UserReturns }
+type UserListParams = {
+  username: string
+  page: number
+  pageSize: number
+}
+
+export type { UserLoginParams, UserReturns, UserListParams }

@@ -608,7 +608,7 @@ interface TreeSelectComponentProps extends Omit<Partial<SelectComponentProps>, "
   style?: CSSProperties
 }
 
-interface FormSchema {
+type FormSchema = {
   /**
    * 唯一标识
    */

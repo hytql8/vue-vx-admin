@@ -40,7 +40,6 @@ export default defineComponent({
     const routingJump = ({ index }) => {
       const activeRoute = findRoute(index.split("/"))
       const path = activeRoute.path
-      console.log(path, activeRoute.components, "菜单跳转的path")
       // tags切换
       tagsStore.addTags(activeRoute)
       // 跳转

@@ -11,7 +11,10 @@ const List: any = [
     // 角色
     roles: ["admin"],
     // 权限
-    auths: ["create", "read", "update", "delete"]
+    auths: ["create", "read", "update", "delete"],
+    sex: 0,
+    age: 23,
+    nickname: "花子丶"
   },
   {
     userId: 1,
@@ -19,7 +22,10 @@ const List: any = [
     password: "test",
     roleId: 1,
     roles: ["user", "test"],
-    auths: ["read"]
+    auths: ["read"],
+    sex: 1,
+    age: 24,
+    nickname: "测试用户"
   }
 ]
 
@@ -201,13 +207,12 @@ export default [
     url: "/user/list",
     method: "get",
     response: ({ query }) => {
-      const { username, pageIndex, pageSize } = query
-
+      const { username, page, pageSize } = query
       const mockList = List.filter(item => {
         if (username && item.username.indexOf(username) < 0) return false
         return true
       })
-      const pageList = mockList.filter((_, index) => index < pageSize * pageIndex && index >= pageSize * (pageIndex - 1))
+      const pageList = mockList.filter((_, index) => index < pageSize * page && index >= pageSize * (page - 1))
 
       return {
         data: {

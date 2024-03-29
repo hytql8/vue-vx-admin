@@ -1,5 +1,5 @@
 import { http } from "@/axios"
-import type { UserLoginParams, UserReturns, UserListParams } from "./types"
+import type { UserLoginParams, UserReturns, UserListParams, getRoleListParams, RoleReturns } from "./types"
 
 // 登录
 const login = async (data: UserLoginParams): Promise<UserReturns> => {
@@ -9,8 +9,12 @@ const login = async (data: UserLoginParams): Promise<UserReturns> => {
 const userList = async (params: UserListParams): Promise<UserReturns> => {
   return http.get("/user/list", { params })
 }
+// 获取权限列表
+const roleList = async (data: getRoleListParams): Promise<RoleReturns> => {
+  return http.post("/user/role", { data })
+}
 // 退出登录
 const outLogin = async (): Promise<any> => {
   return http.get("/user/loginOut")
 }
-export { login, userList, outLogin }
+export { login, userList, roleList, outLogin }

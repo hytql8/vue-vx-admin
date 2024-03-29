@@ -36,10 +36,27 @@ type UserReturns = {
   }
 }
 
+type RoleReturns = {
+  code: number
+  data: {
+    roleId: number
+    role: string
+    remark: string
+    createTime: string
+    roleName: string
+    [key: string]: any
+  }
+}
+
+type getRoleListParams = {
+  page: number
+  pageSize: number
+}
+
 type UserListParams = {
   username: string
   page: number
   pageSize: number
 }
 
-export type { UserLoginParams, UserReturns, UserListParams }
+export type { UserLoginParams, UserReturns, UserListParams, getRoleListParams, RoleReturns }

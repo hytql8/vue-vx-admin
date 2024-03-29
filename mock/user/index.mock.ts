@@ -29,6 +29,30 @@ const List: any = [
   }
 ]
 
+const roleList = [
+  {
+    roleId: 0,
+    role: "admin",
+    remark: "管理员,拥有一系列权限",
+    createTime: "2024-03-29",
+    roleName: "管理员"
+  },
+  {
+    roleId: 1,
+    role: "test",
+    remark: "测试用户,拥有一系列权限",
+    createTime: "2024-03-29",
+    roleName: "测试用户"
+  },
+  {
+    roleId: 2,
+    role: "user",
+    remark: "普通用户,拥有一系列权限",
+    createTime: "2024-03-29",
+    roleName: "普通用户"
+  }
+]
+
 const arr: any = [
   {
     path: "/dashboard",
@@ -219,6 +243,27 @@ export default [
           code: 200,
           data: {
             total: mockList.length,
+            list: pageList
+          }
+        }
+      }
+    }
+  },
+  // 权限列表接口
+  {
+    url: "/user/role",
+    method: "post",
+    timeout,
+    response: ({ body }) => {
+      console.log(body)
+      const { page, pageSize } = body
+      const pageList = roleList.filter((_, index) => index < pageSize * page && index >= pageSize * (page - 1))
+
+      return {
+        data: {
+          code: 200,
+          data: {
+            total: pageList.length,
             list: pageList
           }
         }

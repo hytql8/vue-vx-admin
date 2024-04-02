@@ -2,14 +2,12 @@
 import { getRouterList } from "@/api/user"
 import { onMounted } from "vue"
 import { VxContainer } from "@/components/VxContainer"
-import { unref, ref } from "vue"
+import { unref } from "vue"
 import type { StructureConfig } from "@/components/StructureTypes"
 import { useStructure } from "@/hooks/useStructure"
 import { Table } from "@/components/Table"
 import { useTable } from "@/hooks/useTable"
-import { Form } from "@/components/Form"
-import { useForm } from "@/hooks/useForm"
-import { ElButton, ElText, ElMessage, ElTag } from "element-plus"
+import { ElText, ElMessage } from "element-plus"
 import { useI18n } from "vue-i18n"
 
 const { t } = useI18n()

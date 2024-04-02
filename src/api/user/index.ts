@@ -13,8 +13,12 @@ const userList = async (params: UserListParams): Promise<UserReturns> => {
 const roleList = async (data: getRoleListParams): Promise<RoleReturns> => {
   return http.post("/user/role", { data })
 }
+// 获取权限列表
+const getRouterList = async (data: getRoleListParams): Promise<RoleReturns> => {
+  return http.post("/user/routerList", { data })
+}
 // 退出登录
 const outLogin = async (): Promise<any> => {
   return http.get("/user/loginOut")
 }
-export { login, userList, roleList, outLogin }
+export { login, userList, roleList, outLogin, getRouterList }

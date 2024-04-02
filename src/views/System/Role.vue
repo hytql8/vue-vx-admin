@@ -8,20 +8,7 @@ import { Table } from "@/components/Table"
 import { useTable } from "@/hooks/useTable"
 import { Form } from "@/components/Form"
 import { useForm } from "@/hooks/useForm"
-import { ElButton, ElMessage, ElTag } from "element-plus"
-
-// onMounted(async () => {
-//   const {
-//     data: {
-//       code,
-//       data: { list, total }
-//     }
-//   } = await roleList({
-//     page: 1,
-//     pageSize: 10
-//   })
-//   console.log(code, list, total)
-// })
+import { ElButton, ElText, ElMessage, ElTag } from "element-plus"
 
 const original: StructureConfig[] = [
   {
@@ -77,7 +64,7 @@ const original: StructureConfig[] = [
     formConfig: {
       component: "Input",
       componentProps: {
-        placeholder: "请选择权限",
+        placeholder: "请输入描述",
         type: "textarea"
       },
       colProps: {
@@ -93,12 +80,12 @@ const original: StructureConfig[] = [
         default: ({ row }) => {
           return (
             <div style="display:flex;align-items:center">
-              <ElButton type="primary" onClick={() => update(row)}>
+              <ElText type="primary" style="margin-right: 15px;" onClick={() => update(row)}>
                 修改
-              </ElButton>
-              <ElButton type="danger" onClick={() => deletes(row)}>
+              </ElText>
+              <ElText type="danger" onClick={() => deletes(row)}>
                 删除
-              </ElButton>
+              </ElText>
             </div>
           )
         }
@@ -118,7 +105,10 @@ const original: StructureConfig[] = [
             )
           }
         },
-        style: "width:100%;margin-left: 30px"
+        style: {
+          width: "100%",
+          marginLeft: "30px"
+        }
       },
       colProps: {
         span: 24

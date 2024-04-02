@@ -9,7 +9,7 @@ import { Table } from "@/components/Table"
 import { useTable } from "@/hooks/useTable"
 import { Form } from "@/components/Form"
 import { useForm } from "@/hooks/useForm"
-import { ElButton, ElMessage, ElTag } from "element-plus"
+import { ElButton, ElMessage, ElTag, ElText } from "element-plus"
 
 const { required } = useValidator()
 
@@ -135,12 +135,12 @@ const original: StructureConfig[] = [
         default: ({ row }) => {
           return (
             <div style="display:flex;align-items:center">
-              <ElButton type="primary" onClick={() => update(row)}>
+              <ElText type="primary" style="margin-right: 15px" onClick={() => update(row)}>
                 修改
-              </ElButton>
-              <ElButton type="danger" onClick={() => deletes(row)}>
+              </ElText>
+              <ElText type="danger" onClick={() => deletes(row)}>
                 删除
-              </ElButton>
+              </ElText>
             </div>
           )
         }

@@ -255,7 +255,6 @@ export default [
     method: "post",
     timeout,
     response: ({ body }) => {
-      console.log(body)
       const { page, pageSize } = body
       const pageList = roleList.filter((_, index) => index < pageSize * page && index >= pageSize * (page - 1))
 
@@ -294,6 +293,26 @@ export default [
         return {
           code: 500,
           message: "账号或密码错误"
+        }
+      }
+    }
+  },
+  // 获取table
+  {
+    url: "/user/routerList",
+    method: "post",
+    timeout,
+    response: ({ body }) => {
+      const { page, pageSize } = body
+      const pageList = arr.filter((_, index) => index < pageSize * page && index >= pageSize * (page - 1))
+
+      return {
+        data: {
+          code: 200,
+          data: {
+            total: pageList.length,
+            list: pageList
+          }
         }
       }
     }

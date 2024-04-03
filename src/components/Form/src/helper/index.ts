@@ -1,8 +1,10 @@
-import { t } from "@/hooks/useLocale"
+import { useI18n } from "@/hooks/useI18n"
 import { PlaceholderModel, FormSchema, ComponentNameEnum, ColProps } from "../types"
 import { isFunction } from "@/utils/is"
 import { firstUpperCase, humpToDash } from "@/utils"
 import { set, get } from "lodash-es"
+
+const { t } = useI18n()
 
 /**
  *

@@ -23,9 +23,10 @@ export const useForm = () => {
   const getForm = async () => {
     await nextTick()
     const form = unref(formRef)
-    // if (!form) {
-    //   return null
-    // }
+    if (!form) {
+      // return null
+      console.log("没有找到form实例")
+    }
     return form
   }
 

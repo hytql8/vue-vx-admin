@@ -1,5 +1,7 @@
-import { t } from "@/hooks/useLocale"
+import { useI18n } from "@/hooks/useI18n"
 import { FormItemRule } from "element-plus"
+
+const { t } = useI18n()
 
 interface LengthRange {
   min: number
@@ -11,7 +13,7 @@ export const useValidator = () => {
   const required = (message?: string): FormItemRule => {
     return {
       required: true,
-      message: message || "该项为必填项"
+      message: message || t("common.required")
     }
   }
 
@@ -21,7 +23,7 @@ export const useValidator = () => {
     return {
       min,
       max,
-      message: message || `长度在 ${min} 到 ${max} 个字符`
+      message: message || t("common.lengthRange", { min, max })
     }
   }
 
@@ -86,7 +88,7 @@ export const useValidator = () => {
     return {
       validator: (_, val, callback) => {
         if (!val) {
-          callback(new Error(message || "该项为必填项"))
+          callback(new Error(message || t("common.required")))
         } else {
           callback()
         }

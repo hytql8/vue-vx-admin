@@ -16,6 +16,7 @@ type StructureConfig = {
   label?: string
   tableConfig: TableColumnConfig
   formConfig: FormItemConfig
+  [key: string]: any
 }
 
 export type { StructureConfig }

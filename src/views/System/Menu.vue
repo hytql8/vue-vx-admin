@@ -2,6 +2,7 @@
 import { getRouterList } from "@/api/user"
 import { onMounted } from "vue"
 import { VxContainer } from "@/components/VxContainer"
+import { VxIcon } from "@/components/VxIcon"
 import { unref } from "vue"
 import type { StructureConfig } from "@/components/StructureTypes"
 import { useStructure } from "@/hooks/useStructure"
@@ -27,6 +28,7 @@ onMounted(async () => {
 
 const original: StructureConfig[] = [
   {
+    field: "expand",
     type: "expand",
     tableConfig: {
       width: 100

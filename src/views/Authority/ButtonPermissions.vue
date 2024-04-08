@@ -2,6 +2,7 @@
 import { VxContainer } from "@/components/VxContainer"
 import { useRoutersStore } from "@/store/modules/router"
 import { computed } from "vue"
+import { hasAuth } from "@/directives/auth/utils"
 
 const routersStore = useRoutersStore()
 
@@ -48,6 +49,10 @@ const styles = {
         </div>
         <div :style="styles.authText">
           <ElText>有delete权限时能看到此按钮： </ElText><ElButton v-auth="['delete']" type="danger">delete</ElButton><br />
+        </div>
+        <div :style="styles.authText" v-if="hasAuth(user.auths)">
+          <ElText>有delete权限时能看到此按钮(使用hasAuth,此方式具有响应式)： </ElText
+          ><ElButton v-auth="['delete']" type="danger">delete</ElButton><br />
         </div>
         <ElText type="primary" :style="styles.text"
           >切换权限，请点击右上角头像退出登录，切换用户，使用test用户登录，账号：test， 密码test</ElText

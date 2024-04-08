@@ -5,7 +5,7 @@ import { toRaw } from "vue"
 import { store } from "../index"
 import { t } from "@/hooks/useLocale"
 
-const { getStorage, setStorage } = useStorage()
+const { getStorage, setStorage } = useStorage("localStorage")
 
 type tagsState = {
   tagsList: TagsList[]

@@ -5,6 +5,7 @@ import { cdn } from "./cdn"
 import Components from "unplugin-vue-components/vite"
 import AutoImport from "unplugin-auto-import/vite"
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers"
+import { visualizer } from "rollup-plugin-visualizer"
 import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite"
 import { createStyleImportPlugin, ElementPlusResolve, VxeTableResolve } from "vite-plugin-style-import"
 import { viteMockServe, ViteMockOptions } from "vite-plugin-mock"
@@ -43,6 +44,7 @@ export const getPluginsList = (VITE_CDN: boolean) => {
       prodEnabled: true,
       injectCode: `import { setupProdMockServer } from '../mock/_createProductionServer'
       setupProdMockServer()`
-    } as ViteMockOptions)
+    } as ViteMockOptions),
+    process.env.npm_lifecycle_event === "build" ? visualizer({ open: true, brotliSize: true, filename: "report.html" }) : null
   ]
 }

@@ -157,6 +157,25 @@ export const staticRouter: RouteRecordRaw[] = [
     ]
   },
   {
+    path: "/workflow",
+    name: "Workflow",
+    component: Layout,
+    meta: {
+      title: t("routes.workflow"),
+      icon: "mdi:workflow"
+    },
+    children: [
+      {
+        path: "antvX6",
+        name: "AntvX6",
+        component: () => import("@/views/Workflow/useAntvX6.vue"),
+        meta: {
+          title: t("routes.useX6")
+        }
+      }
+    ]
+  },
+  {
     path: "/system",
     name: "System",
     component: Layout,

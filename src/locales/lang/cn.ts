@@ -26,7 +26,9 @@ export default Object.assign(
       defaultForm: "默认表单",
       useForm: "useForm表单",
       authority: "权限",
-      btnPerm: "按钮权限"
+      btnPerm: "按钮权限",
+      workflow: "工作流",
+      useX6: "使用X6"
     },
     tagsOperations: {
       noTitle: "无标题",

@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@antv/x6':
+    specifier: ^2.18.1
+    version: 2.18.1
   '@intlify/unplugin-vue-i18n':
     specifier: ^2.0.0
     version: registry.npmmirror.com/@intlify/unplugin-vue-i18n@2.0.0(rollup@2.79.1)(vue-i18n@9.8.0)
@@ -180,6 +183,25 @@ packages:
 
   /@antfu/utils@0.7.7:
     resolution: {integrity: sha512-gFPqTG7otEJ8uP6wrhDv6mqwGWYZKNvAcCq6u9hOj0c+IKCEsY4L1oC9trPq2SaWIzAfHvqfBDxF591JkMf+kg==, tarball: https://registry.npmmirror.com/@antfu/utils/-/utils-0.7.7.tgz}
+    dev: false
+
+  /@antv/x6-common@2.0.17:
+    resolution: {integrity: sha512-37g7vmRkNdYzZPdwjaMSZEGv/MMH0S4r70/Jwoab1mioycmuIBN73iyziX8m56BvJSDucZ3J/6DU07otWqzS6A==, tarball: https://registry.npmmirror.com/@antv/x6-common/-/x6-common-2.0.17.tgz}
+    dependencies:
+      lodash-es: 4.17.21
+      utility-types: 3.11.0
+    dev: false
+
+  /@antv/x6-geometry@2.0.5:
+    resolution: {integrity: sha512-MId6riEQkxphBpVeTcL4ZNXL4lScyvDEPLyIafvWMcWNTGK0jgkK7N20XSzqt8ltJb0mGUso5s56mrk8ysHu2A==, tarball: https://registry.npmmirror.com/@antv/x6-geometry/-/x6-geometry-2.0.5.tgz}
+    dev: false
+
+  /@antv/x6@2.18.1:
+    resolution: {integrity: sha512-FkWdbLOpN9J7dfJ+kiBxzowSx2N6syBily13NMVdMs+wqC6Eo5sLXWCZjQHateTFWgFw7ZGi2y9o3Pmdov1sXw==, tarball: https://registry.npmmirror.com/@antv/x6/-/x6-2.18.1.tgz}
+    dependencies:
+      '@antv/x6-common': 2.0.17
+      '@antv/x6-geometry': 2.0.5
+      utility-types: 3.11.0
     dev: false
 
   /@babel/helper-string-parser@7.23.4:
@@ -1749,6 +1771,11 @@ packages:
       chokidar: 3.6.0
       webpack-sources: 3.2.3
       webpack-virtual-modules: 0.6.1
+    dev: false
+
+  /utility-types@3.11.0:
+    resolution: {integrity: sha512-6Z7Ma2aVEWisaL6TvBCy7P8rm2LQoPv6dJ7ecIaIixHcwfbJ0x7mWdbcwlIM5IGQxPZSFYeqRCqlOOeKoJYMkw==, tarball: https://registry.npmmirror.com/utility-types/-/utility-types-3.11.0.tgz}
+    engines: {node: '>= 4'}
     dev: false
 
   /utils-merge@1.0.1:

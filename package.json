@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@antv/x6": "^2.18.1",
     "@intlify/unplugin-vue-i18n": "^2.0.0",
     "@jridgewell/sourcemap-codec": "^1.4.15",
     "@types/lodash": "^4.14.202",

@@ -10,8 +10,8 @@ import { useTagsStore } from "@/store/modules/tags"
 import { outLogin } from "@/api/user"
 import { ElMessageBox, ElMessage } from "element-plus"
 import { useStorage } from "@/hooks/useStorage"
-import { reload } from "@/utils"
 import { useRouter } from "vue-router"
+import { ElDropdown, ElDropdownMenu, ElDropdownItem, ElAvatar } from "element-plus"
 
 const appStore = useAppStore()
 const localeStore = useLocaleStore()

@@ -26,7 +26,9 @@ export default Object.assign(
       defaultForm: "Default Form",
       useForm: "UseForm",
       authority: "Authority",
-      btnPerm: "Button Permissions"
+      btnPerm: "Button Permissions",
+      workflow: "Workflow",
+      useX6: "Use X6"
     },
     tagsOperations: {
       noTitle: "No Title",

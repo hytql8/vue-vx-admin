@@ -6,7 +6,7 @@ import { useI18n } from "vue-i18n"
 import { useRouter } from "vue-router"
 import { tagsViewInit } from "@/components/TagsView"
 import { reload } from "@/utils"
-import { ElScrollbar } from "element-plus"
+import { ElScrollbar, ElDropdown, ElDropdownMenu, ElDropdownItem } from "element-plus"
 
 const { t } = useI18n()
 const { push, currentRoute } = useRouter()
@@ -17,7 +17,7 @@ const tagsList = computed(() => tagsStore.getTagsList)
 const currentIndex = computed(() => {
   let currentTag = tagsStore.getCurrentTag
   for (let [i, v] of unref(tagsList).entries()) {
-    if (v.path === currentTag.path) {
+    if (v?.path === currentTag?.path) {
       return i
     }
   }
@@ -36,12 +36,12 @@ const isCloseOtherTagsVisable = () => {
 }
 
 const isCloseAllTagsVisible = () => {
-  return unref(tagsList).length === 0 && unref(currentRoute).path === unref(tagsList)[0].path
+  return unref(tagsList).length === 0 && unref(currentRoute)?.path === unref(tagsList)[0]?.path
 }
 
 const routingJump = (tags: TagsList) => {
   tagsStore.updateTagsByTags(toRaw(tags))
-  push(tags.path)
+  push(tags?.path)
 }
 
 const delTags = (tags: TagsList) => {
@@ -116,7 +116,7 @@ const scrollNext = async () => {
         <div
           :class="`vx-tags-list__item vx-tags-list__item--${v.current ? 'current' : 'normal'}`"
           v-for="v in tagsList"
-          :key="v.path"
+          :key="v?.path"
           @click="routingJump(v)"
         >
           <div :class="`vx-tags-list__item--${v.current ? 'current' : 'normal'}__left`">

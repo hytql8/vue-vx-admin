@@ -10,7 +10,7 @@ import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite"
 import { createStyleImportPlugin, ElementPlusResolve, VxeTableResolve } from "vite-plugin-style-import"
 import { viteMockServe, ViteMockOptions } from "vite-plugin-mock"
 
-export const getPluginsList = (VITE_CDN: boolean) => {
+export const getPluginsList = (VITE_CDN: boolean, VITE_REPORT: boolean) => {
   return [
     vue(),
     // jsx、tsx语法支持
@@ -45,6 +45,8 @@ export const getPluginsList = (VITE_CDN: boolean) => {
       injectCode: `import { setupProdMockServer } from '../mock/_createProductionServer'
       setupProdMockServer()`
     } as ViteMockOptions),
-    process.env.npm_lifecycle_event === "build" ? visualizer({ open: true, brotliSize: true, filename: "report.html" }) : null
+    process.env.npm_lifecycle_event === "build" && VITE_REPORT
+      ? visualizer({ open: true, brotliSize: true, filename: "report.html" })
+      : null
   ]
 }

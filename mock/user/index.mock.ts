@@ -185,6 +185,25 @@ const arr: any = [
     ]
   },
   {
+    path: "/workflow",
+    name: "Workflow",
+    component: "layout",
+    meta: {
+      title: "routes.workflow",
+      icon: "mdi:workflow"
+    },
+    children: [
+      {
+        path: "antvX6",
+        name: "AntvX6",
+        component: "/views/Workflow/useAntvX6",
+        meta: {
+          title: "routes.useX6"
+        }
+      }
+    ]
+  },
+  {
     path: "/system",
     name: "System",
     component: "layout",

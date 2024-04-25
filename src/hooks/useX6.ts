@@ -42,7 +42,7 @@ export const useX6 = (elRef: Ref<HTMLElement>, ...args: any) => {
     if (!instance) {
       await init()
     }
-    instance.addNode(data)
+    return instance.addNode(data)
   }
   //   添加edge
   const addEdge = async (data: any) => {

@@ -9,6 +9,7 @@ declare global {
     VITE_ROUTER_HISTORY: string
     VITE_CDN: boolean
     VITE_COMPRESSION: ViteCompression
+    VITE_REPORT: boolean
   }
 
   type Recordable<T = any, K = string> = Record<K extends null | undefined ? string : K, T>

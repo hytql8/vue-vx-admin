@@ -5,7 +5,7 @@ import { useX6 } from "@/hooks/useX6"
 import { Shape } from "@antv/x6"
 
 const antv = ref<HTMLElement>()
-
+// 初始化的节点，线数据
 const data = {
   // 节点
   nodes: [
@@ -26,7 +26,22 @@ const data = {
           fill: "var(--theme-text-color)", // 文字颜色
           fontSize: 13 // 文字大小
         }
-      }
+      },
+      // 设置连接桩
+      ports: [
+        {
+          id: "port1", // String，端口的唯一标识
+          attrs: {
+            circle: {
+              r: 6, // 端口半径
+              magnet: true, // 允许吸附
+              stroke: "#31d0c6",
+              strokeWidth: 2,
+              fill: "blue"
+            }
+          }
+        }
+      ]
     },
     {
       id: "node2", // String，节点的唯一标识
@@ -44,7 +59,22 @@ const data = {
           fill: "var(--theme-text-color)", // 文字颜色
           fontSize: 13 // 文字大小
         }
-      }
+      },
+      // 设置连接桩
+      ports: [
+        {
+          id: "port2",
+          attrs: {
+            circle: {
+              r: 6,
+              magnet: true,
+              stroke: "#31d0c6",
+              strokeWidth: 2,
+              fill: "#fff"
+            }
+          }
+        }
+      ]
     }
   ],
   // 边
@@ -61,7 +91,7 @@ const data = {
   ]
 }
 
-// 创建节点
+// 创建需要异步添加的节点
 const rect = new Shape.Rect({
   id: "node3",
   x: 350,
@@ -82,7 +112,7 @@ const rect = new Shape.Rect({
     }
   }
 })
-// 创建线
+// 创建需要异步添加的线
 const edge = new Shape.Edge({
   id: "edge1",
   source: rect,
@@ -94,18 +124,51 @@ const edge = new Shape.Edge({
     }
   }
 })
-
-const { setOptions, addNode, addEdge } = useX6(antv, { grid: true })
-
-setTimeout(() => {
+// 使用 hooks 初始化
+const { setOptions, addNode, addEdge } = useX6(antv, {
+  // 开启背景点
+  grid: {
+    visible: true
+  },
+  // 根据容器自动resize
+  autoResize: true,
+  // 开启选择
+  selecting: {
+    enabled: true,
+    showNodeSelectionBox: true
+  },
+  // 开启缩放
+  zooming: {
+    enabled: true
+  },
+  // 开启剪切板
+  clipboard: {
+    enabled: true,
+    useLocalStorage: true
+  }
+})
+// 异步修改
+setTimeout(async () => {
   console.log("add node")
-  addNode(rect)
-}, 3000)
+  let node = await addNode(rect)
+  node.addPort({
+    id: "port3",
+    attrs: {
+      circle: {
+        r: 6,
+        magnet: true,
+        stroke: "#31d0c6",
+        strokeWidth: 2,
+        fill: "#fff"
+      } // 设置端口属性
+    }
+  })
+}, 1000)
 
 setTimeout(() => {
   console.log("add edge")
   addEdge(edge)
-}, 5000)
+}, 2000)
 
 onMounted(() => {
   setOptions(data)

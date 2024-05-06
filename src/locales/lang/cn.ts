@@ -144,6 +144,9 @@ export default Object.assign(
       userAvatar: "用户头像",
       iconPicker: "图标选择器",
       iAgree: "我同意"
+    },
+    result: {
+      notFound: "抱歉，您访问的页面不存在。"
     }
   },
   vxeCn

@@ -218,8 +218,8 @@ export const staticRouter: RouteRecordRaw[] = [
     path: "/:catchAll(.*)",
     component: () => import("@/views/Error/404.vue"),
     meta: {
-      title: t("routes.notfound"),
-      icon: "mdi:arrow-up-bold"
+      title: t("result.notfound"),
+      icon: "ic:outline-error-outline"
     }
   }
   // 其他路由配置

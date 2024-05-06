@@ -7,8 +7,8 @@ const readEnv = (envConf: Recordable): ViteEnv => {
     VITE_PUBLIC_PATH: "",
     VITE_ROUTER_HISTORY: "",
     VITE_CDN: false,
-    VITE_COMPRESSION: "none"
-    VITE_REPORT: false,
+    VITE_COMPRESSION: "none",
+    VITE_REPORT: false
   }
 
   for (const envName of Object.keys(envConf)) {

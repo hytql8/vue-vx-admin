@@ -145,6 +145,9 @@ export default Object.assign(
       userAvatar: "User avatar",
       iconPicker: "Icon picker",
       iAgree: "I agree"
+    },
+    result: {
+      notFound: "Sorry, the page you visited does not exist."
     }
   },
   vxeEn

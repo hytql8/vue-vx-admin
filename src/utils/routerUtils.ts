@@ -194,8 +194,8 @@ const generateDynamicRouters = (routers: RouteRecordRaw[], mode: RouterMode, use
       path: "/:catchAll(.*)",
       component: () => import("@/views/Error/404.vue"),
       meta: {
-        title: t("routes.notfound"),
-        icon: "mdi:arrow-up-bold"
+        title: t("result.notfound"),
+        icon: "ic:outline-error-outline"
       }
     })
     return returnRouters

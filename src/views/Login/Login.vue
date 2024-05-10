@@ -6,6 +6,7 @@ import { ThemeSwitch } from "@/components/ThemeSwitch"
 import type { TabsPaneContext } from "element-plus"
 import LoginForm from "./components/LoginForm.vue"
 import { reload } from "@/utils"
+import { Qrcode } from "@/components/Qrcode"
 
 const activeName = ref("login")
 
@@ -57,7 +58,11 @@ onMounted(() => {
           <div class="loginBox__container">
             <ElTabs class="loginBox__tabs" v-model="activeName" @tab-click="handleClick">
               <ElTabPane label="登录" name="login"><LoginForm /></ElTabPane>
-              <ElTabPane label="二维码登录" name="qr-login">疯狂开发中...</ElTabPane>
+              <ElTabPane label="二维码登录" name="qr-login">
+                <div class="qrcode-login">
+                  <Qrcode value="http://hytql8.top" />
+                </div>
+              </ElTabPane>
             </ElTabs>
           </div>
         </div>

@@ -162,6 +162,15 @@ const arr: any = [
           title: "routes.chart",
           icon: "solar:chart-2-bold-duotone"
         }
+      },
+      {
+        path: "qrcode",
+        name: "Qrcode",
+        component: "/views/Component/Qrcode/Qrcode",
+        meta: {
+          title: "routes.qrcode",
+          icon: "fa-solid:qrcode"
+        }
       }
     ]
   },

@@ -49,6 +49,10 @@
       }
       &__tabs {
         width: inherit;
+        .qrcode-login {
+          @include flex(center, center, nowrap);
+          width: 400px;
+        }
       }
 
       flex-direction: column;

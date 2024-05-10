@@ -28,7 +28,8 @@ export default Object.assign(
       authority: "Authority",
       btnPerm: "Button Permissions",
       workflow: "Workflow",
-      useX6: "Use X6"
+      useX6: "Use X6",
+      qrcode: "Qrcode"
     },
     tagsOperations: {
       noTitle: "No Title",

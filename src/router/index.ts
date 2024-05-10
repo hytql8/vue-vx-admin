@@ -134,6 +134,15 @@ export const staticRouter: RouteRecordRaw[] = [
           title: t("routes.chart"),
           icon: "solar:chart-2-bold-duotone"
         }
+      },
+      {
+        path: "qrcode",
+        name: "Qrcode",
+        component: () => import("@/views/Component/Qrcode/Qrcode.vue"),
+        meta: {
+          title: t("routes.qrcode"),
+          icon: "fa-solid:qrcode"
+        }
       }
     ]
   },

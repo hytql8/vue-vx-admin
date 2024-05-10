@@ -28,7 +28,8 @@ export default Object.assign(
       authority: "权限",
       btnPerm: "按钮权限",
       workflow: "工作流",
-      useX6: "使用X6"
+      useX6: "使用X6",
+      qrcode: "二维码"
     },
     tagsOperations: {
       noTitle: "无标题",

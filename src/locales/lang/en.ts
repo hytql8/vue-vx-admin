@@ -148,7 +148,7 @@ export default Object.assign(
       iAgree: "I agree"
     },
     result: {
-      notFound: "Sorry, the page you visited does not exist."
+      notfound: "Sorry, the page you visited does not exist."
     }
   },
   vxeEn

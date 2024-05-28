@@ -147,7 +147,7 @@ export default Object.assign(
       iAgree: "我同意"
     },
     result: {
-      notFound: "抱歉，您访问的页面不存在。"
+      notfound: "抱歉，您访问的页面不存在。"
     }
   },
   vxeCn

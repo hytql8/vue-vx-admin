@@ -1,0 +1,26 @@
+@import "@/styles/var.scss";
+.vx-search-menus {
+  height: inherit;
+  padding: 0 10px;
+
+  @include flex(center, center, nowrap);
+}
+.search-icon {
+  transform: rotate(270deg);
+
+  @include cursor;
+}
+.search-footer {
+  height: inherit;
+  .keyboard-tips {
+    margin-right: 10px;
+    font-size: 14px;
+
+    @include flex(flex-start, center, nowrap);
+  }
+
+  @include flex(flex-start, center, nowrap);
+}
+.card-inside {
+  @include flex(flex-start, center, nowrap);
+}

@@ -7,7 +7,6 @@ import { VxIcon } from "@/components/VxIcon"
 import { ThemeSwitch } from "@/components/ThemeSwitch"
 
 const appStore = useAppStore()
-setCssVar("--theme-bg-color", "#f5f7f9")
 
 watch(
   () => appStore.getIsDark,
@@ -17,6 +16,9 @@ watch(
     } else {
       setCssVar("--theme-bg-color", "#f5f7f9")
     }
+  },
+  {
+    immediate: true
   }
 )
 

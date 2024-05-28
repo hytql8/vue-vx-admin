@@ -50,12 +50,12 @@
 
 // vxe-table所需的主题颜色配置(真正应该自定义一份)
 html.dark {
-  --vxe-font-color: #98989E;
-  --vxe-primary-color: #3a6ee8;
-  --vxe-icon-background-color: #98989E;
-  --vxe-table-font-color: #98989E;
+  --vxe-font-color: #98989e;
+  --vxe-primary-color: var(--theme-color);
+  --vxe-icon-background-color: #98989e;
+  --vxe-table-font-color: #98989e;
   --vxe-table-resizable-color: #95969a;
-  --vxe-table-header-background-color: #28282A;
+  --vxe-table-header-background-color: #28282a;
   --vxe-table-body-background-color: #151518;
   --vxe-table-background-color: #4a5663;
   --vxe-table-row-hover-background-color: #000000;
@@ -125,13 +125,13 @@ html.dark {
   --vxe-table-validate-error-color: #f56c6c;
   --vxe-table-validate-error-background-color: #2c3e50;
   --vxe-grid-maximize-background-color: #34495e;
-  --vxe-toolbar-background-color: #2c3e50;
+  --vxe-toolbar-background-color: var(--theme-bg-color);
   --vxe-toolbar-custom-active-background-color: #34495e;
   --vxe-toolbar-panel-background-color: #2c3e50;
   --vxe-tooltip-dark-color: #ffffff;
   --vxe-tooltip-dark-background-color: #34495e;
   --vxe-tooltip-light-background-color: #2c3e50;
-  --vxe-pager-background-color: #2c3e50;
+  --vxe-pager-background-color: var(--theme-bg-color);
   --vxe-pager-perfect-background-color: #2c3e50;
   --vxe-pager-perfect-button-background-color: #34495e;
   --vxe-modal-header-background-color: #2c3e50;
@@ -170,7 +170,7 @@ html.dark {
   --vxe-button-round-border-radius-medium: 16px;
   --vxe-button-round-border-radius-small: 15px;
   --vxe-button-round-border-radius-mini: 14px;
-  --vxe-input-background-color: #2c3e50;
+  --vxe-input-background-color: var(--theme-bg-color);
   --vxe-input-panel-background-color: #2c3e50;
   --vxe-input-number-disabled-color: #e4e7ed;
   --vxe-input-date-festival-color: #999999;
@@ -212,7 +212,7 @@ html.dark {
   --vxe-form-item-min-height-medium: 34px;
   --vxe-form-item-min-height-small: 32px;
   --vxe-form-item-min-height-mini: 30px;
-  --vxe-form-background-color: #34495e;
+  --vxe-form-background-color: var(--theme-bg-color);
   --vxe-form-validate-error-color: #f56c6c;
   --vxe-form-validate-error-background-color: inherit;
   --vxe-select-option-height-default: 30px;

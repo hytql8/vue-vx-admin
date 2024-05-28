@@ -11,6 +11,7 @@ import { Breadcrumb } from "@/components/Breadcrumb"
 import { useAppStore } from "@/store/modules/app"
 import { VxIcon } from "@/components/VxIcon"
 import { ElContainer, ElHeader, ElScrollbar, ElMain, ElAside } from "element-plus"
+import { SearchMenus } from "@/components/SearchMenus"
 
 const appStore = useAppStore()
 
@@ -45,21 +46,23 @@ const toggleExpand = () => {
 
 <template>
   <ElContainer class="vx-container">
-    <ElHeader class="vx-header">
+    <ElAside class="vx-aside" v-show="!isSeemMoblie || isHandleClick">
       <Logo class="vx-header__logo" v-show="!isSeemMoblie || isHandleClick" />
-      <div class="vx-header__nav">
-        <div class="vx-header__menu-switch">
-          <MenuSwitch @click="toggleExpand" v-show="layout === 'vertical' && isShowFolding" /><Breadcrumb
-            v-show="!isSeemMoblie && isBreadcrumb"
-          />
-        </div>
-        <div class="vx-header__info"><ThemeSwitch /> <Fullscreen v-show="!isSeemMoblie" /> <LocaleSwitch /> <Avatar /></div>
-      </div>
-    </ElHeader>
+      <Menu class="vx-aside__menu" />
+    </ElAside>
     <ElContainer class="vx-content">
-      <ElAside class="vx-aside" v-show="!isSeemMoblie || isHandleClick">
-        <Menu class="vx-aside__menu" />
-      </ElAside>
+      <ElHeader class="vx-header">
+        <div class="vx-header__nav">
+          <div class="vx-header__menu-switch">
+            <MenuSwitch @click="toggleExpand" v-show="layout === 'vertical' && isShowFolding" /><Breadcrumb
+              v-show="!isSeemMoblie && isBreadcrumb"
+            />
+          </div>
+          <div class="vx-header__info">
+            <SearchMenus /><ThemeSwitch /> <Fullscreen v-show="!isSeemMoblie" /> <LocaleSwitch /> <Avatar />
+          </div>
+        </div>
+      </ElHeader>
       <ElMain class="vx-main">
         <TagsView />
         <ElScrollbar class="vx-main__container">

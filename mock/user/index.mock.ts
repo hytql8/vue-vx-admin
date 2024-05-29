@@ -58,6 +58,7 @@ const arr: any = [
     path: "/dashboard",
     name: "Dashboard",
     component: "layout",
+    redirect: "/dashboard/workplace",
     meta: {
       title: "routes.dashboard",
       icon: "ri:dashboard-line"
@@ -87,6 +88,7 @@ const arr: any = [
     path: "/component",
     name: "Component",
     component: "layout",
+    redirect: "/component/table/default-table",
     meta: {
       title: "routes.component",
       icon: "mingcute:components-fill"
@@ -96,6 +98,7 @@ const arr: any = [
         path: "table",
         name: "Table",
         component: "secLayout",
+        redirect: "/component/table/default-table",
         meta: {
           title: "routes.table",
           icon: "mdi:table-edit"
@@ -131,6 +134,7 @@ const arr: any = [
         path: "form",
         name: "Form",
         component: "secLayout",
+        redirect: "/component/form/default-form",
         meta: {
           title: "routes.form",
           icon: "clarity:form-line"
@@ -178,6 +182,7 @@ const arr: any = [
     path: "/authority",
     name: "Authority",
     component: "layout",
+    redirect: "/authority/buttonPermissions",
     meta: {
       title: "routes.authority",
       icon: "material-symbols-light:lock-person"
@@ -196,6 +201,7 @@ const arr: any = [
   {
     path: "/workflow",
     name: "Workflow",
+    redirect: "/workflow/antvX6",
     component: "layout",
     meta: {
       title: "routes.workflow",
@@ -216,6 +222,7 @@ const arr: any = [
     path: "/system",
     name: "System",
     component: "layout",
+    redirect: "/system/user",
     meta: {
       title: "routes.system",
       icon: "ri:settings-3-line",

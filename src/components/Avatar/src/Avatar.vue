@@ -11,7 +11,7 @@ import { outLogin } from "@/api/user"
 import { ElMessageBox, ElMessage } from "element-plus"
 import { useStorage } from "@/hooks/useStorage"
 import { useRouter } from "vue-router"
-import { ElDropdown, ElDropdownMenu, ElDropdownItem, ElAvatar } from "element-plus"
+import { ElDropdown, ElDropdownMenu, ElDropdownItem, ElAvatar, ElLoading } from "element-plus"
 
 const appStore = useAppStore()
 const localeStore = useLocaleStore()
@@ -38,6 +38,7 @@ const loginOut = () => {
     cancelButtonText: t("login.cancel"),
     type: "warning"
   }).then(async () => {
+    const loadingInstance = ElLoading.service({ fullscreen: true })
     const {
       data: { code }
     } = await outLogin()
@@ -50,6 +51,7 @@ const loginOut = () => {
       localeStore.$reset()
       routersStore.$reset()
       tagsStore.$reset()
+      loadingInstance.close()
       ElMessage({
         type: "success",
         message: t("login.outSuccess")

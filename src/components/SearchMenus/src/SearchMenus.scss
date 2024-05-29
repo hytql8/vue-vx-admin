@@ -22,5 +22,10 @@
   @include flex(flex-start, center, nowrap);
 }
 .card-inside {
+  &-text {
+    @include cursor(default);
+  }
+
+  @include cursor(default);
   @include flex(flex-start, center, nowrap);
 }

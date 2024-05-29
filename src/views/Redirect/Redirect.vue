@@ -12,7 +12,7 @@ defineOptions({
 
 const routersStore = useRoutersStore()
 
-const { currentRoute, replace } = useRouter()
+const { currentRoute, replace, isReady } = useRouter()
 
 const { params, query } = unref(currentRoute)
 const { path, type } = params
@@ -32,29 +32,20 @@ watch(
   }
 )
 
-// 如果为async，说明此时为login，需要create路由
-if (type !== "async") {
-  replace({
-    path: "/" + _path,
-    query
+// 路由准备好就跳转，反之抛出err返回login
+isReady()
+  .then(() => {
+    replace({
+      path: "/" + _path,
+      query
+    })
   })
-} else {
-  // 路由准备好就跳转，反之抛出err返回login
-  router
-    .isReady()
-    .then(() => {
-      replace({
-        path: "/" + _path,
-        query
-      })
+  .catch((err: any) => {
+    console.warn(err)
+    replace({
+      path: "/login"
     })
-    .catch((err: any) => {
-      console.warn(err)
-      replace({
-        path: "/login"
-      })
-    })
-}
+  })
 </script>
 
 <template>

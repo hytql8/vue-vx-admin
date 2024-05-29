@@ -40,6 +40,7 @@ const toLowerRoutes = (
         let routeEntity: RouteRecordRaw = {
           path: route.path,
           name: route.name,
+          redirect: route.redirect ?? "",
           component: route.component,
           meta: route.meta,
           children: []
@@ -55,6 +56,7 @@ const toLowerRoutes = (
           path: route.path,
           name: route.name,
           component: route.component,
+          redirect: route.redirect ?? "",
           meta: route.meta,
           children: []
         }

@@ -30,6 +30,7 @@ export const staticRouter: RouteRecordRaw[] = [
     path: "/dashboard",
     name: "Dashboard",
     component: Layout,
+    redirect: "/dashboard/workplace",
     meta: {
       title: t("routes.dashboard"),
       icon: "ri:dashboard-line"
@@ -59,6 +60,7 @@ export const staticRouter: RouteRecordRaw[] = [
     path: "/component",
     name: "Component",
     component: Layout,
+    redirect: "/component/table/default-table",
     meta: {
       title: t("routes.component"),
       icon: "mingcute:components-fill"
@@ -68,6 +70,7 @@ export const staticRouter: RouteRecordRaw[] = [
         path: "table",
         name: "Table",
         component: secLayout(),
+        redirect: "/component/table/default-table",
         meta: {
           title: t("routes.table"),
           icon: "mdi:table-edit"
@@ -102,6 +105,7 @@ export const staticRouter: RouteRecordRaw[] = [
       {
         path: "form",
         name: "Form",
+        redirect: "/component/form/default-form",
         component: secLayout(),
         meta: {
           title: t("routes.form"),
@@ -149,6 +153,7 @@ export const staticRouter: RouteRecordRaw[] = [
   {
     path: "/authority",
     name: "Authority",
+    redirect: "/authority/buttonPermissions",
     component: Layout,
     meta: {
       title: t("routes.authority"),
@@ -168,6 +173,7 @@ export const staticRouter: RouteRecordRaw[] = [
   {
     path: "/workflow",
     name: "Workflow",
+    redirect: "/workflow/antvX6",
     component: Layout,
     meta: {
       title: t("routes.workflow"),
@@ -188,6 +194,7 @@ export const staticRouter: RouteRecordRaw[] = [
     path: "/system",
     name: "System",
     component: Layout,
+    redirect: "/system/user",
     meta: {
       title: t("routes.system"),
       icon: "ri:settings-3-line"

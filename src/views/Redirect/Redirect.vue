@@ -3,7 +3,6 @@ import { unref, watch } from "vue"
 import { useRouter } from "vue-router"
 import type { RouteRecordRaw } from "vue-router"
 import { useRoutersStore } from "@/store/modules/router"
-import { router } from "@/router"
 import { createRouter } from "@/router/asyncRouterHelper"
 
 defineOptions({

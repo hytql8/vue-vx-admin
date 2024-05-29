@@ -77,7 +77,7 @@ const schema = reactive<FormSchema[]>([
 
 const signIn = async () => {
   const formRef = await getElFormExpose()
-  const vali = await formRef.validate()
+  const vali = await formRef?.validate()
   if (vali) {
     // 发送请求
     const formData = await getFormData()

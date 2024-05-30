@@ -66,7 +66,7 @@ const columns = [
         )
       },
       header: () => {
-        return <ElTag effect="dark">tsx 头部</ElTag>
+        return <ElTag effect="dark">操作（tsx插入）</ElTag>
       }
     }
   }

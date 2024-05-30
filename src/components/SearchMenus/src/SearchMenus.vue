@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { VxIcon } from "@/components/VxIcon"
 import { ElDialog, ElInput, ElCard, ElScrollbar } from "element-plus"
-import { ref, unref, watch, onMounted, type Ref } from "vue"
+import { ref, unref, watch, type Ref } from "vue"
 import { useRouter, type RouteRecord } from "vue-router"
 import { useI18n } from "@/hooks/useI18n"
 import { type SearchMenusType } from "./types"

@@ -42,7 +42,7 @@ const activeMenu = computed(() => {
 
 <template>
   <template v-if="layout === 'horizontal'">
-    <ElMenu ellipsis class="vx-menu--horizontal" mode="horizontal" :default-active="activeMenu">
+    <ElMenu class="vx-menu--horizontal" mode="horizontal" :default-active="activeMenu">
       <RenderVertical :routes="routes" />
     </ElMenu>
   </template>

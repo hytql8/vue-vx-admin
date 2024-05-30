@@ -4,7 +4,7 @@ import { VxContainer } from "@/components/VxContainer"
 import { useI18n } from "vue-i18n"
 import { useForm } from "@/hooks/useForm"
 import { reactive, unref, ref } from "vue"
-import { ElInput, FormItemProp, ComponentSize, ElMessage, ElMessageBox, ElButton } from "element-plus"
+import { ElInput, FormItemProp, ComponentSize, ElMessage, ElMessageBox, ElButton, ElTabs, ElTabPane } from "element-plus"
 import { useValidator } from "@/hooks/useValidator"
 
 const { required } = useValidator()
@@ -390,41 +390,56 @@ setTimeout(async () => {
   const formData = await getFormData()
   console.log(formData)
 }, 2000)
+
+const activeTab = ref("0")
 </script>
 
 <template>
   <div>
     <VxContainer>
-      <ElButton @click="changeLabelWidth(150)">{{ t("formDemo.change") }} labelWidth</ElButton>
-      <ElButton @click="changeLabelWidth('auto')">{{ t("formDemo.restore") }} labelWidth</ElButton>
+      <ElTabs v-model="activeTab">
+        <ElTabPane class="tab-pane" label="labelWidth" name="0">
+          <ElButton type="primary" @click="changeLabelWidth(150)">{{ t("formDemo.change") }}labelWidth</ElButton>
+          <ElButton type="primary" @click="changeLabelWidth('auto')">{{ t("formDemo.restore") }} labelWidth</ElButton>
+        </ElTabPane>
+        <ElTabPane class="tab-pane" label="size" name="1">
+          <ElButton type="primary" @click="changeSize('large')">{{ t("formDemo.change") }} size</ElButton>
+          <ElButton type="primary" @click="changeSize('default')">{{ t("formDemo.restore") }} size</ElButton>
+        </ElTabPane>
+        <ElTabPane class="tab-pane" :label="t('formDemo.disabled')" name="2">
+          <ElButton type="primary" @click="changeDisabled(true)">{{ t("formDemo.disabled") }}</ElButton>
+          <ElButton type="primary" @click="changeDisabled(false)">{{ t("formDemo.disablement") }}</ElButton>
+        </ElTabPane>
+        <ElTabPane class="tab-pane" :label="t('formDemo.select')" name="3">
+          <ElButton type="primary" @click="changeSchema(true)"> {{ t("formDemo.delete") }} {{ t("formDemo.select") }} </ElButton>
+          <ElButton type="primary" @click="changeSchema(false)"> {{ t("formDemo.add") }} {{ t("formDemo.select") }} </ElButton>
+          <ElButton type="primary" @click="setLabel"> {{ t("formDemo.set") }} {{ t("formDemo.select") }} label </ElButton>
+        </ElTabPane>
+        <ElTabPane class="tab-pane" :label="t('formDemo.setValue')" name="4">
+          <ElButton type="primary" @click="setValue(false)">{{ t("formDemo.setValue") }}</ElButton>
+          <ElButton type="primary" @click="setValue(true)">{{ t("formDemo.resetValue") }}</ElButton>
+        </ElTabPane>
+        <ElTabPane class="tab-pane" :label="t('formDemo.formValidation')" name="5">
+          <ElButton type="primary" @click="formValidation"> {{ t("formDemo.formValidation") }} </ElButton>
+          <ElButton type="primary" @click="verifyReset"> {{ t("formDemo.verifyReset") }} </ElButton>
+        </ElTabPane>
+        <ElTabPane class="tab-pane" :label="t('formDemo.subitem')" name="6">
+          <ElButton type="primary" @click="addItem"> {{ t("formDemo.add") }} {{ t("formDemo.subitem") }} </ElButton>
+        </ElTabPane>
 
-      <ElButton @click="changeSize('large')">{{ t("formDemo.change") }} size</ElButton>
-      <ElButton @click="changeSize('default')">{{ t("formDemo.restore") }} size</ElButton>
-
-      <ElButton @click="changeDisabled(true)">{{ t("formDemo.disabled") }}</ElButton>
-      <ElButton @click="changeDisabled(false)">{{ t("formDemo.disablement") }}</ElButton>
-
-      <ElButton @click="changeSchema(true)"> {{ t("formDemo.delete") }} {{ t("formDemo.select") }} </ElButton>
-      <ElButton @click="changeSchema(false)"> {{ t("formDemo.add") }} {{ t("formDemo.select") }} </ElButton>
-
-      <ElButton @click="setValue(false)">{{ t("formDemo.setValue") }}</ElButton>
-      <ElButton @click="setValue(true)">{{ t("formDemo.resetValue") }}</ElButton>
-
-      <ElButton @click="setLabel"> {{ t("formDemo.set") }} {{ t("formDemo.select") }} label </ElButton>
-
-      <ElButton @click="addItem"> {{ t("formDemo.add") }} {{ t("formDemo.subitem") }} </ElButton>
-
-      <ElButton @click="formValidation"> {{ t("formDemo.formValidation") }} </ElButton>
-      <ElButton @click="verifyReset"> {{ t("formDemo.verifyReset") }} </ElButton>
-
-      <ElButton @click="inoutFocus">
-        {{ `${t("formDemo.input")} ${t("formDemo.focus")}` }}
-      </ElButton>
-      <ElButton @click="inoutValidation">
-        {{ `${t("formDemo.input")} ${t("formDemo.formValidation")}` }}
-      </ElButton>
+        <ElTabPane class="tab-pane" :label="t('formDemo.focus')" name="7">
+          <ElButton type="primary" @click="inoutFocus">
+            {{ `${t("formDemo.input")} ${t("formDemo.focus")}` }}
+          </ElButton>
+        </ElTabPane>
+        <ElTabPane class="tab-pane" :label="t('formDemo.formValidation')" name="8">
+          <ElButton type="primary" @click="inoutValidation">
+            {{ `${t("formDemo.input")} ${t("formDemo.formValidation")}` }}
+          </ElButton>
+        </ElTabPane>
+      </ElTabs>
     </VxContainer>
-    <VxContainer>
+    <VxContainer style="margin-top: 20px">
       <Form :schema="schema" @register="formRegister" @validate="formValidate" />
     </VxContainer>
   </div>

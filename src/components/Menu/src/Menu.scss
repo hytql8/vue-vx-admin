@@ -67,10 +67,8 @@
     padding: 0 16px;
   }
   &--horizontal {
-    width: 400px;
+    width: calc(100vw - 465px) !important;
     height: var(--header-global-height);
-
-    // background-color: var(--left-menu-bg-color);
   }
 }
 .vx-scrollbar {

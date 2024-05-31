@@ -59,12 +59,11 @@ watch(
 watch(
   () => unref(currentIndex),
   (val: Nullable<number>) => {
-    if (!isNull(val)) {
+    if (!isNull(val) && unref(cacheMenus).length) {
       for (let menu of unref(cacheMenus)) {
         menu.isCheck = false
       }
       cacheMenus.value[unref(currentIndex)].isCheck = true
-      console.log(unref(cacheMenus), unref(currentIndex))
     }
   }
 )
@@ -150,7 +149,7 @@ const toogleSearch = () => {
       <div class="menus-list">
         <ElCard
           @click="jumpTo(v)"
-          :style="v.isCheck ? 'margin-top: 10px; background-color: var(--theme-color)' : 'margin-top: 10px;'"
+          :style="v.isCheck ? 'margin-top: 10px; background-color: var(--theme-color); color: #fff' : 'margin-top: 10px;'"
           v-for="v in cacheMenus"
           :key="v.path"
           shadow="hover"
@@ -159,9 +158,9 @@ const toogleSearch = () => {
             <VxIcon
               v-if="v.icon"
               :icon="v.icon"
-              color="var(--theme-text-color)"
+              :color="v.isCheck ? '#fff' : 'var(--theme-text-color)'"
               :size="20"
-              hover-color="var(--theme-text-color)"
+              :hover-color="v.isCheck ? '#fff' : 'var(--theme-text-color)'"
             ></VxIcon>
             <!-- eslint-disable -->
             <span class="card-inside-text"> {{ "&nbsp" + v.name + "&nbsp" }} > </span>

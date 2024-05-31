@@ -3,6 +3,7 @@ import { computed, unref, ref } from "vue"
 import { Menu } from "@/components/Menu"
 import { Logo } from "@/components/Logo"
 import { ThemeSwitch } from "@/components/ThemeSwitch"
+import { SearchMenus } from "@/components/SearchMenus"
 import { Avatar } from "@/components/Avatar"
 import { LocaleSwitch } from "@/components/LocaleSwitch"
 import { Fullscreen } from "@/components/Fullscreen"
@@ -26,6 +27,7 @@ const isHandleClick = ref(false)
       <Logo class="vx-header__logo" v-show="!isSeemMoblie || isHandleClick" />
       <Menu class="vx-header__menu" />
       <div class="vx-header__domain">
+        <SearchMenus />
         <ThemeSwitch />
         <Fullscreen v-show="!isSeemMoblie" />
         <LocaleSwitch />

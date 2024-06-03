@@ -1,3 +1,16 @@
 {
-  "recommendations": ["Vue.volar", "Vue.vscode-typescript-vue-plugin"]
+  "recommendations": [
+    "christian-kohler.path-intellisense",
+    "vscode-icons-team.vscode-icons",
+    "stylelint.vscode-stylelint",
+    "bradlc.vscode-tailwindcss",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "lokalise.i18n-ally",
+    "csstools.postcss",
+    "mikestead.dotenv",
+    "eamodio.gitlens",
+    "antfu.iconify",
+    "Vue.volar"
+  ]
 }

@@ -9,8 +9,9 @@ import { visualizer } from "rollup-plugin-visualizer"
 import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite"
 import { createStyleImportPlugin, ElementPlusResolve, VxeTableResolve } from "vite-plugin-style-import"
 import { viteMockServe, ViteMockOptions } from "vite-plugin-mock"
+import { configCompressPlugin } from "./compress"
 
-export const getPluginsList = (VITE_CDN: boolean, VITE_REPORT: boolean) => {
+export const getPluginsList = (VITE_CDN: boolean, VITE_REPORT: boolean, VITE_COMPRESSION: ViteCompression) => {
   return [
     vue(),
     // jsx、tsx语法支持
@@ -47,6 +48,7 @@ export const getPluginsList = (VITE_CDN: boolean, VITE_REPORT: boolean) => {
     } as ViteMockOptions),
     process.env.npm_lifecycle_event === "build" && VITE_REPORT
       ? visualizer({ open: true, brotliSize: true, filename: "report.html" })
-      : null
+      : null,
+    configCompressPlugin(VITE_COMPRESSION)
   ]
 }

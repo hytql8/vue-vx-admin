@@ -112,6 +112,8 @@ const rect = new Shape.Rect({
     }
   }
 })
+
+// rect.getPortBody().attr("circle/stroke", "var(--theme-text-color)")
 // 创建需要异步添加的线
 const edge = new Shape.Edge({
   id: "edge1",

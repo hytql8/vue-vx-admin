@@ -1,6 +1,11 @@
 import { Language } from "element-plus/es/locale"
 
 declare global {
+  /**
+   * 打包压缩格式的类型声明
+   */
+  type ViteCompression = "none" | "gzip" | "brotli" | "both" | "gzip-clear" | "brotli-clear" | "both-clear"
+
   // 全局定义vite环境变量type 对应.env.dev
   interface ViteEnv {
     VITE_APP_TITLE: string

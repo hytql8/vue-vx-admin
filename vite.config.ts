@@ -19,11 +19,11 @@ const alias: Record<string, string> = {
 }
 
 export default ({ mode }: ConfigEnv): UserConfig => {
-  const { VITE_PORT, VITE_CDN, VITE_PUBLIC_PATH, VITE_REPORT } = readEnv(loadEnv(mode, root))
+  const { VITE_PORT, VITE_CDN, VITE_PUBLIC_PATH, VITE_REPORT, VITE_COMPRESSION } = readEnv(loadEnv(mode, root))
   return {
     base: VITE_PUBLIC_PATH,
     root,
-    plugins: getPluginsList(VITE_CDN, VITE_REPORT),
+    plugins: getPluginsList(VITE_CDN, VITE_REPORT, VITE_COMPRESSION),
     // 解决路径
     resolve: {
       alias

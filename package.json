@@ -4,9 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc --noEmit --skipLibCheck && vite build",
-    "preview": "vite preview"
+    "dev": "set \"VITE_CJS_TRACE=true\" && vite dev",
+    "build": "set \"VITE_CJS_TRACE=true\" && vue-tsc --noEmit --skipLibCheck && vite build",
+    "preview": "set \"VITE_CJS_TRACE=true\" && vite preview"
+    
   },
   "dependencies": {
     "@antv/x6": "^2.18.1",
@@ -14,6 +15,7 @@
     "@jridgewell/sourcemap-codec": "^1.4.15",
     "@types/lodash": "^4.14.202",
     "@types/mockjs": "^1.0.10",
+    "@vitejs/plugin-legacy": "^5.4.1",
     "@vueuse/core": "^10.6.1",
     "animate.css": "^4.1.1",
     "axios": "^1.6.2",
@@ -43,14 +45,19 @@
     "@iconify-icons/ri": "^1.2.10",
     "@iconify/vue": "^4.1.1",
     "@types/node": "^20.9.4",
+    "@types/postcss-import": "^14.0.3",
     "@typescript-eslint/eslint-plugin": "^6.12.0",
     "@typescript-eslint/parser": "^6.12.0",
     "@vitejs/plugin-vue": "^4.5.0",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
+    "cssnano": "^7.0.1",
     "eslint": "^8.54.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
     "eslint-plugin-vue": "^9.18.1",
+    "postcss": "^8.4.38",
+    "postcss-import": "^16.1.0",
+    "postcss-load-config": "^6.0.1",
     "prettier": "3.0.3",
     "sass": "^1.69.5",
     "stylelint": "^15.11.0",

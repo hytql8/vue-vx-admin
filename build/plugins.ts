@@ -10,12 +10,15 @@ import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite"
 import { createStyleImportPlugin, ElementPlusResolve, VxeTableResolve } from "vite-plugin-style-import"
 import { viteMockServe, ViteMockOptions } from "vite-plugin-mock"
 import { configCompressPlugin } from "./compress"
+import legacy from "@vitejs/plugin-legacy"
 
 export const getPluginsList = (VITE_CDN: boolean, VITE_REPORT: boolean, VITE_COMPRESSION: ViteCompression) => {
   return [
     vue(),
     // jsx、tsx语法支持
     vueJsx(),
+    // ES语法兼容
+    legacy(),
     VITE_CDN ? cdn : null,
     // 自动导入组件对应样式
     createStyleImportPlugin({

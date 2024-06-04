@@ -6,4 +6,7 @@
 **/*.sh
 
 /public/*
-stats.html
+index.html
+.prettierrc.js
+.stylelintrc.json
+.eslintrc.json

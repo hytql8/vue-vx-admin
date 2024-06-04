@@ -16,7 +16,7 @@
     &__switch {
       width: 100%;
 
-      @include flex(center,center, nowrap);
+      @include flex(center, center, nowrap);
     }
     &__position {
       .normal-mode {
@@ -55,7 +55,7 @@
         }
 
         @include cursor;
-        @include flex(flex-start,center, nowrap);
+        @include flex(flex-start, center, nowrap);
       }
       .group-mode {
         width: 45px;
@@ -78,7 +78,7 @@
             height: 80%;
             background-color: #001529;
 
-            @include flex(flex-start,center, nowrap);
+            @include flex(flex-start, center, nowrap);
             &-i {
               width: 100%;
               height: 30%;
@@ -108,7 +108,7 @@
         }
 
         @include cursor;
-        @include flex(flex-start,center, nowrap);
+        @include flex(flex-start, center, nowrap);
       }
       .top-mode {
         width: 45px;
@@ -147,16 +147,16 @@
         }
 
         @include cursor;
-        @include flex(flex-start,center, nowrap);
+        @include flex(flex-start, center, nowrap);
       }
       .mode-active {
         border: 2px solid var(--theme-color);
       }
 
-      @include flex(center,center, nowrap);
+      @include flex(center, center, nowrap);
     }
     &__theme {
-      @include flex(flex-start,center, nowrap);
+      @include flex(flex-start, center, nowrap);
 
       width: 100%;
       .color-box {
@@ -177,7 +177,7 @@
         width: inherit;
         font-size: 14px;
 
-        @include flex(space-between,center, nowrap);
+        @include flex(space-between, center, nowrap);
       }
     }
   }
@@ -189,6 +189,6 @@
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 
-  @include flex(center,center, nowrap);
+  @include flex(center, center, nowrap);
   @include cursor;
 }

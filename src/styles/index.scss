@@ -2,4 +2,4 @@
 @use "element-plus/theme-chalk/src/dark/css-vars.scss" as *;
 
 // 全局样式
-@import "var.scss";
+@use "var.scss";

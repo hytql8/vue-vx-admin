@@ -247,6 +247,6 @@ const member: {
   </div>
 </template>
 
-<style scoped>
-@import "./Workplace.scss";
+<style lang="scss" scoped>
+@use "./Workplace.scss";
 </style>

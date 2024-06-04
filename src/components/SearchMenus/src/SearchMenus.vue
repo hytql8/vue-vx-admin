@@ -200,5 +200,5 @@ const toogleSearch = () => {
   </ElDialog>
 </template>
 <style lang="scss" scoped>
-@import "./SearchMenus.scss";
+@use "./SearchMenus.scss";
 </style>

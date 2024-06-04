@@ -51,5 +51,5 @@ watch(
   </div>
 </template>
 <style scoped lang="scss">
-@import "./LocaleSwitch.scss";
+@use "./LocaleSwitch.scss";
 </style>

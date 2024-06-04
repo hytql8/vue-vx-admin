@@ -209,5 +209,5 @@ const disabledClick = () => {
 </template>
 
 <style scoped>
-@import "./Qrcode.scss";
+@use "./Qrcode.scss";
 </style>

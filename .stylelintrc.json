@@ -1,0 +1,47 @@
+{
+  "root": true,
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-html/vue", 
+    "stylelint-config-standard-scss", 
+    "stylelint-config-recommended-vue/scss",
+    "stylelint-config-recess-order"
+  ],
+  "plugins": ["stylelint-scss", "stylelint-order", "stylelint-prettier"],
+  "overrides": [
+    {
+      "files": ["**/*.{vue,html}"],
+      "customSyntax": "postcss-html"
+    }
+  ],
+  "rules": {
+    "function-url-quotes": "always",
+    "color-hex-length": "long",
+    "rule-empty-line-before": "never",
+    "font-family-no-missing-generic-family-keyword": null, 
+    "scss/at-import-partial-extension": null, 
+    "property-no-unknown": null, 
+    "no-empty-source": null, 
+    "selector-class-pattern": null, 
+    "value-no-vendor-prefix": null, 
+    "no-descending-specificity": null, 
+    "value-keyword-case": null, 
+    "import-notation": null,
+    "no-invalid-position-at-import-rule": null,
+    "declaration-empty-line-before": null,
+    "keyframes-name-pattern": null,
+    "custom-property-pattern": null,
+    "number-max-precision": 8,
+    "alpha-value-notation": "number",
+    "color-function-notation": "legacy",
+    "selector-id-pattern": null,
+    "selector-not-notation": null,
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": ["global", "v-deep", "deep"]
+      }
+    ]
+  },
+  "ignoreFiles": ["**/*.js", "**/*.jsx", "**/*.tsx", "**/*.ts"]
+}

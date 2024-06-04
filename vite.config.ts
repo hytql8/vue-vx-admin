@@ -3,6 +3,9 @@ import { loadEnv } from "vite"
 import { readEnv } from "./build/index"
 import type { UserConfig, ConfigEnv } from "vite"
 import { getPluginsList } from "./build/plugins"
+import type { AcceptedPlugin } from "postcss"
+import postcssImport from "postcss-import"
+import cssnano from "cssnano"
 
 /** 当前执行node命令时文件夹的地址（工作目录） */
 const root: string = process.cwd()
@@ -38,6 +41,9 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         scss: {
           additionalData: `@use "@/styles/element/index.scss" as *;`
         }
+      },
+      postcss: {
+        plugins: [postcssImport as AcceptedPlugin, ...(mode === "production" ? [cssnano] : [])]
       }
     },
     // 打包

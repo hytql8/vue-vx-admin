@@ -207,5 +207,5 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
-@import "./Menu.scss";
+@use "./Menu.scss";
 </style>

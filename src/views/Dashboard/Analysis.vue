@@ -349,6 +349,6 @@ let t = setTimeout(() => {
     </ElSkeleton>
   </div>
 </template>
-<style scoped>
-@import "./Analysis.scss";
+<style lang="scss" scoped>
+@use "./Analysis.scss";
 </style>

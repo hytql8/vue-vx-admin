@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { unref, computed } from "vue"
 import { useFullscreen } from "@vueuse/core"
 import { VxIcon } from "@/components/VxIcon"
 
@@ -7,9 +6,7 @@ defineOptions({
   name: "VxFullscreen"
 })
 
-const { isFullscreen, enter, exit, toggle } = useFullscreen()
-
-// const fullscreenIcon = isFullscreen ? 'bx:bxs-fullscreen'
+const { isFullscreen, toggle } = useFullscreen()
 </script>
 <template>
   <div class="vx-fullscreen">
@@ -24,5 +21,5 @@ const { isFullscreen, enter, exit, toggle } = useFullscreen()
 </template>
 
 <style lang="scss" scoped>
-@import "./Fullscreen.scss";
+@use "./Fullscreen.scss";
 </style>

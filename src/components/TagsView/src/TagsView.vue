@@ -172,5 +172,5 @@ const scrollNext = async () => {
   </div>
 </template>
 <style lang="scss" scoped>
-@import "./TagsView.scss";
+@use "./TagsView.scss";
 </style>

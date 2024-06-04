@@ -51,7 +51,6 @@ const loginOut = () => {
       localeStore.$reset()
       routersStore.$reset()
       tagsStore.$reset()
-      loadingInstance.close()
       ElMessage({
         type: "success",
         message: t("login.outSuccess")
@@ -59,6 +58,7 @@ const loginOut = () => {
       push({
         name: "Login"
       })
+      loadingInstance.close()
     }
   })
 }
@@ -94,5 +94,5 @@ const loginOut = () => {
   </div>
 </template>
 <style lang="scss" scoped>
-@import "./Avatar.scss";
+@use "./Avatar.scss";
 </style>

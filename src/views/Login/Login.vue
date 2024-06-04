@@ -71,5 +71,5 @@ onMounted(() => {
   </div>
 </template>
 <style lang="scss">
-@import "./Login.scss";
+@use "./Login.scss";
 </style>

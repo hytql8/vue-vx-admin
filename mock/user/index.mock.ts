@@ -1,6 +1,6 @@
 import { MockMethod } from "vite-plugin-mock"
 
-const timeout = 1000
+const timeout = 500
 
 const List: any = [
   {

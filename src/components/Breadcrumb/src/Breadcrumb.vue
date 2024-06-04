@@ -88,5 +88,5 @@ watch(
   </ElBreadcrumb>
 </template>
 <style lang="scss" scoped>
-@import "./Breadcrumb.scss";
+@use "./Breadcrumb.scss";
 </style>

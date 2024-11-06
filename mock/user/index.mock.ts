@@ -145,7 +145,8 @@ const arr: any = [
             name: "DefaultForm",
             component: "/views/Component/Form/DefaultForm",
             meta: {
-              title: "routes.defaultForm"
+              title: "routes.defaultForm",
+              keepAlive: true
             }
           },
           {

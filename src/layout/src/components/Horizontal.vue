@@ -9,6 +9,7 @@ import { LocaleSwitch } from "@/components/LocaleSwitch"
 import { Fullscreen } from "@/components/Fullscreen"
 import { useAppStore } from "@/store/modules/app"
 import { ElContainer, ElHeader, ElScrollbar, ElMain } from "element-plus"
+import { type RouteLocationNormalizedLoaded } from "vue-router"
 
 const appStore = useAppStore()
 
@@ -19,6 +20,14 @@ const isSeemMoblie = computed(() => appStore.getIsSeemMoblie)
 const menuWidth = computed(() => (unref(isFold) ? "55px" : "200px"))
 
 const isHandleClick = ref(false)
+
+const getCache = (route: RouteLocationNormalizedLoaded) => {
+  const { meta } = route
+  if (meta && meta.keepAlive) {
+    return route.name as any
+  }
+  return null
+}
 </script>
 
 <template>
@@ -38,9 +47,11 @@ const isHandleClick = ref(false)
       <ElMain class="vx-main">
         <TagsView />
         <ElScrollbar class="vx-main__container">
-          <RouterView v-slot="{ Component }">
+          <RouterView #default="{ Component, route }">
             <Transition name="container" mode="out-in">
-              <component :is="Component" />
+              <KeepAlive :include="getCache(route)">
+                <component :is="Component" :key="route.fullPath" />
+              </KeepAlive>
             </Transition>
           </RouterView>
         </ElScrollbar>

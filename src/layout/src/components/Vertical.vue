@@ -12,6 +12,7 @@ import { useAppStore } from "@/store/modules/app"
 import { VxIcon } from "@/components/VxIcon"
 import { ElContainer, ElHeader, ElScrollbar, ElMain, ElAside } from "element-plus"
 import { SearchMenus } from "@/components/SearchMenus"
+import { type RouteLocationNormalizedLoaded } from "vue-router"
 
 const appStore = useAppStore()
 
@@ -42,6 +43,14 @@ const toggleExpand = () => {
     appStore.setIsFold(!unref(isFold))
   }
 }
+
+const getCache = (route: RouteLocationNormalizedLoaded) => {
+  const { meta } = route
+  if (meta && meta.keepAlive) {
+    return route.name as any
+  }
+  return null
+}
 </script>
 
 <template>
@@ -66,9 +75,11 @@ const toggleExpand = () => {
       <ElMain class="vx-main">
         <TagsView />
         <ElScrollbar class="vx-main__container">
-          <RouterView v-slot="{ Component }">
+          <RouterView #default="{ Component, route }">
             <Transition name="container" mode="out-in">
-              <component :is="Component" />
+              <KeepAlive :include="getCache(route)">
+                <component :is="Component" :key="route.fullPath" />
+              </KeepAlive>
             </Transition>
           </RouterView>
         </ElScrollbar>

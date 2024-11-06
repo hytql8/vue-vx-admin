@@ -5,6 +5,10 @@ import type { FormSchema } from "@/components/Form"
 import { VxContainer } from "@/components/VxContainer"
 import { reactive } from "vue"
 
+defineOptions({
+  name: "DefaultForm"
+})
+
 const schema = reactive<FormSchema[]>([
   {
     field: "field1",

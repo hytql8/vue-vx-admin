@@ -1,5 +1,5 @@
 import { http } from "@/axios"
-import type { UserLoginParams, UserReturns, UserListParams, getRoleListParams, RoleReturns } from "./types"
+import type { UserLoginParams, UserReturns, UserListParams, getRoleListParams, RoleReturns, deleteRoleListParams } from "./types"
 
 // 登录
 const login = async (data: UserLoginParams): Promise<UserReturns> => {
@@ -17,8 +17,12 @@ const roleList = async (data: getRoleListParams): Promise<RoleReturns> => {
 const getRouterList = async (data: getRoleListParams): Promise<RoleReturns> => {
   return http.post("/user/routerList", { data })
 }
+//根据roleId删除权限
+const deleteRoleList = async (data: deleteRoleListParams): Promise<RoleReturns> => {
+  return http.post("/user/deleteRoleById", { data })
+}
 // 退出登录
 const outLogin = async (): Promise<any> => {
   return http.get("/user/loginOut")
 }
-export { login, userList, roleList, outLogin, getRouterList }
+export { login, userList, roleList, outLogin, getRouterList, deleteRoleList }

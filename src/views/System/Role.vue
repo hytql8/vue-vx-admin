@@ -21,7 +21,6 @@ const size = ref<ComponentSize>("default")
 const background = ref(false)
 const disabled = ref(false)
 const dialogFormVisible = ref(false)
-const formLabelWidth = "140px"
 
 const updateForm = reactive({
   user: "",
@@ -101,7 +100,7 @@ const deleteTableData = async row => {
   getRoleList({ page: currentPage.value, pageSize: pageSize.value })
   console.log(res)
   ElMessage({
-    message: res.data as unknown as string,
+    message: res.data.data as unknown as string,
     type: "success"
   })
 }

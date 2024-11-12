@@ -49,8 +49,12 @@ type RoleReturns = {
 }
 
 type getRoleListParams = {
-  page: number
-  pageSize: number
+  page?: number
+  pageSize?: number
+  role?: string
+  roleName?: string
+  creatTime?: string | number
+  remark?: string
 }
 
 type UserListParams = {
@@ -59,4 +63,7 @@ type UserListParams = {
   pageSize: number
 }
 
-export type { UserLoginParams, UserReturns, UserListParams, getRoleListParams, RoleReturns }
+type deleteRoleListParams = {
+  roleId: string
+}
+export type { UserLoginParams, UserReturns, UserListParams, getRoleListParams, RoleReturns, deleteRoleListParams }

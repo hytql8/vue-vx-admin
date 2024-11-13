@@ -66,4 +66,21 @@ type UserListParams = {
 type deleteRoleListParams = {
   roleId: string
 }
-export type { UserLoginParams, UserReturns, UserListParams, getRoleListParams, RoleReturns, deleteRoleListParams }
+
+type updateRoleParams = {
+  roleId: string
+  role?: string
+  roleName?: string
+  creatTime?: string | number
+  remark?: string
+}
+
+export type {
+  UserLoginParams,
+  UserReturns,
+  UserListParams,
+  getRoleListParams,
+  RoleReturns,
+  deleteRoleListParams,
+  updateRoleParams
+}

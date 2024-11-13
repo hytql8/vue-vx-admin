@@ -483,6 +483,32 @@ export default [
       }
     }
   },
+  //更新权限列表
+  {
+    url: "/user/updateRole",
+    method: "post",
+    timeout,
+    response: ({ body }) => {
+      const { roleId, createTime, roleName, remark, role } = body
+      for (let dataChange of roleList) {
+        if (dataChange.roleId === roleId) {
+          dataChange = {
+            roleId,
+            createTime: createTime || dataChange.createTime,
+            roleName: roleName || dataChange.roleName,
+            remark: remark || dataChange.remark,
+            role: role || dataChange.role
+          }
+        }
+      }
+      return {
+        data: {
+          code: 200,
+          data: "更新成功"
+        }
+      }
+    }
+  },
   // 登录接口
   {
     url: "/user/login",

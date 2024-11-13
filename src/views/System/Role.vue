@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { VxContainer } from "@/components/VxContainer"
-import { onMounted, computed } from "vue"
+import { onMounted, computed, toRaw } from "vue"
 import { ref, reactive } from "vue"
-import { roleList, deleteRoleList } from "@/api/user"
+import { roleList, deleteRoleList, updateRole } from "@/api/user"
 import type { ComponentSize, FormInstance } from "element-plus"
 import { ElMessage } from "element-plus"
 import { useWindowSize } from "@vueuse/core"
+import type { updateRoleParams } from "@/api/user/types"
 
+let updateRow = {} as updateRoleParams
 const scrollBarRef = ref(null)
 const { height } = useWindowSize()
 const tableHeight = computed(() => {
@@ -98,15 +100,27 @@ const deleteTableData = async row => {
   let { roleId } = row
   const res = await deleteRoleList({ roleId })
   getRoleList({ page: currentPage.value, pageSize: pageSize.value })
-  console.log(res)
   ElMessage({
     message: res.data.data as unknown as string,
     type: "success"
   })
 }
 
+const updateRoleList = async () => {
+  const params = updateRow
+  loading.value = true
+  const res = await updateRole(params)
+  loading.value = false
+  getRoleList({ page: currentPage.value, pageSize: pageSize.value })
+  ElMessage({
+    message: res.data.data as unknown as string,
+    type: "success"
+  })
+  dialogFormVisible.value = false
+}
+
 const updateTableData = row => {
-  // console.log(row)
+  updateRow = toRaw(row)
   updateForm.date = row.createTime
   updateForm.region = row.roleName
   updateForm.textarea = row.remark
@@ -146,7 +160,15 @@ const updateTableData = row => {
         </el-form>
       </el-scrollbar>
       <div style="margin-top: 30px">
-        <el-table v-loading="loading" :data="list" style="width: 100%" :border="true" :height="tableHeight">
+        <el-table
+          v-loading="loading"
+          :data="list"
+          style="width: 100%"
+          :border="true"
+          :height="tableHeight"
+          ref="getSelectionRows"
+        >
+          <el-table-column type="selection" width="55" />
           <el-table-column fixed prop="role" label="权限" width="150" />
           <el-table-column prop="roleName" label="权限名" width="120" />
           <el-table-column prop="createTime" label="创建时间" width="120" />
@@ -197,7 +219,7 @@ const updateTableData = row => {
         <template #footer>
           <div class="dialog-footer">
             <el-button @click="dialogFormVisible = false">取消</el-button>
-            <el-button type="primary" @click="dialogFormVisible = false"> 提交 </el-button>
+            <el-button type="primary" @click="updateRoleList"> 提交 </el-button>
           </div>
         </template>
       </el-dialog>

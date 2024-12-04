@@ -14,7 +14,29 @@ const List: any = [
     auths: ["create", "read", "update", "delete"],
     sex: 0,
     age: 23,
-    nickname: "花子丶"
+    nickname: "花子丶",
+    // 个性签名
+    signature: "脚踏实地，追求卓越。",
+    // 当前职位
+    position: "系统管理员",
+    // 公司
+    company: "未来科技公司",
+    // 部门
+    department: "技术部",
+    // 小组
+    group: "基础架构组",
+    // 住址
+    address: "北京市朝阳区某某小区",
+    // 技能
+    skills: ["系统维护", "数据库管理", "网络安全"],
+    // 标签
+    tags: ["技术", "管理员", "安全"],
+    // 邮箱
+    email: "admin@example.com",
+    // 街道地址
+    streetAddress: "北京市朝阳区建国路88号",
+    // 联系电话
+    phone: "13800000000"
   },
   {
     userId: 1,
@@ -25,7 +47,29 @@ const List: any = [
     auths: ["read"],
     sex: 1,
     age: 24,
-    nickname: "测试用户"
+    nickname: "测试用户",
+    // 个性签名
+    signature: "保持好奇，永远学习。",
+    // 当前职位
+    position: "软件测试工程师",
+    // 公司
+    company: "技术创新有限公司",
+    // 部门
+    department: "质量保证部",
+    // 小组
+    group: "自动化测试组",
+    // 住址
+    address: "上海市浦东新区某某小区",
+    // 技能
+    skills: ["自动化测试", "手动测试", "编程"],
+    // 标签
+    tags: ["测试", "工程师", "质量保障"],
+    // 邮箱
+    email: "test@example.com",
+    // 街道地址
+    streetAddress: "上海市浦东新区张江高科街道123号",
+    // 联系电话
+    phone: "13900000000"
   }
 ]
 
@@ -362,6 +406,27 @@ const arr: any = [
         component: "/views/Workflow/useAntvX6",
         meta: {
           title: "routes.useX6"
+        }
+      }
+    ]
+  },
+  {
+    path: "/personal",
+    name: "Personal",
+    component: "layout",
+    redirect: "/personal/profile",
+    meta: {
+      title: "routes.personalCenter",
+      icon: "ant-design:control-outlined"
+    },
+    children: [
+      {
+        path: "profile",
+        name: "Profile",
+        component: "/views/Personal/Profile",
+        meta: {
+          title: "routes.personalData",
+          icon: "majesticons:user-line"
         }
       }
     ]

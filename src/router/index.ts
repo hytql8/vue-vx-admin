@@ -191,6 +191,27 @@ export const staticRouter: RouteRecordRaw[] = [
     ]
   },
   {
+    path: "/personal",
+    name: "Personal",
+    component: Layout,
+    redirect: "/personal/profile",
+    meta: {
+      title: t("routes.personalCenter"),
+      icon: "ant-design:control-outlined"
+    },
+    children: [
+      {
+        path: "profile",
+        name: "Profile",
+        component: () => import("@/views/Personal/Profile.vue"),
+        meta: {
+          title: t("routes.personalData"),
+          icon: "majesticons:user-line"
+        }
+      }
+    ]
+  },
+  {
     path: "/system",
     name: "System",
     component: Layout,

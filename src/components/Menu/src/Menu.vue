@@ -16,6 +16,7 @@ export default defineComponent({
   setup() {
     const { currentRoute, push, getRoutes } = useRouter()
     const staticRouter = getRoutes()
+    console.log(staticRouter)
     const appStore = useAppStore()
     const routersStore = useRoutersStore()
     const tagsStore = useTagsStore()
@@ -34,6 +35,7 @@ export default defineComponent({
     // 跳转
     const routingJump = ({ index }) => {
       const activeRoute = findRoute(index.split("/"))
+      // console.log(index)
       const path = activeRoute.path
       // tags切换
       tagsStore.addTags(activeRoute)
